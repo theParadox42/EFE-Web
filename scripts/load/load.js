@@ -1,8 +1,24 @@
-var scripts;
+let scripts = {};
+
+var load = {
+    amount: 0,
+    needed: 0
+}
+
 $.getJSON("/scripts/load/scripts.json", function(jsonData){
-    let data = JSON.parse(jsonData);
-    // scripts = data["scripts"];
-    console.log(data);
+    scripts = jsonData.scripts;
+
+    for(var i in scripts){
+        for(var j = 0; j < scripts[i].length; j ++){
+            load.needed++;
+            loadScript("/scripts/"+i+"/"+scripts[i][j], function(){
+                load.amount ++;
+                if(load.amount >= load.needed){
+                    loadScript("/scripts/main.js");
+                }
+            });
+        }
+    }
 });
 
 function loadScript(url, callback) {
@@ -20,19 +36,3 @@ function loadScript(url, callback) {
     // Fire the loading
     body.appendChild(script);
 };
-
-var load = {
-    amount: 0,
-    needed: 0
-}
-for(var i in scripts){
-    for(var j = 0; j < scripts[i].length; j ++){
-        load.needed++;
-        loadScript("/scripts/"+scripts[i]+"/"+scripts[i][j], function(){
-            load.amount ++;
-            if(load.amount >= load.needed){
-                loadScript("/scripts/main.js");
-            }
-        });
-    }
-}
