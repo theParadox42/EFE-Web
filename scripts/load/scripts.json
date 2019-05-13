@@ -1,0 +1,19 @@
+{
+    "scripts": {
+        "runtorocket": [
+            "main.js"
+        ],
+        "buildrocket": [
+            "main.js"
+        ],
+        "fly/mars": [
+            "main.js"
+        ],
+        "fightmartians": [
+            "main.js"
+        ],
+        "fly/venus": [
+            "main.js"
+        ]
+    }
+}
