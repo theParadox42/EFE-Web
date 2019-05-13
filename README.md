@@ -1,7 +1,7 @@
-# ESCAPE FROME EARTH
+# ESCAPE FROM EARTH
 An epic game where you escape from earth
 ## Part I
-You slept in, and today everyone is getting on the rocket ship to go to earth. You run, dodging cars & stuff to get on time. You arrive at your local escape pod, and they already left!  
+You slept in, and today everyone is getting on the rocket ship to go to mars. You run, dodging cars & stuff (maybe crap people left behind in a rush?) to get on time. You arrive at your local escape pod, and they already left!  
 (Maybe he tries for like 2 more, with some extra platformer levels, idk)
 ## Part II
 After missing the rocket ships, you decide to build your own before the earth blows up. Run around and collect parts in different levels to build it. You finish and take off  
