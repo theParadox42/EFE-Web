@@ -15,3 +15,6 @@ function setup(){
 function draw(){
     game.run();
 };
+function windowResized(){
+    resizeCanvas(windowWidth, windowHeight);
+}

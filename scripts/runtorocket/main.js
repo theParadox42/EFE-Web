@@ -1,9 +1,13 @@
 function runToRocket(){
     background(200, 225, 255);
     runPlayer.run();
+    runGround.display();
 };
 
 runToRocket.init = function(){
-    console.log("inited")
     runPlayer.init();
+    runGround.init();
+};
+runToRocket.reload = function(){
+
 };
