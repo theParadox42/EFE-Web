@@ -1,12 +1,14 @@
-let scripts = {}, libs = {};
+var scripts;
+var libs;
 
 var load = {
     amount: 0,
     needed: 0
 }
-
 $.getJSON("/scripts/load/scripts.json", function(jsonData){
+    console.log("!!")
     scripts = jsonData.scripts;
+    console.log(jsonData);
     libs = jsonData.libs;
 
     for(var i in scripts){
@@ -20,9 +22,9 @@ $.getJSON("/scripts/load/scripts.json", function(jsonData){
             });
         }
     }
-    // for(var i = 0; i < libs.length; i ++){
-    //     loadScript("/libs/"+libs[i])
-    // }
+    for(var i = 0; i < libs.length; i ++){
+        loadScript("/lib/"+libs[i])
+    }
 });
 
 function loadScript(url, callback) {
