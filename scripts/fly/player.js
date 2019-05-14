@@ -45,8 +45,8 @@ FlyPlayer.prototype.control = function(){
         this.speed += 0.3;
         this.vx*=0.8;
         this.vy*=0.8;
-    	this.vx += this.speed*cos(this.r);
-        this.vy += this.speed*sin(this.r);
+    	this.vx += this.speed*sin(this.r);
+        this.vy -= this.speed*cos(this.r);
     } else {
         this.vx*=0.99;
         this.vy*=0.99;
@@ -64,8 +64,6 @@ FlyPlayer.prototype.control = function(){
     }
 }
 FlyPlayer.prototype.display = function(){
-    //no rocket ship image, just a placeholder rectangle. They call me a fun guy
-    fill(229, 229, 229);
     push();
     imageMode(CENTER); //rotate from center
     translate(this.x, this.y);
@@ -78,16 +76,6 @@ FlyPlayer.prototype.display = function(){
     } else {
         // image(this.offImg, 0, 0, this.w, this.h);
     }
-    /*
-    rect(0, 0, this.w, this.h);
-    fill(0, 0, 0);
-    textSize(8);
-    textAlign(CENTER, CENTER);
-    text("THIS IS A PLACEHOLDER", 0, 0)
-    if(keys[32]){
-        fill(232, 37, 37);
-        rect(-this.w/2-10, 0, 25, this.h)
-    }*/
     pop();
 }
 let flyPlayer = new FlyPlayer(100, 100)
