@@ -1,10 +1,14 @@
 function FlyPlayer(x, y){
     this.x = x;
     this.y = y;
+    //Having actual x and y velocities make it more realistic
+    this.vx = 0;
+    this.vy = 0;
+    this.maxv = 14;
     this.r = 0; //rotation
     this.w = 100;
     this.h = 40;
-    this.speed = 0;
+    this.speed = 5;
     this.rvel = 0;
 }
 FlyPlayer.prototype.run = function(){
@@ -15,20 +19,39 @@ FlyPlayer.prototype.run = function(){
 FlyPlayer.prototype.update = function(){
     this.r += this.rvel;
     this.rvel *= 0.9;
-    this.y += this.speed*sin(this.r);
-	this.x += this.speed*cos(this.r);
-    this.speed *= 0.99;
-    this.speed = constrain(this.speed, -14, 14);
+    this.x+=this.vx;
+    this.y+=this.vy;
+    var m = mag(this.vx, this.vy);
+    if(m>this.maxv){
+        this.vx *= this.maxv/m;
+        this.vy *= this.maxv/m;
+        console.log("!")
+    }
+
+    this.speed *= 0.9;
+    this.speed = constrain(this.speed, -5, 5);
 }
 FlyPlayer.prototype.control = function(){
-    if(keys[32]){
-        this.speed += 0.1;
+    if(keys[" "]){
+        this.speed += 0.3;
+        this.vx*=0.8;
+        this.vy*=0.8;
+    	this.vx += this.speed*cos(this.r);
+        this.vy += this.speed*sin(this.r);
+    } else {
+        this.vx*=0.99;
+        this.vy*=0.99;
     }
     if(keys[RIGHT_ARROW]||keys.d){
-        this.rvel += 0.005
+        this.rvel += 0.1
     }
     if(keys[LEFT_ARROW]||keys.a){
-        this.rvel -= 0.005
+        this.rvel -= 0.1
+    }
+    if(keys.z){
+        this.speed*=0.8;
+        this.vx*=0.8;
+        this.vy*=0.8;
     }
 }
 FlyPlayer.prototype.display = function(){

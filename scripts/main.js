@@ -10,6 +10,7 @@
 function setup(){
     createCanvas(windowWidth, windowHeight);
     background(200);
+    angleMode(DEGREES);
     game.init();
 };
 function draw(){
