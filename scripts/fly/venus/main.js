@@ -3,7 +3,7 @@ function flyToVenus(){
     drawStars();
     flyPlayer.run();
     for(var i in asteroids){
-        asteroids[i].run(player);
+        asteroids[i].run(flyPlayer);
     }
 }
 flyToVenus.init = function(){
