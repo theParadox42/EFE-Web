@@ -1,7 +1,7 @@
-function Asteroid(x, y, size){
+function Asteroid(x, y, r){
     this.x = x;
     this.y = y;
-    this.size = size;
+    this.radius = r;
 }
 Asteroid.prototype.run = function(p){
     this.display();
@@ -13,7 +13,8 @@ Asteroid.prototype.collide = function(p){
 Asteroid.prototype.display = function(){
     push();
     translate(this.x, this.y);
-    scale(this.size);
+    imageMode(CENTER);
+    /*
     fill(255, 255, 255);
     noStroke();
     ellipse(0, 0, 10, 10);
@@ -21,6 +22,8 @@ Asteroid.prototype.display = function(){
     textSize(1);
     textAlign(CENTER, CENTER);
     text("PLACEHOLDER", 0, 0);
+    */
+    image(imgs.asteroid, 0, 0, this.radius*2, this.radius*2);
     pop();
 }
 let asteroids = [];
