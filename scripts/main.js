@@ -9,12 +9,13 @@
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
-    background(200);
+    background(255);
     angleMode(DEGREES);
     game.init();
 };
 function draw(){
-    game.run();
+    // game.run();
+    image(imgs.cloud, 0, 0);
 };
 function windowResized(){
     resizeCanvas(windowWidth, windowHeight);

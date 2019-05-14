@@ -10,6 +10,14 @@ function FlyPlayer(x, y){
     this.h = 40;
     this.speed = 5;
     this.rvel = 0;
+    // Same thing until I change them
+    this.offImg = {};
+    this.onImg = {};
+}
+FlyPlayer.prototype.init = function(){
+    this.offImg = imgs.minirocket;
+    this.onImg = imgs.minirocket;
+    this.h = this.w * this.offImg.height / this.offImg.width;
 }
 FlyPlayer.prototype.run = function(){
     this.display();
@@ -58,9 +66,15 @@ FlyPlayer.prototype.display = function(){
     //no rocket ship image, just a placeholder rectangle. They call me a fun guy
     fill(229, 229, 229);
     push();
-    rectMode(CENTER); //rotate from center
+    imageMode(CENTER); //rotate from center
     translate(this.x, this.y);
     rotate(this.r);
+    if(keys[" "]){
+        image(this.onImg, 0, 0, this.w, this.h);
+    } else {
+        image(this.offImg, 0, 0, this.w, this.h);
+    }
+    /*
     rect(0, 0, this.w, this.h);
     fill(0, 0, 0);
     textSize(8);
@@ -69,7 +83,7 @@ FlyPlayer.prototype.display = function(){
     if(keys[32]){
         fill(232, 37, 37);
         rect(-this.w/2-10, 0, 25, this.h)
-    }
+    }*/
     pop();
 }
 let flyPlayer = new FlyPlayer(100, 100)

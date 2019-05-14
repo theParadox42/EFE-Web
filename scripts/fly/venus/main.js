@@ -5,4 +5,5 @@ function flyToVenus(){
 }
 flyToVenus.init = function(){
     createStars();
+    flyPlayer.init();
 }
