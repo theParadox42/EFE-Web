@@ -68,7 +68,6 @@ FlyPlayer.prototype.display = function(){
     translate(this.x, this.y);
     rotate(this.r);
     // scale(this.w/this.imgT.width, this.h/this.imgT.height)
-    animation(this.onImg, 0, 0, 50, 50)
     if(keys[" "]){
         drawAnimation(this.onImg, 0, 0, this.w, this.h);
     } else {
