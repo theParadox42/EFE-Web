@@ -15,10 +15,10 @@ function FlyPlayer(x, y){
     this.onImg = {};
 }
 FlyPlayer.prototype.init = function(){
-    this.imgT = imgs.minirocket1;
+    this.imgT = imgs.rocketThumb;
     this.h = this.w * this.imgT.height / this.imgT.width;
-    this.offImg = imgs.minirocket;
-    this.onImg = imgs.minirocket;
+    this.offImg = imgs.rocketOff;
+    this.onImg = imgs.rocketOn;
 }
 FlyPlayer.prototype.run = function(){
     this.display();
@@ -34,7 +34,6 @@ FlyPlayer.prototype.update = function(){
     if(m>this.maxv){
         this.vx *= this.maxv/m;
         this.vy *= this.maxv/m;
-        console.log("!")
     }
 
     this.speed *= 0.9;
@@ -68,13 +67,12 @@ FlyPlayer.prototype.display = function(){
     imageMode(CENTER); //rotate from center
     translate(this.x, this.y);
     rotate(this.r);
-    scale(this.w/this.imgT.width, this.h/this.imgT.height)
+    // scale(this.w/this.imgT.width, this.h/this.imgT.height)
     animation(this.onImg, 0, 0, 50, 50)
     if(keys[" "]){
-        animation(this.onImg, 0, 0)
-        // image(this.onImg, 0, 0, this.w, this.h);
+        drawAnimation(this.onImg, 0, 0, this.w, this.h);
     } else {
-        // image(this.offImg, 0, 0, this.w, this.h);
+        drawAnimation(this.offImg, 0, 0, this.w, this.h);
     }
     pop();
 }
