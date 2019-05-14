@@ -6,9 +6,7 @@ var load = {
     needed: 0
 }
 $.getJSON("/scripts/load/scripts.json", function(jsonData){
-    console.log("!!")
     scripts = jsonData.scripts;
-    console.log(jsonData);
     libs = jsonData.libs;
 
     for(var i in scripts){
@@ -18,12 +16,13 @@ $.getJSON("/scripts/load/scripts.json", function(jsonData){
                 load.amount ++;
                 if(load.amount >= load.needed){
                     loadScript("/scripts/main.js");
+
+                    for(var i = 0; i < libs.length; i ++){
+                        loadScript("/libs/"+libs[i])
+                    }
                 }
             });
         }
-    }
-    for(var i = 0; i < libs.length; i ++){
-        loadScript("/lib/"+libs[i])
     }
 });
 
