@@ -1,5 +1,9 @@
 {
     "scripts": {
+        ".": [
+            "preload.js",
+            "main.js"
+        ],
         "game": [
             "game.js"
         ],
