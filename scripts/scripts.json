@@ -1,5 +1,8 @@
 {
     "scripts": {
+        "game": [
+            "game.js"
+        ],
         "runtorocket": [
             "main.js"
         ],
@@ -17,7 +20,6 @@
         ]
     },
     "libs": [
-        "p5.dom.min.js",
         "p5.min.js"
     ]
 }

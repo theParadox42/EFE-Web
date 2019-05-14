@@ -5,7 +5,7 @@ var load = {
     amount: 0,
     needed: 0
 }
-$.getJSON("/scripts/load/scripts.json", function(jsonData){
+$.getJSON("/scripts/scripts.json", function(jsonData){
     scripts = jsonData.scripts;
     libs = jsonData.libs;
 
