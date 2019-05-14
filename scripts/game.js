@@ -1,6 +1,6 @@
 
 var game = {
-    currentScene: "run",
+    currentScene: "fly-venus",
     sceneIndex: 0,
     sceneOrder: [
         "run",
@@ -34,7 +34,7 @@ var game = {
                 returnFunc = fightMartians;
             break;
             case "fly-venus":
-                returnFunc = flytoVenus;
+                returnFunc = flyToVenus;
             break;
         }
         return returnFunc;

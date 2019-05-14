@@ -16,12 +16,16 @@
             "main.js"
         ],
         "fly/mars": [
+            "../player.js",
+            "../scenery.js",
             "main.js"
         ],
         "fightmartians": [
             "main.js"
         ],
         "fly/venus": [
+            "../player.js",
+            "../scenery.js",
             "main.js"
         ]
     },
