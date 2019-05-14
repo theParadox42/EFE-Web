@@ -14,3 +14,5 @@ You fly to venus, but go through asteroids and alien spaceships, can you survive
 ## Part V
 The end  
 (Maybe you have to survive something on venus too, extreme weather?)
+## credits
+Created by tannerderp, paradox42, and Hayden
