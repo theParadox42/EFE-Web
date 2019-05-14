@@ -2,12 +2,12 @@
     "scripts": {
         ".": [
             "preload.js",
-            "main.js"
-        ],
-        "game": [
+            "main.js",
             "game.js"
         ],
         "runtorocket": [
+            "player.js",
+            "obstacle.js",
             "main.js"
         ],
         "buildrocket": [

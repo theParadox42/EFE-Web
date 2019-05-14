@@ -13,27 +13,38 @@ var game = {
         if(this.sceneOrder[this.sceneIndex+1]){
             this.sceneIndex ++;
             this.currentScene = this.sceneOrder[this.sceneIndex];
+            this.getFunc().init();
         } else {
             console.log("End of scenes");
         }
     },
-    run: function(){
+    getFunc: function(){
+        var returnFunc;
         switch(this.currentScene){
             case "run":
-                runToRocket();
+                returnFunc = runToRocket;
             break;
             case "build":
-                buildRocket();
+                returnFunc = buildRocket;
             break;
             case "fly-mars":
-                flyToMars();
+                returnFunc = flyToMars;
             break;
             case "fight":
-                fightMartians();
+                returnFunc = fightMartians;
             break;
             case "fly-venus":
-                flytoVenus();
+                returnFunc = flytoVenus;
             break;
+        }
+        return returnFunc;
+    },
+    run: function(){
+        this.getFunc()();
+    },
+    init: function(){
+        if(this.getFunc().init){
+            this.getFunc().init();
         }
     }
 }
