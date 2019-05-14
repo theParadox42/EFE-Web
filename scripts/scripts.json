@@ -3,7 +3,8 @@
         ".": [
             "preload.js",
             "main.js",
-            "game.js"
+            "game.js",
+            "input.js"
         ],
         "runtorocket": [
             "player.js",

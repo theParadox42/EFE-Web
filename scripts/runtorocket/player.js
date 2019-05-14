@@ -8,7 +8,7 @@ function RunPlayer(x, y){
     this.vx = 1;
     this.vy = 0;
     this.mvx = 5;
-    this.mvy = 10;
+    this.mvy = 20;
     this.transX = -this.x+100;
     this.grounded = false;
 };
@@ -18,18 +18,36 @@ RunPlayer.prototype.init = function(){
 };
 RunPlayer.prototype.collide = function(){
     if(this.y+this.h+this.vy>runGround.y){
-        this.y =
+        this.y = runGround.y-this.h;
+        this.vy = min(0, this.vy);
+        this.grounded = true;
+    }
+}
+RunPlayer.prototype.control = function(){
+    var xs = 1;
+    if(keys[RIGHT_ARROW] || keys.d){
+        this.vx+=xs;
+    } if(keys[LEFT_ARROW] || keys.a){
+        this.vx-=xs;
+    } if((keys[UP_ARROW] || keys.w) && this.grounded){
+        this.vy-=10;
+    } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
+        this.vy+=0.2;
     }
 }
 RunPlayer.prototype.update = function(){
+    //Collisions
+    this.collide();
+    //Input
+    this.control();
     // Gravity
     this.vy+=0.2;
     // Friction
-    this.vx *= 0.99;
+    this.vx *= 0.75;
     this.vy *= 0.99;
     // Max velocities
     this.vx = constrain(this.vx, -this.mvx, this.mvx);
-    this.vy = constrain(this.vy, -this.mvx, this.mvy);
+    this.vy = constrain(this.vy, -this.mvy, this.mvy);
     // Position affected by speed
     this.x+=this.vx;
     this.y+=this.vy;
@@ -38,7 +56,7 @@ RunPlayer.prototype.update = function(){
 };
 RunPlayer.prototype.display = function(){
     push();
-    translate(this.x+this.w/2,this.y-this.h);
+    translate(this.x+this.w/2,this.y);
 
     if (this.vx>=0) scale(-1, 1);
     if(this.img) image(this.img, -this.w/2, 0, this.w, this.h);
