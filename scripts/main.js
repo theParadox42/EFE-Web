@@ -6,5 +6,5 @@ function setup(){
     background(200);
 };
 function draw(){
-    // console.log("!");
+    console.log("!");
 };

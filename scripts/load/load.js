@@ -18,12 +18,13 @@ $.getJSON("/scripts/load/scripts.json", function(jsonData){
                 load.amount ++;
                 if(load.amount >= load.needed){
                     loadScript("/scripts/main.js");
+                    
+                    for(var i = 0; i < libs.length; i ++){
+                        loadScript("/libs/"+libs[i])
+                    }
                 }
             });
         }
-    }
-    for(var i = 0; i < libs.length; i ++){
-        loadScript("/lib/"+libs[i])
     }
 });
 
