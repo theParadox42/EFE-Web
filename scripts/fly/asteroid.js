@@ -9,13 +9,9 @@ Asteroid.prototype.run = function(p){
 }
 Asteroid.prototype.collide = function(p){
     //I definitely didn't find this on w3schools
+    //the problem with this is it is only looking at the dead center of the rocket. I'm not good enough at math to figure out how to make it look at all the rocket
     let distance = (p.x - this.x) * (p.x - this.x) + (p.y - this.y) * (p.y - this.y)
     let r = this.radius*this.radius;
-    if (distance < r) {
-        console.log("collision");
-    }
-    distance = (p.x+p.w/2 - this.x) * (p.x+p.w/2 - this.x) + (p.y - this.y) * (p.y - this.y)
-    r = this.radius*this.radius;
     if (distance < r) {
         console.log("collision");
     }
