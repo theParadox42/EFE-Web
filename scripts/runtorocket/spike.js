@@ -30,11 +30,3 @@ Spike.prototype.display = function(){
     image(this.img, 0, 0, this.w, this.h);
     pop();
 }
-let obstacles = [];
-function createObstacles(){
-    let maxDistanceBetween = 900;
-    for(var i = 1000; i < 10000; i += random(500, maxDistanceBetween)){
-        obstacles.push(new Spike(i, 0))
-        maxDistanceBetween -= random(10, 50);
-    }
-}

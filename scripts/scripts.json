@@ -30,9 +30,5 @@
             "game.js",
             "input.js"
         ]
-    },
-    "libs": [
-        "p5.gif.min.js",
-        "p5.min.js"
-    ]
+    }
 }

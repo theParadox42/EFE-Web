@@ -15,10 +15,7 @@ function runToRocket(){
 runToRocket.init = function(){
     runGround.init();
     runPlayer.init();
-    createObstacles();
-    for(var i in obstacles){
-        obstacles[i].init();
-    }
+    loadRun.load();
 };
 runToRocket.reload = function(){
 
