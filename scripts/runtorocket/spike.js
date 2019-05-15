@@ -1,13 +1,16 @@
-function Spike(x, y){
+function RunSpike(x, y){
     this.x = x;
     this.y = y;
-    this.h = 100;
+    this.img = imgs.spike
+    this.w = runObstacleWidth;
+    this.h = round(this.h * this.img.height / this.img.width);
+    this.y = runGround.y - this.h;
 }
-Spike.prototype.run = function(p){
+RunSpike.prototype.run = function(p){
     this.display();
     this.collide(p);
 }
-Spike.prototype.collide = function(p){
+RunSpike.prototype.collide = function(p){
     function death(){
         p.y = 0;
     }
@@ -19,12 +22,9 @@ Spike.prototype.collide = function(p){
         } else death();
     }
 }
-Spike.prototype.init = function(){
-    this.img = imgs.spike
-    this.w = round( this.h * this.img.width / this.img.height );
-    this.y = runGround.y - this.h;
+RunSpike.prototype.init = function(){
 }
-Spike.prototype.display = function(){
+RunSpike.prototype.display = function(){
     push();
     translate(this.x, this.y);
     image(this.img, 0, 0, this.w, this.h);

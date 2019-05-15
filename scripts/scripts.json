@@ -5,6 +5,7 @@
             "ground.js",
             "spike.js",
             "car.js",
+            "obstacles.js",
             "main.js"
         ],
         "buildrocket": [

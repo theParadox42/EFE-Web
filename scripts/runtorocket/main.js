@@ -1,3 +1,4 @@
+
 function runToRocket(){
     background(200, 225, 255);
 
@@ -18,8 +19,8 @@ runToRocket.init = function(){
     loadRun.load();
 };
 runToRocket.reload = function(){
-
-};
+    loadRun.reload();
+}
 runToRocket.resize = function(){
     runGround.init();
 }
