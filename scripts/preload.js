@@ -20,9 +20,14 @@ function preload(){
     //Off
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
+    //Martian
     imgs.martian = loadImage("/art/mars/martian.png");
+    // Fuel
     imgs.fueltank = loadImage("/art/mars/fuel.png");
+    //Asteroid
     imgs.asteroid = loadImage("/art/space/asteroid.png");
+    //Spike
     imgs.spike = loadImage("/art/spike.png");
-    imgs.brokenCar = loadImage("art/earth/brokencar.png");
+    // Broken Car
+    imgs.brokenCar = loadImage("/art/earth/brokencar.png");
 }

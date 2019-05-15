@@ -16,9 +16,7 @@ Spike.prototype.collide = function(p){
             if(p.y+p.h > map(p.x+p.w, this.x, this.x+this.w/2, this.y+this.h, this.y)) death();
         } else if(p.x > this.x+this.w/2){
             if(p.y+p.h > map(p.x, this.x+this.w/2, this.x+this.w, this.y, this.y+this.h)) death();
-        } else {
-            death();
-        }
+        } else death();
     }
 }
 Spike.prototype.init = function(){

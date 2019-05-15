@@ -3,7 +3,8 @@
         "runtorocket": [
             "player.js",
             "ground.js",
-            "obstacle.js",
+            "spike.js",
+            "car.js",
             "main.js"
         ],
         "buildrocket": [
