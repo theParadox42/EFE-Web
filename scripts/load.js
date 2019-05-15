@@ -1,19 +1,11 @@
 
+var scripts,
+    libs,
+    load = {
+        amount: 0,
+        needed: 0
+    };
 
-function setup(){
-    print("!");
-}
-
-
-
-var scripts, libs;
-
-
-
-var load = {
-    amount: 0,
-    needed: 0
-}
 $.getJSON("/scripts/scripts.json", function(jsonData){
     scripts = jsonData.scripts;
     libs = jsonData.libs;

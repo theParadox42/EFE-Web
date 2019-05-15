@@ -5,16 +5,18 @@ function createStars(){
         stars.push({
             x: random(0, width),
             y: random(0, height),
+            d: random(5,8),
+            a: random(200, 255)
         })
     }
 }
 function drawStars(){
     push();
-    fill(249, 244, 244);
     noStroke();
     for(var i in stars){
         var s = stars[i];
-        ellipse(s.x, s.y, 10, 10);
+        fill(255, 255, 255, s.a)
+        ellipse(s.x, s.y, s.d, s.d);
     }
     pop();
 }

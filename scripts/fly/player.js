@@ -15,10 +15,9 @@ function FlyPlayer(x, y){
     this.onImg = {};
 }
 FlyPlayer.prototype.init = function(){
-    this.imgT = imgs.rocketThumb;
-    this.h = this.w * this.imgT.height / this.imgT.width;
     this.offImg = imgs.rocketOff;
     this.onImg = imgs.rocketOn;
+    this.h = this.w * this.onImg.getHeight() / this.onImg.getWidth();
 }
 FlyPlayer.prototype.run = function(){
     this.display();

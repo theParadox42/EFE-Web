@@ -7,16 +7,18 @@ function drawAnimation(anim, x, y, w, h){
     pop();
 };
 function preload(){
-    console.log("loading")
+    //Player
     imgs.player = loadImage("/art/earth/player.png");
-    imgs.cloudThumb = loadImage("/art/cloud/cloud0.png");
-    imgs.cloud = loadAnimation("/art/cloud/cloud0.png", "/art/cloud4.png");
+    //Cloud
+    imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
     imgs.cloud.frameDelay = 2;
+    //Rocket
+    //On
     imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
+    //Off
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
-    imgs.rocketThumb = loadImage("/art/rocket/rocketon/00.png");
     imgs.martian = loadImage("/art/mars/martian.png");
     imgs.fueltank = loadImage("/art/mars/fuel.png");
     imgs.asteroid = loadImage("/art/space/asteroid.png");
