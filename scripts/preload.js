@@ -8,16 +8,16 @@ function drawAnimation(anim, x, y, w, h){
 };
 function preload(){
     console.log("loading")
-    imgs.player = loadImage("/art/player.png");
-    imgs.cloudThumb = loadImage("/art/cloud0.png");
-    imgs.cloud = loadAnimation("/art/cloud0.png", "/art/cloud4.png");
+    imgs.player = loadImage("/art/earth/player.png");
+    imgs.cloudThumb = loadImage("/art/cloud/cloud0.png");
+    imgs.cloud = loadAnimation("/art/cloud/cloud0.png", "/art/cloud4.png");
     imgs.cloud.frameDelay = 2;
-    imgs.rocketOn = loadAnimation("/art/rocket1.png","/art/rocket6.png");
+    imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
-    imgs.rocketOff = loadAnimation("/art/rocketoff0.png", "/art/rocketoff5.png");
+    imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
-    imgs.rocketThumb = loadImage("/art/rocket1.png");
-    imgs.martian = loadImage("/art/martian.png");
-    imgs.fueltank = loadImage("/art/fuel.png");
-    imgs.asteroid = loadImage("/art/asteroid.png");
+    imgs.rocketThumb = loadImage("/art/rocket/rocketon/00.png");
+    imgs.martian = loadImage("/art/mars/martian.png");
+    imgs.fueltank = loadImage("/art/mars/fuel.png");
+    imgs.asteroid = loadImage("/art/space/asteroid.png");
 }
