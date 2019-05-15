@@ -1,28 +1,32 @@
-function Obstacle(x, y, type){
+function Spike(x, y){
     this.x = x;
     this.y = y;
-    this.type = type;
+    this.h = 100;
 }
-Obstacle.prototype.run = function(p){
+Spike.prototype.run = function(p){
     this.display();
     this.collide(p);
 }
-Obstacle.prototype.collide = function(p){
+Spike.prototype.collide = function(p){
+    function death(){
+        p.y = 0;
+    }
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
-        p.y = 50;
+        if(p.x+p.w<this.x+this.w/2){
+            if(p.y+p.h > map(p.x+p.w, this.x, this.x+this.w/2, this.y+this.h, this.y)) death();
+        } else if(p.x > this.x+this.w/2){
+            if(p.y+p.h > map(p.x, this.x+this.w/2, this.x+this.w, this.y, this.y+this.h)) death();
+        } else {
+            death();
+        }
     }
 }
-Obstacle.prototype.init = function(){
-    if(this.type === "spike"){
-        this.img = imgs.spike
-    } else if(this.type === "broken car"){
-        this.img = imgs.brokenCar;
-    }
-    this.w = this.img.width/10;
-    this.h = this.img.height/10;
-    this.y = runGround.y+runGround.strokeWeight/2-this.h
+Spike.prototype.init = function(){
+    this.img = imgs.spike
+    this.w = round( this.h * this.img.width / this.img.height );
+    this.y = runGround.y - this.h;
 }
-Obstacle.prototype.display = function(){
+Spike.prototype.display = function(){
     push();
     translate(this.x, this.y);
     image(this.img, 0, 0, this.w, this.h);
@@ -32,11 +36,7 @@ let obstacles = [];
 function createObstacles(){
     let maxDistanceBetween = 900;
     for(var i = 1000; i < 10000; i += random(500, maxDistanceBetween)){
-        if(round(random(0, 1)) === 0){
-            obstacles.push(new Obstacle(i, 500, "spike"))
-        } else{
-            obstacles.push(new Obstacle(i, 500, "broken car"))
-        }
+        obstacles.push(new Spike(i, 0))
         maxDistanceBetween -= random(10, 50);
     }
 }
