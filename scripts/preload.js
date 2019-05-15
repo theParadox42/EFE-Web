@@ -8,7 +8,8 @@ function drawAnimation(anim, x, y, w, h){
 };
 function preload(){
     //Player
-    imgs.player = loadImage("/art/earth/player.png");
+    // I switched this to simple because the quality is better
+    imgs.player = loadImage("/art/earth/simpleplayer.png");
     //Cloud
     imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
     imgs.cloud.frameDelay = 2;
