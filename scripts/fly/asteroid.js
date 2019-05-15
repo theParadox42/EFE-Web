@@ -8,7 +8,17 @@ Asteroid.prototype.run = function(p){
     this.collide(p);
 }
 Asteroid.prototype.collide = function(p){
-
+    //I definitely didn't find this on w3schools
+    let distance = (p.x - this.x) * (p.x - this.x) + (p.y - this.y) * (p.y - this.y)
+    let r = this.radius*this.radius;
+    if (distance < r) {
+        console.log("collision");
+    }
+    distance = (p.x+p.w/2 - this.x) * (p.x+p.w/2 - this.x) + (p.y - this.y) * (p.y - this.y)
+    r = this.radius*this.radius;
+    if (distance < r) {
+        console.log("collision");
+    }
 }
 Asteroid.prototype.display = function(){
     push();
