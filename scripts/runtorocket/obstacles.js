@@ -9,7 +9,8 @@ var loadRun = {
     init: function(){
         this.key = {
             "c": RunCar,
-            "^": RunSpike
+            "^": RunSpike,
+            "%": RunNext
         }
     },
     load: function(){
@@ -20,9 +21,11 @@ var loadRun = {
         this.reload();
     },
     reload: function(){
+        runPlayer.reset();
         for(var i = 0; i < this.map.length; i ++){
             var x = i * runObstacleWidth;
-
+            var constructor = this.key[this.map[i]];
+            if(constructor) obstacles.push(new constructor(x));
         }
     },
     next: function(){

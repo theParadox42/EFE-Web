@@ -6,6 +6,7 @@
             "spike.js",
             "car.js",
             "obstacles.js",
+            "next.js",
             "main.js"
         ],
         "buildrocket": [

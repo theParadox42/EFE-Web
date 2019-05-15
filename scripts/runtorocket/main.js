@@ -16,6 +16,7 @@ function runToRocket(){
 runToRocket.init = function(){
     runGround.init();
     runPlayer.init();
+    loadRun.init();
     loadRun.load();
 };
 runToRocket.reload = function(){

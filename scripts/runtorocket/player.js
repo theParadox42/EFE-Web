@@ -83,5 +83,6 @@ RunPlayer.prototype.reset = function(){
     this.vy = 0;
     this.x = this.ox;
     this.y = this.oy;
+    this.transX = 0;
 }
 let runPlayer = new RunPlayer(-100,0);
