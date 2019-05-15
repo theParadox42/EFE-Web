@@ -23,4 +23,6 @@ function preload(){
     imgs.martian = loadImage("/art/mars/martian.png");
     imgs.fueltank = loadImage("/art/mars/fuel.png");
     imgs.asteroid = loadImage("/art/space/asteroid.png");
+    imgs.spike = loadImage("/art/spike.png");
+    imgs.brokenCar = loadImage("art/earth/brokencar.png");
 }

@@ -6,12 +6,19 @@ function runToRocket(){
 
     runPlayer.run();
     runGround.display();
+    for(var i in obstacles){
+        obstacles[i].run(runPlayer);
+    }
     pop();
 };
 
 runToRocket.init = function(){
     runGround.init();
     runPlayer.init();
+    createObstacles();
+    for(var i in obstacles){
+        obstacles[i].init();
+    }
 };
 runToRocket.reload = function(){
 
