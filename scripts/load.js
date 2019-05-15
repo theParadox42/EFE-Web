@@ -1,5 +1,14 @@
-var scripts;
-var libs;
+
+
+function setup(){
+    print("!");
+}
+
+
+
+var scripts, libs;
+
+
 
 var load = {
     amount: 0,
@@ -15,10 +24,7 @@ $.getJSON("/scripts/scripts.json", function(jsonData){
             loadScript("/scripts/"+i+"/"+scripts[i][j], function(){
                 load.amount ++;
                 if(load.amount >= load.needed){
-
-                    for(var i = 0; i < libs.length; i ++){
-                        loadScript("/libs/"+libs[i])
-                    }
+                    new p5();
                 }
             });
         }

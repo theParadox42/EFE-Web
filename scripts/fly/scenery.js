@@ -9,9 +9,12 @@ function createStars(){
     }
 }
 function drawStars(){
+    push();
     fill(249, 244, 244);
+    noStroke();
     for(var i in stars){
         var s = stars[i];
         ellipse(s.x, s.y, 10, 10);
     }
+    pop();
 }
