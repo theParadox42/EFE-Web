@@ -12,6 +12,7 @@ function RunPlayer(x, y){
     this.mvx = 5;
     this.mvy = 20;
     this.transX = 0;
+    this.ptransX = this.transX;
     this.controlTrans = true;
     this.grounded = false;
     this.ducking = false;
@@ -75,6 +76,7 @@ RunPlayer.prototype.update = function(){
     // Resets grounded
     this.grounded = false;
     // Translate
+    this.ptransX = this.transX;
     this.viewSpace = width/3;
     if(this.x > this.viewSpace && this.controlTrans){
         this.transX = -this.x+this.viewSpace;

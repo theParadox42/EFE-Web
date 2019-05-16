@@ -2,16 +2,22 @@
 function runToRocket(){
     background(200, 225, 255);
 
+    for(var i = 0; i < runBuildings.length; i ++){
+        runBuildings[i].run(runPlayer);
+    }
+    fill(255, 255, 255, 100);
+    rect(0,0,width,height);
+
     push();
     translate(runPlayer.transX, 0);
 
-    for(var i = 0; i < signs.length; i ++){
-        signs[i].display(runPlayer);
+    for(var i = 0; i < runSigns.length; i ++){
+        runSigns[i].display(runPlayer);
     }
     runPlayer.run();
     runGround.display();
-    for(var i = 0; i < obstacles.length; i ++){
-        obstacles[i].run(runPlayer);
+    for(var i = 0; i < runObstacles.length; i ++){
+        runObstacles[i].run(runPlayer);
     }
     pop();
 };

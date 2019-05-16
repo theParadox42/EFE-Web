@@ -1,12 +1,12 @@
-var maps;
-let obstacles = [];
-let signs = [];
+let runObstacles = [], runSigns = [], runBuildings = [];
+
 var loadRun = {
     level: 2,
-    maps: maps,
+    maps: [],
     current: {},
     map: "",
     key: {},
+    buildings: 30,
     init: function(){
         this.txtKey = {
             "j": "Click/Space/UP/W to jump!",
@@ -30,20 +30,25 @@ var loadRun = {
     reload: function(){
         runPlayer.reset();
         runGround.reset();
-        obstacles = [];
+        runBuildings = [];
+        runSigns = [];
+        runObstacles = [];
         for(var i = 0; i < this.map.length; i ++){
             var x = i * runObstacleWidth;
             var constructor = this.key[this.map[i]];
-            if(constructor) obstacles.push(new constructor(x));
+            if(constructor) runObstacles.push(new constructor(x));
         }
-        signs = [];
         if(this.signs) {
             for(var i = 0; i < this.signs.length; i ++){
                 var txt = this.txtKey[this.signs[i]];
-                if(txt){
-                    signs.push(new RunSign(i*runObstacleWidth, txt));
-                }
+                if(txt) runSigns.push(new RunSign(i*runObstacleWidth, txt));
             }
+        }
+        for(var i = 0; i < this.buildings; i ++){
+            runBuildings.push(new RunBuilding(random(-50, width+50), ~~random(6)+2, random(400, 500), ~~random(imgs.buildings.length)))
+            runBuildings.sort(function(a, b){
+                return b.z - a.z;
+            });
         }
     },
     next: function(){

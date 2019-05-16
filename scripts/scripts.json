@@ -9,6 +9,7 @@
             "obstacles.js",
             "next.js",
             "sign.js",
+            "building.js",
             "main.js"
         ],
         "buildrocket": [
