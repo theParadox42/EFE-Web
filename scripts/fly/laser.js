@@ -2,17 +2,12 @@ function Laser(x, y, r, speed){
   this.x = x;
   this.y = y;
   this.r = r;
-  this.speed = speed
+  this.speed = speed;
+  this.dead = false;
 }
 Laser.prototype.run = function(){
   this.display();
   this.update();
-  this.collide();
-}
-Laser.prototype.collide = function(){
-  for(var i in asteroids){
-    //do collisions
-  }
 }
 Laser.prototype.update = function(){
   this.x += this.speed*sin(this.r);

@@ -3,6 +3,9 @@ function flyToVenus(){
     drawStars();
     for(var i in lasers){
       lasers[i].run();
+      if(lasers[i].dead){
+          lasers.splice(i, 1);
+      }
     }
     flyPlayer.run();
     for(var i in asteroids){

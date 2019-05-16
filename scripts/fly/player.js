@@ -52,7 +52,7 @@ FlyPlayer.prototype.control = function(){
         this.vy*=0.99;
     }
     if(keys.z && this.shootCooldown>10){
-        lasers.push(new Laser(this.x, this.y, this.r, 3));
+        lasers.push(new Laser(this.x, this.y, this.r, 5));
         this.shootCooldown = 0;
     }
     if(keys[RIGHT_ARROW]||keys.d){
