@@ -19,7 +19,7 @@ function RunPlayer(x, y){
 RunPlayer.prototype.init = function(){
     this.img = imgs.player;
     this.h = this.w*this.img.height/this.img.width;
-    this.dh = this.h/3;
+    this.dh = this.h/2.3;
     this.oh = this.h;
     this.y = runGround.y-this.h;
     this.ox = this.x;
@@ -27,39 +27,33 @@ RunPlayer.prototype.init = function(){
 };
 RunPlayer.prototype.collide = function(){
     if(this.y+this.h+this.vy>runGround.y){
-        this.y = runGround.y-this.h;
         this.vy = min(0, this.vy);
         this.grounded = true;
     }
 }
 RunPlayer.prototype.control = function(){
-    var xs = 1;
+    var xs = this.ducking ? 0.6 : 1;
     if(keys[RIGHT_ARROW] || keys.d){
-        this.gvx = this.fastSpeed;
+        this.gvx = this.fastSpeed * xs;
     } else if(keys[LEFT_ARROW] || keys.a){
-        this.gvx = this.slowSpeed;
+        this.gvx = this.slowSpeed * xs;
     } else {
-        this.gvx = this.normalSpeed;
+        this.gvx = this.normalSpeed * xs;
+    } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
+        this.vy+=0.3;
     } if((keys[UP_ARROW] || keys.w || keys[32] || mouseIsPressed) && this.grounded){
         this.vy-=15;
     } else if(keys[DOWN_ARROW] || keys.s){
         if(this.grounded && !this.ducking){
-            this.h = this.dh;
-            this.y += abs(this.dh-this.oh);
+            this.y += abs(this.dh-this.oh)+1;
             this.ducking = true;
-        } else if(!this.ducking) {
-            this.vy+=0.3;
-            this.h = this.oh;
-            this.ducking = false;
-        } else {
-            this.h = this.oh;
+        } else if(!this.grounded){
             this.ducking = false;
         }
-
     } else {
-        this.h = this.oh;
         this.ducking = false;
     }
+    this.h = this.ducking ? this.dh : this.oh;
 }
 RunPlayer.prototype.update = function(){
     //Collisions
@@ -75,8 +69,9 @@ RunPlayer.prototype.update = function(){
     // Smooth speed changes
     this.vx = lerp(this.vx, this.gvx, 0.1);
     // Position affected by speed
-    this.x+=this.vx * (this.ducking ? 0.6 : 1);
+    this.x+=this.vx;
     this.y+=this.vy;
+    this.y = min(this.y, runGround.y-this.h);
     // Resets grounded
     this.grounded = false;
     // Translate
