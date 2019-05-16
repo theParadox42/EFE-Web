@@ -16,6 +16,10 @@ RunCar.prototype.collide = function(p){
             p.vy = min(p.vy, 0);
             p.grounded = true;
         }
+        if(p.x+p.w+vx>this.x&&p.x+p.w<=this.x+vx){
+            p.vx = constrain(p.vx, -100, 0);
+            p.x = this.x-p.w;
+        }
     }
 }
 RunCar.prototype.run = function(p){
