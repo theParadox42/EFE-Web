@@ -23,18 +23,22 @@ var loadRun = {
         if(!this.maps[this.level]) return console.log("missing map");
         this.current = this.maps[this.level];
         this.map = this.current.map;
+        this.signs = this.current.txt;
         this.reload();
     },
     reload: function(){
-        obstacles = [];
         runPlayer.reset();
         runGround.reset();
+        obstacles = [];
         for(var i = 0; i < this.map.length; i ++){
             var x = i * runObstacleWidth;
             var constructor = this.key[this.map[i]];
             if(constructor) obstacles.push(new constructor(x));
         }
         signs = [];
+        for(var i = 0; i < this.signs.length; i ++){
+            
+        }
     },
     next: function(){
         this.level ++;

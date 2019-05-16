@@ -6,5 +6,11 @@ function Sign(x, txt){
     this.txt = txt;
 }
 Sign.prototype.display = function(){
-    
+    push();
+    strokeCap(SQUARE);
+    strokeWeight(10);
+    stroke(10);
+    fill(200);
+    rect(this.x, this.y, this.w, this.h);
+    pop();
 }
