@@ -36,7 +36,7 @@ RunPlayer.prototype.control = function(){
         this.gvx = this.slowSpeed;
     } else {
         this.gvx = this.normalSpeed;
-    } if((keys[UP_ARROW] || keys.w || keys[" "] || mouseIsPressed) && this.grounded){
+    } if((keys[UP_ARROW] || keys.w || keys[32] || mouseIsPressed) && this.grounded){
         this.vy-=15;
     } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
         this.vy+=0.2;
