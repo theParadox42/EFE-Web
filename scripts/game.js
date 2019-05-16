@@ -1,6 +1,6 @@
 
 var game = {
-    currentScene: "fly-venus",
+    currentScene: "run",
     sceneIndex: 0,
     sceneOrder: [
         "run",

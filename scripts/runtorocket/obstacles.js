@@ -8,6 +8,11 @@ var loadRun = {
     map: "",
     key: {},
     init: function(){
+        this.txtKey = {
+            "j": "Click/Space/UP/W to jump!",
+            "f": "Use the arrow keys to move faster/slower",
+            "d": "S/DOWN to duck"
+        }
         this.key = {
             "c": RunCar,
             "^": RunSpike,
@@ -30,7 +35,6 @@ var loadRun = {
             if(constructor) obstacles.push(new constructor(x));
         }
         signs = [];
-
     },
     next: function(){
         this.level ++;
