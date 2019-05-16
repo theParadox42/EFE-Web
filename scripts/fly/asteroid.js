@@ -21,6 +21,7 @@ Asteroid.prototype.collide = function(p){
     for(var i in lasers){
         let l = lasers[i];
         distance = dist(this.x, this.y, l.x, l.y);
+        r = l.radius + this.radius;
         if (distance < r) {
             l.dead = true;
             this.health --;

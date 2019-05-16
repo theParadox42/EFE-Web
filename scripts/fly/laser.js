@@ -2,6 +2,7 @@ function Laser(x, y, r, speed){
   this.x = x;
   this.y = y;
   this.r = r;
+  this.radius = 10;
   this.speed = speed;
   this.dead = false;
 }
@@ -16,10 +17,10 @@ Laser.prototype.update = function(){
 Laser.prototype.display = function(){
   stroke(201, 34, 34);
   push();
-  strokeWeight(10);
+  strokeWeight(this.radius);
   translate(this.x, this.y);
   rotate(this.r);
-  line(0, 0, 0, 10);
+  line(0, 0, 0, this.radius);
   pop();
 }
 let lasers = [];
