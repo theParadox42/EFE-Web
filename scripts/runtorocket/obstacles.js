@@ -1,5 +1,6 @@
 var maps;
 let obstacles = [];
+let signs = [];
 var loadRun = {
     level: 0,
     maps: maps,
@@ -22,15 +23,18 @@ var loadRun = {
     reload: function(){
         obstacles = [];
         runPlayer.reset();
+        runGround.reset();
         for(var i = 0; i < this.map.length; i ++){
             var x = i * runObstacleWidth;
             var constructor = this.key[this.map[i]];
             if(constructor) obstacles.push(new constructor(x));
         }
+        signs = [];
+
     },
     next: function(){
         this.level ++;
-        // this.load();
+        this.load();
     }
 }
 var runObstacleWidth = 100;
