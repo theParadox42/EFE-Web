@@ -15,7 +15,8 @@
         "fly": [
             "player.js",
             "scenery.js",
-            "asteroid.js"
+            "asteroid.js",
+            "laser.js"
         ],
         "fly/mars": [
             "main.js"

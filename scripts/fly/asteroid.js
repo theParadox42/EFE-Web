@@ -2,10 +2,15 @@ function Asteroid(x, y, r){
     this.x = x;
     this.y = y;
     this.radius = r;
+    this.health = 3;
+    this.dead = false;
 }
 Asteroid.prototype.run = function(p){
     this.display();
     this.collide(p);
+    if(this.health < 1){
+        this.dead = true;
+    }
 }
 Asteroid.prototype.collide = function(p){
     //I definitely didn't find this on w3schools

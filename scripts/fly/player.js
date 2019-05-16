@@ -13,6 +13,7 @@ function FlyPlayer(x, y){
     // Same thing until I change them
     this.offImg = {};
     this.onImg = {};
+    this.shootCooldown = 0;
 }
 FlyPlayer.prototype.init = function(){
     this.offImg = imgs.rocketOff;
@@ -25,6 +26,7 @@ FlyPlayer.prototype.run = function(){
     this.update();
 }
 FlyPlayer.prototype.update = function(){
+    this.shootCooldown ++;
     this.r += this.rvel;
     this.rvel *= 0.9;
     this.x+=this.vx;
@@ -48,6 +50,10 @@ FlyPlayer.prototype.control = function(){
     } else {
         this.vx*=0.99;
         this.vy*=0.99;
+    }
+    if(keys.z && this.shootCooldown>10){
+        lasers.push(new Laser(this.x, this.y, this.r, 3));
+        this.shootCooldown = 0;
     }
     if(keys[RIGHT_ARROW]||keys.d){
         this.rvel += 0.5
