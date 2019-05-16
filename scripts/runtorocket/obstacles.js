@@ -2,7 +2,7 @@ var maps;
 let obstacles = [];
 let signs = [];
 var loadRun = {
-    level: 0,
+    level: 2,
     maps: maps,
     current: {},
     map: "",
@@ -16,11 +16,12 @@ var loadRun = {
         this.key = {
             "c": RunCar,
             "^": RunSpike,
+            "l": RunStreetLight,
             "%": RunNext
         }
     },
     load: function(){
-        if(!this.maps[this.level]) return console.log("missing map");
+        if(!this.maps[this.level]) return;
         this.current = this.maps[this.level];
         this.map = this.current.map;
         this.signs = this.current.txt;
@@ -36,8 +37,13 @@ var loadRun = {
             if(constructor) obstacles.push(new constructor(x));
         }
         signs = [];
-        for(var i = 0; i < this.signs.length; i ++){
-            
+        if(this.signs) {
+            for(var i = 0; i < this.signs.length; i ++){
+                var txt = this.txtKey[this.signs[i]];
+                if(txt){
+                    signs.push(new RunSign(i*runObstacleWidth, txt));
+                }
+            }
         }
     },
     next: function(){

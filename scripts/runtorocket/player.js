@@ -14,10 +14,13 @@ function RunPlayer(x, y){
     this.transX = 0;
     this.controlTrans = true;
     this.grounded = false;
+    this.ducking = false;
 };
 RunPlayer.prototype.init = function(){
     this.img = imgs.player;
     this.h = this.w*this.img.height/this.img.width;
+    this.dh = this.h/3;
+    this.oh = this.h;
     this.y = runGround.y-this.h;
     this.ox = this.x;
     this.oy = this.y;
@@ -39,8 +42,23 @@ RunPlayer.prototype.control = function(){
         this.gvx = this.normalSpeed;
     } if((keys[UP_ARROW] || keys.w || keys[32] || mouseIsPressed) && this.grounded){
         this.vy-=15;
-    } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
-        this.vy+=0.2;
+    } else if(keys[DOWN_ARROW] || keys.s){
+        if(this.grounded && !this.ducking){
+            this.h = this.dh;
+            this.y += abs(this.dh-this.oh);
+            this.ducking = true;
+        } else if(!this.ducking) {
+            this.vy+=0.3;
+            this.h = this.oh;
+            this.ducking = false;
+        } else {
+            this.h = this.oh;
+            this.ducking = false;
+        }
+
+    } else {
+        this.h = this.oh;
+        this.ducking = false;
     }
 }
 RunPlayer.prototype.update = function(){
@@ -57,7 +75,7 @@ RunPlayer.prototype.update = function(){
     // Smooth speed changes
     this.vx = lerp(this.vx, this.gvx, 0.1);
     // Position affected by speed
-    this.x+=this.vx;
+    this.x+=this.vx * (this.ducking ? 0.6 : 1);
     this.y+=this.vy;
     // Resets grounded
     this.grounded = false;

@@ -1,4 +1,5 @@
-var imgs = {};
+let imgs = {};
+let fonts = {};
 function drawAnimation(anim, x, y, w, h){
     push();
     translate(x, y);
@@ -7,17 +8,17 @@ function drawAnimation(anim, x, y, w, h){
     pop();
 };
 function preload(){
+    //Font
+    fonts.pixel = loadFont("/fonts/pixelfont.ttf");
     //Player
-    // I switched this to simple because the quality is better
-    imgs.player = loadImage("/art/earth/simpleplayer.png");
+    imgs.player = loadImage("/art/earth/simpleplayer.png");// I switched this to simple because the quality is better
     //Cloud
     imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
     imgs.cloud.frameDelay = 2;
-    //Rocket
-    //On
+    //Rocket On
     imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
-    //Off
+    //Rocket Off
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
     //Martian
@@ -30,13 +31,11 @@ function preload(){
     imgs.spike = loadImage("/art/spike.png");
     // Broken Car
     imgs.brokenCar = loadImage("/art/earth/brokencar.png");
-    /*
     // Streetlight
     imgs.streetlight = loadImage("/art/earth/streetlight.png");
     // buildings
     imgs.buildings = Array(5); // maybe 6
     for(var i = 0; i < imgs.buildings.length; i ++){
-        imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i);
+        imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
     }
-    */
 }

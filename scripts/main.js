@@ -15,8 +15,8 @@ function setup(){
 };
 function draw(){
     game.run();
-    // image(imgs.cloud, 0, 0);
 };
 function windowResized(){
     resizeCanvas(windowWidth, windowHeight);
+    game.resize();
 }

@@ -43,8 +43,13 @@ var game = {
         this.getFunc()();
     },
     init: function(){
-        if(this.getFunc().init){
+        if(typeof this.getFunc().init == "function"){
             this.getFunc().init();
+        }
+    },
+    resize: function(){
+        if(typeof this.getFunc().resize == "function"){
+            this.getFunc().resize();
         }
     }
 }

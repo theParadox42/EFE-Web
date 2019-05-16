@@ -5,6 +5,7 @@
             "ground.js",
             "spike.js",
             "car.js",
+            "streetlight.js",
             "obstacles.js",
             "next.js",
             "sign.js",

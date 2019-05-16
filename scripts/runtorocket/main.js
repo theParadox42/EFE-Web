@@ -5,9 +5,12 @@ function runToRocket(){
     push();
     translate(runPlayer.transX, 0);
 
+    for(var i = 0; i < signs.length; i ++){
+        signs[i].display(runPlayer);
+    }
     runPlayer.run();
     runGround.display();
-    for(var i in obstacles){
+    for(var i = 0; i < obstacles.length; i ++){
         obstacles[i].run(runPlayer);
     }
     pop();
@@ -21,7 +24,7 @@ runToRocket.init = function(){
 };
 runToRocket.reload = function(){
     loadRun.reload();
-}
+};
 runToRocket.resize = function(){
     runGround.init();
-}
+};
