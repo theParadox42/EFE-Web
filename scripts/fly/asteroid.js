@@ -9,17 +9,22 @@ Asteroid.prototype.run = function(p){
     this.display();
     this.collide(p);
     if(this.health < 1){
-        this.dead = true;
+        this.dead = true; //we need an explosion animation
     }
 }
 Asteroid.prototype.collide = function(p){
-    //I definitely didn't find this on w3schools
-    //the problem with this is it is only looking at the dead center of the rocket. I'm not good enough at math to figure out how to make it look at all the rocket
-    // Well, it is possible, but it is freaking hard, and we will just deal with circle collisions
     let distance = dist(this.x, this.y, p.x, p.y)
     let r = this.radius + (p.w + p.h) / 4;
     if (distance < r) {
         console.log("collision");
+    }
+    for(var i in lasers){
+        let l = lasers[i];
+        distance = dist(this.x, this.y, l.x, l.y);
+        if (distance < r) {
+            l.dead = true;
+            this.health --;
+        }
     }
 }
 Asteroid.prototype.display = function(){
