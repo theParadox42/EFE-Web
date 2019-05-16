@@ -8,6 +8,9 @@ RunGround.prototype.init = function(){
     this.strokeWeight = 10;
     this.fill = color(80,50,0);
     this.y = height-this.h;
+    this.reset();
+};
+RunGround.prototype.reset = function(){
     this.particles = [];
     for(var i = 0; i < width*this.h/5000; i ++){
         this.particles[i] = {
@@ -17,7 +20,8 @@ RunGround.prototype.init = function(){
             sat: random(80, 100)
         }
     }
-};
+
+}
 RunGround.prototype.display = function(){
     push();
     translate(-runPlayer.transX, 0);

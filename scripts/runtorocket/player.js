@@ -12,6 +12,7 @@ function RunPlayer(x, y){
     this.mvx = 5;
     this.mvy = 20;
     this.transX = 0;
+    this.controlTrans = true;
     this.grounded = false;
 };
 RunPlayer.prototype.init = function(){
@@ -61,8 +62,9 @@ RunPlayer.prototype.update = function(){
     // Resets grounded
     this.grounded = false;
     // Translate
-    if(this.x > width/3){
-        this.transX = -this.x+width/3;
+    this.viewSpace = width/3;
+    if(this.x > this.viewSpace && this.controlTrans){
+        this.transX = -this.x+this.viewSpace;
     }
 };
 RunPlayer.prototype.display = function(){
@@ -84,5 +86,6 @@ RunPlayer.prototype.reset = function(){
     this.x = this.ox;
     this.y = this.oy;
     this.transX = 0;
+    this.controlTrans = true;
 }
 let runPlayer = new RunPlayer(-100,0);
