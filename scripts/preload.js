@@ -30,6 +30,7 @@ function preload(){
     imgs.spike = loadImage("/art/spike.png");
     // Broken Car
     imgs.brokenCar = loadImage("/art/earth/brokencar.png");
+    /*
     // Streetlight
     imgs.streetlight = loadImage("/art/earth/streetlight.png");
     // buildings
@@ -37,4 +38,5 @@ function preload(){
     for(var i = 0; i < imgs.buildings.length; i ++){
         imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i);
     }
+    */
 }
