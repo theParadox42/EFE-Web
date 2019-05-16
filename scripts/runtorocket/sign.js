@@ -1,9 +1,9 @@
 function RunSign(x, txt){
-    this.h = 250;
-    this.w = this.h*2;
     this.x = x;
+    this.y = 50;
+    this.w = 500;
+    this.h = 250;
     this.dx = this.x+this.w;
-    this.y = runGround.y-300-this.h;
     this.txt = txt;
     this.padding = 20;
 }
