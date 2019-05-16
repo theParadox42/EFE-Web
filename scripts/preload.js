@@ -31,6 +31,8 @@ function preload(){
     imgs.spike = loadImage("/art/spike.png");
     // Broken Car
     imgs.brokenCar = loadImage("/art/earth/brokencar.png");
+    // Trash
+    imgs.trash = loadImage("/art/earth/trash.png");
     // Streetlight
     imgs.streetlight = loadImage("/art/earth/streetlight.png");
     // buildings

@@ -1,7 +1,7 @@
 let runObstacles = [], runSigns = [], runBuildings = [];
 
 var loadRun = {
-    level: 2,
+    level: 0,
     maps: [],
     current: {},
     map: "",
@@ -15,6 +15,7 @@ var loadRun = {
         }
         this.key = {
             "c": RunCar,
+            "x": RunTrash,
             "^": RunSpike,
             "l": RunStreetLight,
             "%": RunNext
@@ -45,7 +46,7 @@ var loadRun = {
             }
         }
         for(var i = 0; i < this.buildings; i ++){
-            runBuildings.push(new RunBuilding(random(-50, width+50), ~~random(6)+2, random(400, 500), ~~random(imgs.buildings.length)))
+            runBuildings.push(new RunBuilding(random(-200, width+200), ~~random(6)+2, random(400, 500), ~~random(imgs.buildings.length)))
             runBuildings.sort(function(a, b){
                 return b.z - a.z;
             });

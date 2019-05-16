@@ -1,14 +1,14 @@
-function RunCar(x, y){
+function RunTrash(x, y){
     this.x = x;
-    this.img = imgs.brokenCar;
-    this.w = runObstacleWidth * 2;
+    this.img = imgs.trash;
+    this.w = runObstacleWidth;
     this.h = this.w * this.img.height / this.img.width;
     this.y = runGround.y - this.h;
 }
-RunCar.prototype.display = function(){
+RunTrash.prototype.display = function(){
     image(this.img, this.x, this.y, this.w, this.h);
 }
-RunCar.prototype.collide = function(p){
+RunTrash.prototype.collide = function(p){
     let vx = abs(p.vx), vy = abs(p.vy);
     if(p.x + p.w + vx > this.x && p.x - vx < this.x + this.w && p.y + p.h + vy > this.y){
         if(p.y + p.h - p.vy - 1 < this.y){
@@ -22,7 +22,7 @@ RunCar.prototype.collide = function(p){
         }
     }
 }
-RunCar.prototype.run = function(p){
+RunTrash.prototype.run = function(p){
     this.collide(p);
     this.display();
 }

@@ -5,7 +5,7 @@ function runToRocket(){
     for(var i = 0; i < runBuildings.length; i ++){
         runBuildings[i].run(runPlayer);
     }
-    fill(255, 255, 255, 100);
+    fill(255, 255, 255, 60);
     rect(0,0,width,height);
 
     push();
