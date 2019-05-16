@@ -14,13 +14,13 @@ var loadRun = {
         }
     },
     load: function(){
-        console.log(this.maps);
-        if(!this.maps[this.level]) return;
+        if(!this.maps[this.level]) return console.log("missing map");
         this.current = this.maps[this.level];
         this.map = this.current.map;
         this.reload();
     },
     reload: function(){
+        obstacles = [];
         runPlayer.reset();
         for(var i = 0; i < this.map.length; i ++){
             var x = i * runObstacleWidth;
@@ -30,7 +30,7 @@ var loadRun = {
     },
     next: function(){
         this.level ++;
-        this.load();
+        // this.load();
     }
 }
 var runObstacleWidth = 100;
