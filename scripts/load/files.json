@@ -1,0 +1,62 @@
+{
+    "fonts": [
+        "/fonts/pixelfont.ttf"
+    ],
+    "images": [
+        "/art/earth/player.png",
+        "/art/rocket/rocketfin.png",
+        "/art/rocket/rockettail.png",
+        "/art/mars/martian.png",
+        "/art/mars/fuel.png",
+        "/art/space/asteroid.png",
+        "/art/space/stars.png"
+    ],
+    "animations": [
+        [
+            240,
+            "/art/cloud/00.png",
+            "/art/cloud/04.png"
+        ],
+        [
+            5,
+            "/art/rocket/rocketon/00.png",
+            "/art/rocket/rocketon/05.png"
+        ],
+        [
+            5,
+            "/art/rocket/rocketoff/00.png",
+            "/art/rocket/rocketoff/05.png"
+        ],
+        [
+            5,
+            "/art/rocket/engine/00.png",
+            "/art/rocket/engine/05.png"
+        ],
+        [
+            3,
+            "/art/space/explosion/00.png",
+            "/art/space/explosion/11.png"
+        ]
+    ],
+    "names": {
+        "fonts": [
+            "pixel"
+        ],
+        "images": [
+            "player",
+            "rocketfin",
+            "rockettail",
+            "martian",
+            "fueltank",
+            "asteroid",
+            "stars"
+        ],
+        "animations": [
+            "cloud",
+            "rocketOn",
+            "rocketOff",
+            "rocketengine",
+            "explosion",
+        ]
+    }
+}
