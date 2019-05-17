@@ -27,7 +27,8 @@
             "player.js",
             "scenery.js",
             "asteroid.js",
-            "laser.js"
+            "laser.js",
+            "sign.js"
         ],
         "fly/moon": [
             "main.js"

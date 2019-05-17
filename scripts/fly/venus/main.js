@@ -22,4 +22,5 @@ function flyToVenus(){
 }
 flyToVenus.init = function(){
     flyPlayer.init();
+    asteroids.push(new Asteroid(400, 400, 100))
 }

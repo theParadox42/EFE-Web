@@ -35,4 +35,3 @@ Asteroid.prototype.display = function(){
     pop();
 }
 let asteroids = [];
-asteroids.push(new Asteroid(400, 400, 100))
