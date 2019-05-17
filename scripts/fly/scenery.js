@@ -1,13 +1,12 @@
 //general scenery for both flying scenes
 let stars = [];
-function createStars(){
-    for(var i = 0; i < 350; i++){
-        stars.push({
-            x: random(0, width),
-            y: random(0, height),
-            d: random(5,8),
-            a: random(200, 255)
-        })
+function displayStars(){
+    for(var i = 0; i < 4000; i += imgs.stars.width*(height/imgs.stars.height)){
+        push();
+        translate(i, 0);
+        scale(height/imgs.stars.height);
+        image(imgs.stars, 0, 0);
+        pop();
     }
 }
 function drawStars(){

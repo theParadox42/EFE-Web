@@ -51,7 +51,7 @@ FlyPlayer.prototype.control = function(){
         this.vx*=0.99;
         this.vy*=0.99;
     }
-    if(keys.z && this.shootCooldown>10){
+    if(keys.z && this.shootCooldown>15){
         lasers.push(new Laser(this.x, this.y, this.r, 5));
         this.shootCooldown = 0;
     }

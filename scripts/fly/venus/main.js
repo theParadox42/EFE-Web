@@ -1,6 +1,10 @@
 function flyToVenus(){
     background(0,0,0);
-    drawStars();
+    push();
+    if(flyPlayer.x>width/2){
+        translate(-flyPlayer.x+width/2, 0);
+    }
+    displayStars();
     for(var i in lasers){
       lasers[i].run();
       if(lasers[i].dead){
@@ -14,8 +18,8 @@ function flyToVenus(){
             asteroids.splice(i, 1);
         }
     }
+    pop();
 }
 flyToVenus.init = function(){
-    createStars();
     flyPlayer.init();
 }
