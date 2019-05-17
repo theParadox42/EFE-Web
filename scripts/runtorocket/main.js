@@ -2,8 +2,8 @@
 function runToRocket(){
     background(200, 225, 255);
 
-    for(var i = 0; i < runBuildings.length; i ++){
-        runBuildings[i].run(runPlayer);
+    for(var i = 0; i < runScenery.length; i ++){
+        runScenery[i].run(runPlayer);
     }
     fill(255, 255, 255, 60);
     rect(0,0,width,height);

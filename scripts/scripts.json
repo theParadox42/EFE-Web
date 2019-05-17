@@ -11,6 +11,7 @@
             "next.js",
             "sign.js",
             "building.js",
+            "cloud.js",
             "main.js"
         ],
         "buildrocket": [

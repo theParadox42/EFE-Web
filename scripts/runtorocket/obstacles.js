@@ -6,7 +6,8 @@ var loadRun = {
     current: {},
     map: "",
     key: {},
-    buildings: 30,
+    buildings: 5,
+    clouds: 1,
     init: function(){
         this.txtKey = {
             "j": "Click/Space/UP/W to jump!",
@@ -31,7 +32,7 @@ var loadRun = {
     reload: function(){
         runPlayer.reset();
         runGround.reset();
-        runBuildings = [];
+        runScenery = [];
         runSigns = [];
         runObstacles = [];
         for(var i = 0; i < this.map.length; i ++){
@@ -46,11 +47,14 @@ var loadRun = {
             }
         }
         for(var i = 0; i < this.buildings; i ++){
-            runBuildings.push(new RunBuilding(random(-200,width+200),random(2,6),random(400,500),~~random(imgs.buildings.length)))
-            runBuildings.sort(function(a, b){
-                return b.z - a.z;
-            });
+            runScenery.push(new RunBuilding(random(-200,width+200),random(2,6),random(400,500),~~random(imgs.buildings.length)))
         }
+        for(var i = 0; i < this.clouds; i ++){
+            runScenery.push(new RunCloud(random(-200, width+200)));
+        }
+        runScenery.sort(function(a, b){
+            return b.z - a.z;
+        });
     },
     next: function(){
         this.level ++;

@@ -1,5 +1,4 @@
-let imgs = {};
-let fonts = {};
+let imgs = {}, fonts = {};
 function drawAnimation(anim, x, y, w, h){
     push();
     translate(x, y);
@@ -21,6 +20,12 @@ function preload(){
     //Rocket Off
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
+    //Rocket Fin
+    imgs.rocketfin = loadImage("/art/rocket/rocketfin.png");
+    //Rocket Part
+    imgs.rockettail = loadImage("/art/rocket/rockettail.png");
+    //Rocket engine
+    imgs.rocketengine = loadAnimation("/art/rocket/engine/00.png", "/art/rocket/engine/05.png")
     //Martian
     imgs.martian = loadImage("/art/mars/martian.png");
     // Fuel
@@ -47,7 +52,7 @@ function preload(){
     // Streetlight
     imgs.streetlight = loadImage("/art/earth/streetlight.png");
     // buildings
-    imgs.buildings = Array(5); // maybe 6
+    imgs.buildings = Array(7);
     for(var i = 0; i < imgs.buildings.length; i ++){
         imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
     }

@@ -18,6 +18,7 @@ let bGame = {
             "#": BBlock,
             "^": BSpike,
             "%": BPortal,
+            "*": BPart
         }
     },
     next: function(){
