@@ -61,7 +61,7 @@ FlyPlayer.prototype.control = function(){
     if(keys[LEFT_ARROW]||keys.a){
         this.rvel -= 0.5
     }
-    if(keys.z){
+    if(keys.x){
         this.speed*=0.8;
         this.vx*=0.8;
         this.vy*=0.8;

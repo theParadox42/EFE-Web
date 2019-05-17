@@ -1,6 +1,6 @@
 function Laser(x, y, r, speed){
-  this.x = x;
-  this.y = y;
+  this.x = x + sin(r) * 50;
+  this.y = y - cos(r) * 50;
   this.r = r;
   this.radius = 10;
   this.speed = speed;

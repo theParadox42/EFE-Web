@@ -5,6 +5,7 @@
         theParadox42
         Tannerderp
     All code is licenced under the GNU, see https://github.com/theParadox42/escape-from-earth/blob/master/LICENSE
+    Or go to https://escapefromearth.tk/LICENSE to download
 */
 
 function setup(){
@@ -18,5 +19,7 @@ function draw(){
 };
 function windowResized(){
     resizeCanvas(windowWidth, windowHeight);
+    width = windowWidth;
+    height = windowHeight;
     game.resize();
 }

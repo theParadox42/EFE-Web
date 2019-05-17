@@ -22,7 +22,7 @@ var loadRun = {
         }
     },
     load: function(){
-        if(!this.maps[this.level]) return;
+        if(!this.maps[this.level]) return game.continue();
         this.current = this.maps[this.level];
         this.map = this.current.map;
         this.signs = this.current.txt;
@@ -46,7 +46,7 @@ var loadRun = {
             }
         }
         for(var i = 0; i < this.buildings; i ++){
-            runBuildings.push(new RunBuilding(random(-200, width+200), ~~random(6)+2, random(400, 500), ~~random(imgs.buildings.length)))
+            runBuildings.push(new RunBuilding(random(-200,width+200),random(2,6),random(400,500),~~random(imgs.buildings.length)))
             runBuildings.sort(function(a, b){
                 return b.z - a.z;
             });

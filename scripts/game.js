@@ -1,12 +1,12 @@
 
 var game = {
-    currentScene: "run",
+    currentScene: "build",
     sceneIndex: 0,
     sceneOrder: [
         "run",
         "build",
-        "fly-mars",
-        "fight",
+        // "fly-mars",
+        // "fight",
         "fly-venus"
     ],
     continue: function(){
