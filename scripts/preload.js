@@ -66,4 +66,11 @@ function preload(){
     for(var i = 0; i<imgs.spaceSigns.length; i++){
         imgs.spaceSigns[i] = loadImage("/art/space/signs/0"+i+".png");
     }
+    //man on the moon
+    imgs.manOnTheMoon = Array(3);
+    imgs.manOnTheMoon[0] = loadImage("/art/space/man on the moon/man on the moon.png");
+    imgs.manOnTheMoon[1] = loadImage("/art/space/man on the moon/man on the moon mouth open.png");
+    imgs.manOnTheMoon[2] = loadImage("/art/space/man on the moon/man on the moon eyes closed.png");
+    //moon
+    imgs.moon = loadImage("/art/space/moon.png");
 }

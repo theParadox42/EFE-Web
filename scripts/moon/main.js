@@ -1,11 +1,10 @@
 function moon(){
-    background(255, 255, 255);
-    textSize(20);
-    push();
-    textAlign(CENTER, CENTER);
-    text("Right here there will be a cutscene where you talk to the man on the moon, and he gives you advice about space. I will start working on this soon...", width/2, height/2)
-    pop();
+    for(var i = 0; i < width; i += height){
+        image(imgs.stars, i, 0, height, height)
+    }
+    manOnTheMoon.run();
+    image(imgs.moon, 0, 0, width, height);
 }
 moon.init = function(){
-    //this needs to be here for some reason
+    manOnTheMoon.init();
 }
