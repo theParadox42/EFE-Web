@@ -61,4 +61,9 @@ function preload(){
     for(var i = 0; i < imgs.buildings.length; i ++){
         imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
     }
+    //space sign
+    imgs.spaceSigns = Array(2);
+    for(var i = 0; i<imgs.spaceSigns.length; i++){
+        imgs.spaceSigns[i] = loadImage("/art/space/signs/0"+i+".png");
+    }
 }
