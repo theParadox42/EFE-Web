@@ -18,8 +18,9 @@ function draw(){
     game.run();
 };
 function windowResized(){
-    resizeCanvas(windowWidth, windowHeight);
-    width = windowWidth;
-    height = windowHeight;
-    game.resize();
+    window.location.reload();
+    // resizeCanvas(windowWidth, windowHeight, true);
+    // width = windowWidth;
+    // height = windowHeight;
+    // game.resize();
 }

@@ -1,5 +1,9 @@
 let imgs = {}
 let fonts = {};
+
+// TANNER THE LOADING WAS TAKING TOO LONG, CAUSED SOME BIG PROBLEMS
+
+
 function drawAnimation(anim, x, y, w, h){
     push();
     translate(x, y);
@@ -8,25 +12,25 @@ function drawAnimation(anim, x, y, w, h){
     pop();
 };
 function preload(){
-    //Font
+    //Font - DONE
     fonts.pixel = loadFont("/fonts/pixelfont.ttf");
-    //Player
-    imgs.player = loadImage("/art/earth/simpleplayer.png");// I switched this to simple because the quality is better
-    //Cloud
+    //Player - DONE
+    imgs.player = loadImage("/art/earth/player.png");// I switched this to simple because the quality is better
+    //Cloud - DONE
     imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
     imgs.cloud.frameDelay = 240;
-    //Rocket On
+    //Rocket On - DONE
     imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
-    //Rocket Off
+    //Rocket Off - DONE
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
-    //Rocket Fin
-    // imgs.rocketfin = loadImage("/art/rocket/rocketfin.png");
-    //Rocket Part
-    // imgs.rockettail = loadImage("/art/rocket/rockettail.png");
-    //Rocket engine
-    // imgs.rocketengine = loadAnimation("/art/rocket/engine/00.png", "/art/rocket/engine/05.png")
+    //Rocket Fin - DONE
+    imgs.rocketfin = loadImage("/art/rocket/rocketfin.png");
+    //Rocket Part - DONE
+    imgs.rockettail = loadImage("/art/rocket/rockettail.png");
+    //Rocket engine - DONE
+    imgs.rocketengine = loadAnimation("/art/rocket/engine/00.png", "/art/rocket/engine/05.png")
     //Martian
     imgs.martian = loadImage("/art/mars/martian.png");
     // Fuel
