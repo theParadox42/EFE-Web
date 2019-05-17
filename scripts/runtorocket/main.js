@@ -19,6 +19,7 @@ function runToRocket(){
     for(var i = 0; i < runObstacles.length; i ++){
         runObstacles[i].run(runPlayer);
     }
+    // console.log(runObstacles.length);
     pop();
 };
 

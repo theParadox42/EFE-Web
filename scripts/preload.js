@@ -21,11 +21,11 @@ function preload(){
     imgs.rocketOff = loadAnimation("/art/rocket/rocketoff/00.png", "/art/rocket/rocketoff/05.png");
     imgs.rocketOff.frameDelay = 5;
     //Rocket Fin
-    imgs.rocketfin = loadImage("/art/rocket/rocketfin.png");
+    // imgs.rocketfin = loadImage("/art/rocket/rocketfin.png");
     //Rocket Part
-    imgs.rockettail = loadImage("/art/rocket/rockettail.png");
+    // imgs.rockettail = loadImage("/art/rocket/rockettail.png");
     //Rocket engine
-    imgs.rocketengine = loadAnimation("/art/rocket/engine/00.png", "/art/rocket/engine/05.png")
+    // imgs.rocketengine = loadAnimation("/art/rocket/engine/00.png", "/art/rocket/engine/05.png")
     //Martian
     imgs.martian = loadImage("/art/mars/martian.png");
     // Fuel

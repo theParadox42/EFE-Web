@@ -6,7 +6,7 @@ var loadRun = {
     current: {},
     map: "",
     key: {},
-    buildings: 0,
+    buildings: 5,
     clouds: 0,
     init: function(){
         this.txtKey = {

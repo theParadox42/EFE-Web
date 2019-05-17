@@ -47,6 +47,7 @@ var game = {
             break;
             default:
                 currentScene = "run";
+                returnFunc = function(){}
             break;
         }
         return returnFunc;

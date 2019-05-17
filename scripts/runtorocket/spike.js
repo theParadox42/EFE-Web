@@ -7,8 +7,11 @@ function RunSpike(x, y){
     this.y = runGround.y - this.h;
 }
 RunSpike.prototype.run = function(p){
-    this.display();
-    this.collide(p);
+    var dx = this.x + runPlayer.transX;
+    if(dx + runPlayer.vx + this.w > 0 && dx - runPlayer.vx < width){
+        this.display();
+        this.collide(p);
+    }
 }
 RunSpike.prototype.collide = function(p){
     function death(){
