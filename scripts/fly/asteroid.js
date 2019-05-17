@@ -4,6 +4,7 @@ function Asteroid(x, y, r){
     this.radius = r;
     this.health = 3;
     this.dead = false;
+    this.frame = 0;
 }
 Asteroid.prototype.run = function(p){
     this.display();
@@ -29,9 +30,15 @@ Asteroid.prototype.collide = function(p){
     }
 }
 Asteroid.prototype.display = function(){
+    if(this.dead){
+        this.img = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
+        this.frame ++;
+    } else{
+        this.img = imgs.asteroid;
+    }
     push();
     imageMode(CENTER);
-    image(imgs.asteroid, this.x, this.y, this.radius*2, this.radius*2);
+    image(this.img, this.x, this.y, this.radius*2, this.radius*2);
     pop();
 }
 let asteroids = [];

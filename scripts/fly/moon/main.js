@@ -21,7 +21,7 @@ function flyToMoon(){
     flyPlayer.run();
     for(var i in asteroids){
         asteroids[i].run(flyPlayer);
-        if(asteroids[i].dead){
+        if(asteroids[i].dead&&asteroids[i].frame>20){
             asteroids.splice(i, 1);
         }
     }

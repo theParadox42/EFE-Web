@@ -29,6 +29,15 @@ function preload(){
     imgs.asteroid = loadImage("/art/space/asteroid.png");
     //stars
     imgs.stars = loadImage("/art/space/stars.png"); //thats right, I finally did pixel art
+    //explosion
+    imgs.explosion = Array(11);
+    let addedZero = "0"
+    for(var i = 0; i<imgs.explosion.length; i++){
+        if(i > 9){
+            addedZero = "";
+        }
+        imgs.explosion[i] = loadImage("art/space/explosion/"+addedZero+i+".png");
+    }
     //Spike
     imgs.spike = loadImage("/art/earth/spike.png");
     // Broken Car
