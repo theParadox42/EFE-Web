@@ -13,7 +13,7 @@ function preload(){
     imgs.player = loadImage("/art/earth/simpleplayer.png");// I switched this to simple because the quality is better
     //Cloud
     imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
-    imgs.cloud.frameDelay = 2;
+    imgs.cloud.frameDelay = 10;
     //Rocket On
     imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
