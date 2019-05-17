@@ -3,14 +3,24 @@ function loadFiles(){
 }
 let fileLoader = {
     loaded: 0,
+    loadIndex: 0,
     loading: "fonts",
+    order: [
+        "fonts",
+        "images",
+        "animations"
+    ],
     paths: {
         fonts: [],
-        imgs: [],
-        anims: [],
+        images: [],
+        animations: [],
     },
     update: function(){
-
+        this.loaded++;
+        if(this.loadIndex > this.paths[this.loading].length){
+            this.
+        }
+        imgs[this.paths.names[this.loading][this.loadIndex]
     },
     display: function(){
         background(0);
@@ -22,7 +32,6 @@ let fileLoader = {
         pop();
     },
     run: function(){
-        this.update();
         this.display();
     }
 }

@@ -3,6 +3,9 @@ html, body {
     margin: 0;
     height: 100%;
 }
+body {
+    background-color: #000000;
+}
 canvas {
     position: fixed;
     top: 0;
