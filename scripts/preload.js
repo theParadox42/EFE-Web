@@ -27,6 +27,8 @@ function preload(){
     imgs.fueltank = loadImage("/art/mars/fuel.png");
     //Asteroid
     imgs.asteroid = loadImage("/art/space/asteroid.png");
+    //stars
+    imgs.stars = loadImage("/art/space/stars.png"); //thats right, I finally did pixel art
     //Spike
     imgs.spike = loadImage("/art/spike.png");
     // Broken Car
