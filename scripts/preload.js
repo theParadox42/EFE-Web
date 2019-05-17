@@ -30,7 +30,7 @@ function preload(){
     //stars
     imgs.stars = loadImage("/art/space/stars.png"); //thats right, I finally did pixel art
     //Spike
-    imgs.spike = loadImage("/art/spike.png");
+    imgs.spike = loadImage("/art/earth/spike.png");
     // Broken Car
     imgs.brokenCar = loadImage("/art/earth/brokencar.png");
     // Trash

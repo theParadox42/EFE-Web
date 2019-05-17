@@ -29,6 +29,12 @@
             "asteroid.js",
             "laser.js"
         ],
+        "fly/moon": [
+            "main.js"
+        ],
+        "moon": [
+            "main.js"
+        ],
         "fly/mars": [
             "main.js"
         ],

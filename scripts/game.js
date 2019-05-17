@@ -1,13 +1,16 @@
 
 var game = {
-    currentScene: "fly-venus",
+    currentScene: "run",
     sceneIndex: 0,
     sceneOrder: [
         "run",
         "build",
-        // "fly-mars",
-        // "fight",
-        "fly-venus"
+        "fly-moon",
+        "moon",
+        "fly-mars",
+        "fight",
+        "fly-venus",
+        "ufo"
     ],
     continue: function(){
         if(this.sceneOrder[this.sceneIndex+1]){
@@ -27,6 +30,12 @@ var game = {
             case "build":
                 returnFunc = buildRocket;
             break;
+            case "fly-moon":
+                returnFunc = flyToMoon;
+            break;
+            case "moon":
+                returnFunc = moon;
+            break;
             case "fly-mars":
                 returnFunc = flyToMars;
             break;
@@ -35,6 +44,9 @@ var game = {
             break;
             case "fly-venus":
                 returnFunc = flyToVenus;
+            break;
+            default:
+                currentScene = "run";
             break;
         }
         return returnFunc;
