@@ -6,8 +6,8 @@ var loadRun = {
     current: {},
     map: "",
     key: {},
-    buildings: 5,
-    clouds: 0,
+    buildings: 20,
+    clouds: 3,
     init: function(){
         this.txtKey = {
             "j": "Click/Space/UP/W to jump!",

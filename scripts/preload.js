@@ -1,4 +1,5 @@
-let imgs = {}, fonts = {};
+let imgs = {}
+let fonts = {};
 function drawAnimation(anim, x, y, w, h){
     push();
     translate(x, y);
@@ -13,7 +14,7 @@ function preload(){
     imgs.player = loadImage("/art/earth/simpleplayer.png");// I switched this to simple because the quality is better
     //Cloud
     imgs.cloud = loadAnimation("/art/cloud/00.png", "/art/cloud/04.png");
-    imgs.cloud.frameDelay = 10;
+    imgs.cloud.frameDelay = 240;
     //Rocket On
     imgs.rocketOn = loadAnimation("/art/rocket/rocketon/00.png","/art/rocket/rocketon/05.png");
     imgs.rocketOn.frameDelay = 5;
@@ -52,7 +53,7 @@ function preload(){
     // Streetlight
     imgs.streetlight = loadImage("/art/earth/streetlight.png");
     // buildings
-    imgs.buildings = Array(7);
+    imgs.buildings = Array(6);
     for(var i = 0; i < imgs.buildings.length; i ++){
         imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
     }

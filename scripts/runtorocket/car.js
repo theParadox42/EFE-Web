@@ -23,6 +23,9 @@ RunCar.prototype.collide = function(p){
     }
 }
 RunCar.prototype.run = function(p){
-    this.collide(p);
-    this.display();
+    var dx = this.x + runPlayer.transX;
+    if(dx + runPlayer.vx + this.w > 0 && dx - runPlayer.vx < width){
+        this.collide(p);
+        this.display();
+    }
 }
