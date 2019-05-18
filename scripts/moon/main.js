@@ -4,7 +4,11 @@ function moon(){
     }
     manOnTheMoon.run();
     image(imgs.moon, 0, 0, width, height);
+    moonShip.run();
+    moonPlayer.run();
 }
 moon.init = function(){
     manOnTheMoon.init();
+    moonShip.init();
+    moonPlayer.init();
 }

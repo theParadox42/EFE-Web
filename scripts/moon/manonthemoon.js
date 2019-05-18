@@ -4,8 +4,12 @@ let manOnTheMoon = {
     w: 0,
     h: 0,
     img: 0,
+    appear: false,
     run: function(){
         this.display();
+        if(this.appear&&this.y>height*0.67-this.h/2){
+            this.y -= 3;
+        }
     },
     display: function(){
         push();
@@ -19,7 +23,7 @@ let manOnTheMoon = {
         this.w = max(width/3, height/2);
         this.h = this.w * this.img.height / this.img.width;
         this.x = width/2;
-        this.y = height*0.67-this.h/2;
-        console.log(this.w)
+        //this.y = height*0.67-this.h/2;
+        this.y = height+this.w * this.img.height / this.img.width
     }
 }
