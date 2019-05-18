@@ -7,7 +7,7 @@ var game = {
     sceneOrder: [
         "load",
         // "run",
-        // "build",
+        "build",
         // "fly-moon",
         "moon",
         "fly-mars",

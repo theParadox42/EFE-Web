@@ -1,6 +1,7 @@
 let bGame = {
     maps: [],
-    map: {},
+    map: [],
+    current: {},
     blocks: [],
     player: null,
     level: 0,
@@ -8,8 +9,13 @@ let bGame = {
     bh: 100,
     key: {},
     run: function(){
+        if(!this.player) return;
         for(var i = 0; i < this.blocks.length; i ++){
-            this.blocks.run(this.player);
+            if(typeof this.blocks.run == "function"){
+                this.blocks[i].run(this.player);
+            } else {
+                console.log(this.blocks[i]);
+            }
         }
         this.player.run();
     },
@@ -20,13 +26,14 @@ let bGame = {
             "%": BPortal,
             "*": BPart
         }
+        this.load();
     },
     next: function(){
         this.level = 0;
         this.load();
     },
     load: function(){
-        this.map = this.maps[this.level];
+        this.map = this.maps[this.level].map;
         this.reload();
     },
     reload: function(){
@@ -35,6 +42,9 @@ let bGame = {
                 let x = j * this.bw;
                 let y = i * this.bh;
                 let constructor = this.key[this.map[i][j]];
+                if(this.map[i][j]=="*"){
+                    constructor = constructor[this.current.item]
+                }
                 if(constructor){
                     this.blocks.push(new constructor(x, y, this.bw, this.bh));
                 } if(this.map[i][j] == "@") {
