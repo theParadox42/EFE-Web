@@ -6,9 +6,11 @@ function moon(){
     image(imgs.moon, 0, 0, width, height);
     moonShip.run();
     moonPlayer.run();
+    moonTextBox.run();
 }
 moon.init = function(){
     manOnTheMoon.init();
     moonShip.init();
     moonPlayer.init();
+    moonTextBox.init();
 }

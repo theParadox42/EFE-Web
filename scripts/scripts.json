@@ -41,7 +41,8 @@
             "main.js",
             "manonthemoon.js",
             "ship.js",
-            "player.js"
+            "player.js",
+            "textbox.js"
         ],
         "fly/mars": [
             "main.js"

@@ -13,14 +13,14 @@ let moonShip = {
         } else{
             this.moving = false;
             this.playerWait ++;
-            if(this.playerWait>40){
+            if(this.playerWait>40&&this.playerWait<100){
                 moonPlayer.appear();
             }
         }
         this.display();
     },
     init: function(){
-        this.x = width/2-200;
+        this.x = width/2-350;
         this.y = -50;
         this.offImg = imgs.rocketOff;
         this.onImg = imgs.rocketOn;

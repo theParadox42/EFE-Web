@@ -5,6 +5,7 @@ let moonPlayer = {
     h: 0,
     direction: "right",
     wait: 0,
+    runAway: false,
     run: function(){
         this.display();
         if(this.appeared){
@@ -15,8 +16,15 @@ let moonPlayer = {
             if(this.wait>60){
                 this.direction = "right";
             }
-            if(this.wait>80){
+            if(this.wait>65){
                 manOnTheMoon.appear = true;
+            }
+            if(this.runAway){
+                this.direction = "left";
+                this.x -= 3;
+                if(this.x<-this.w/2){
+                    game.continue();
+                }
             }
         }
     },
