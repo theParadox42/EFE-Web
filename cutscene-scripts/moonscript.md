@@ -1,5 +1,5 @@
 ## moon script boi
-*lands on the moon*
+*lands on the moon*\
 *exits ship*
 *looks for gas station*
 (hears rumbling)
