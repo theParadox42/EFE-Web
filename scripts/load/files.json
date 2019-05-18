@@ -4,11 +4,15 @@
     ],
     "images": [
         "/art/earth/player.png",
-        "/art/earth/spike.png",
-        "/art/earth/trash.png",
         "/art/earth/brokencar.png",
         "/art/earth/streetlight.png",
         "/art/earth/sign.png",
+        "/art/earth/blocks/spike.png",
+        "/art/earth/blocks/trash.png",
+        "/art/earth/blocks/grass.png",
+        "/art/earth/blocks/platform.png",
+        "/art/earth/blocks/refinery.png",
+        "/art/earth/blocks/water.png",
         "/art/mars/fuel.png",
         "/art/rocket/rocketfin.png",
         "/art/rocket/rockettail.png",
@@ -25,6 +29,11 @@
             200,
             "/art/cloud/00.png",
             "/art/cloud/04.png"
+        ],
+        [
+            4,
+            "/art/earth/blocks/fire/00.png",
+            "/art/earth/blocks/fire/04.png"
         ],
         [
             5,
@@ -53,11 +62,15 @@
         ],
         "images": [
             "player",
-            "spike",
-            "trash",
             "brokenCar",
             "streetlight",
             "woodsign",
+            "spike",
+            "trash",
+            "grass",
+            "platform",
+            "refinery",
+            "water",
             "fueltank",
             "rocketfin",
             "rockettail",
@@ -71,6 +84,7 @@
         ],
         "animations": [
             "cloud",
+            "fire",
             "rocketOn",
             "rocketOff",
             "rocketengine",
