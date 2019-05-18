@@ -7,7 +7,7 @@ Man on the moon (MoM) appears\
 MoM: Fee fi fo fum! It is I, the man on the moon!\
 Tom: Wait, your the guy from dream works!\
 MoM: Yes that was me. However, my looks haven't quite stayed the same since i got space Diabetes\
-Tom: Wow, you've aged so much since then.
+Tom: Wow, you've aged so much since then.\
 MoM: How dare you! I'll have you know that I'm at the young age of 4.53 billion years. I'm in my prime! I'm practically fresh out of the womb\
 Tom: But your hair is gray!\
 MoM: Shut up, space diabetes has some unspeakable effects\
