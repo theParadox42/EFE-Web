@@ -1,6 +1,6 @@
 
 var game = {
-    currentScene: "moon",
+    currentScene: "run",
     sceneIndex: 0,
     sceneOrder: [
         // "load",

@@ -9,6 +9,8 @@ let manOnTheMoon = {
         this.display();
         if(this.appear&&this.y>height*0.67-this.h/2){
             this.y -= 3;
+        } else if(this.appear&&moonTextBox.line<20){
+            moonTextBox.show = true;
         }
     },
     display: function(){
@@ -24,6 +26,6 @@ let manOnTheMoon = {
         this.h = this.w * this.img.height / this.img.width;
         this.x = width/2;
         //this.y = height*0.67-this.h/2;
-        this.y = height+this.w * this.img.height / this.img.width
+        this.y = height+this.w * this.img.height / this.img.width-50;
     }
 }
