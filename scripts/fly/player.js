@@ -39,6 +39,12 @@ FlyPlayer.prototype.update = function(){
 
     this.speed *= 0.9;
     this.speed = constrain(this.speed, -5, 5);
+
+    if(this.y - this.h / 1.7 > height){
+        this.y -= height + this.h / 1.8 + this.h / 1.7;
+    } else if(this.y + this.h / 1.7 < 0){
+        this.y += height + this.h / 1.8 + this.h / 1.7;
+    }
 }
 FlyPlayer.prototype.control = function(){
     if(keys[" "]){

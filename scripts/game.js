@@ -1,9 +1,9 @@
 
 var game = {
-    currentScene: "load",
-    sceneIndex: 0,
+    currentScene: "fly-moon",
+    sceneIndex: 2,
     sceneOrder: [
-        "load",
+        // "load",
         "run", // Tanner just change this from now on, the loading was causing problems because there was so many things
         "build",
         "fly-moon",
@@ -63,9 +63,10 @@ var game = {
         if(typeof this.getFunc().init == "function"){
             this.getFunc().init();
         }
-        this.sceneIndex = this.sceneOrder.indexOf(function(a){
+        let currentIndex = this.sceneOrder.indexOf(function(a){
             return a == this.currentScene;
         })
+        this.sceneIndex = currentIndex >= 0 ? currentIndex : this.sceneIndex;
     },
     resize: function(){
         if(typeof this.getFunc().resize == "function"){
