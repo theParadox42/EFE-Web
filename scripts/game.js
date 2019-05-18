@@ -8,7 +8,7 @@ var game = {
         "load",
         // "run",
         // "build",
-        "fly-moon",
+        // "fly-moon",
         "moon",
         "fly-mars",
         "fight",
