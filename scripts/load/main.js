@@ -1,26 +1,78 @@
+let imgs = {}, fonts = {};
+
 function loadFiles(){
     fileLoader.run();
 }
+loadFiles.init = function(){
+    fileLoader.loadAll();
+}
 let fileLoader = {
     loaded: 0,
+    needed: 0,
+    neededTypes: 0,
     loadIndex: 0,
-    loading: "fonts",
+    loading: "animations",
+    typeIndex: 0,
     order: [
+        "animations",
         "fonts",
-        "images",
-        "animations"
+        "images"
     ],
     paths: {
         fonts: [],
         images: [],
         animations: [],
     },
-    update: function(){
-        this.loaded++;
-        if(this.loadIndex > this.paths[this.loading].length){
-            this.
+    onLoad: function(stuff){
+        fileLoader.loaded ++;
+    },
+    failed: function(e){
+        console.warn("File didn't load. Error was: "+e+"\nContinuing");
+        fileLoader.onLoad();
+    },
+    loadOne: function(){
+        if(this.loadIndex >= this.paths[this.loading].length){
+            this.loadIndex = 0;
+            this.typeIndex ++;
+            if(this.typeIndex >= this.neededTypes){
+                return true;
+            }
+            this.loading = this.order[this.typeIndex];
         }
-        imgs[this.paths.names[this.loading][this.loadIndex]
+        let fileObject = this.loading == "fonts" ? fonts : imgs;
+        let loaderFunction = this.loading == "animations" ? loadAnimation : (this.loading == "images" ? loadImage : loadFont);
+        let data, arg1, arg2, arg3, path;
+        data = this.paths[this.loading][this.loadIndex];
+        name = this.paths.names[this.loading][this.loadIndex];
+        if(this.loading == "animations"){
+            arg1 = data[1];
+            arg2 = data[2];
+        } else {
+            arg1 = data;
+            arg2 = fileLoader.onLoad;
+            arg3 = fileLoader.failed;
+        }
+        if(arg3){
+            fileObject[name] = loaderFunction(arg1, arg2, arg3);
+        } else {
+            fileObject[name] = loaderFunction(arg1, arg2);
+        }
+        if(this.loading == "animations"){
+            this.onLoad();
+            fileObject[name].frameDelay = data[0] || 4;
+            // console.log(file)
+        }
+        this.loadIndex++;
+        return false;
+    },
+    loadAll: function(){
+        loadSpecial();
+        while(!this.loadOne()){}
+    },
+    update: function(){
+        if(this.loaded >= this.needed){
+            game.continue(true);
+        }
     },
     display: function(){
         background(0);
@@ -29,12 +81,27 @@ let fileLoader = {
         fill(255);
         textSize(50);
         text("Loading...", width/2, height/2);
+        rect(width/2-200, height/2+50, this.loaded/this.needed*400, 50, 10);
+        push();
+        rect(width/2-200, height/2+50, 400, 50, 10);
+        pop();
         pop();
     },
     run: function(){
+        this.update();
         this.display();
     }
 }
 $.getJSON("/scripts/load/files.json", function(data){
     fileLoader.paths = data;
+    for(var i in data){
+        if(i != "names"){
+            for(var j in data[i]){
+                fileLoader.needed ++;
+            }
+        }
+    }
+    for(var i in data.names){
+        fileLoader.neededTypes ++;
+    }
 });

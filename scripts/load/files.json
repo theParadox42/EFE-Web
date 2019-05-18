@@ -4,16 +4,24 @@
     ],
     "images": [
         "/art/earth/player.png",
+        "/art/earth/spike.png",
+        "/art/earth/trash.png",
+        "/art/earth/brokencar.png",
+        "/art/earth/streetlight.png",
+        "/art/earth/sign.png",
+        "/art/mars/fuel.png",
         "/art/rocket/rocketfin.png",
         "/art/rocket/rockettail.png",
-        "/art/mars/martian.png",
-        "/art/mars/fuel.png",
         "/art/space/asteroid.png",
-        "/art/space/stars.png"
+        "/art/space/stars.png",
+        "/art/space/mom/default.png",
+        "/art/space/mom/eyesclosed.png",
+        "/art/space/mom/eyesopen.png",
+        "/art/mars/martian.png"
     ],
     "animations": [
         [
-            240,
+            200,
             "/art/cloud/00.png",
             "/art/cloud/04.png"
         ],
@@ -33,9 +41,9 @@
             "/art/rocket/engine/05.png"
         ],
         [
-            3,
-            "/art/space/explosion/00.png",
-            "/art/space/explosion/11.png"
+            10,
+            "/art/space/sign/00.png",
+            "/art/space/sign/01.png"
         ]
     ],
     "names": {
@@ -44,19 +52,27 @@
         ],
         "images": [
             "player",
+            "spike",
+            "trash",
+            "brokenCar",
+            "streetlight",
+            "woodsign",
+            "fueltank",
             "rocketfin",
             "rockettail",
-            "martian",
-            "fueltank",
             "asteroid",
-            "stars"
+            "stars",
+            "momdefault",
+            "momeyesclosed",
+            "momeyesopen",
+            "martian"
         ],
         "animations": [
             "cloud",
             "rocketOn",
             "rocketOff",
             "rocketengine",
-            "explosion",
+            "spacesign"
         ]
     }
 }

@@ -8,7 +8,13 @@ var loadRun = {
     key: {},
     buildings: 20,
     clouds: 3,
+    hasLoaded: false,
     init: function(){
+        if(this.maps.length == 0) {
+            return null;
+        }
+        runGround.init();
+        runPlayer.init();
         this.txtKey = {
             "j": "Click/Space/UP/W to jump!",
             "f": "Use the arrow keys to move faster/slower",
@@ -21,9 +27,11 @@ var loadRun = {
             "l": RunStreetLight,
             "%": RunNext
         }
+        this.load();
+        this.hasLoaded = true;
     },
     load: function(){
-        if(!this.maps[this.level]) return game.continue();
+        if(!this.maps[this.level] && this.maps.length != 0) return game.continue();
         this.current = this.maps[this.level];
         this.map = this.current.map;
         this.signs = this.current.txt;

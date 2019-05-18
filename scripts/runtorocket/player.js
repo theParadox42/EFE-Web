@@ -1,5 +1,6 @@
 function RunPlayer(x, y){
     this.x = x;
+    this.ox = x;
     this.y = y;
     this.w = 50;
     this.h = this.w;
@@ -20,11 +21,10 @@ function RunPlayer(x, y){
 RunPlayer.prototype.init = function(){
     this.img = imgs.player;
     this.h = this.w*this.img.height/this.img.width;
+    this.y = runGround.y-this.h;
+    this.oy = this.y;
     this.dh = this.h/2.3;
     this.oh = this.h;
-    this.y = runGround.y-this.h;
-    this.ox = this.x;
-    this.oy = this.y;
 };
 RunPlayer.prototype.collide = function(){
     if(this.y+this.h+this.vy>runGround.y){
@@ -55,7 +55,7 @@ RunPlayer.prototype.control = function(){
         this.ducking = false;
     }
     this.h = this.ducking ? this.dh : this.oh;
-}
+};
 RunPlayer.prototype.update = function(){
     //Collisions
     this.collide();

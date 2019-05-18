@@ -5,7 +5,7 @@
 (hears rumbling)\
 Man on the moon (MoM) appears\
 MoM: Fee fi fo fum! It is I, the man on the moon!\
-Tom: Wait, your the guy from dream works!\
+Tom: Wait, you're the guy from dream works!\
 MoM: Yes that was me. However, my looks haven't quite stayed the same since i got space Diabetes\
 Tom: Wow, you've aged so much since then.\
 MoM: How dare you! I'll have you know that I'm at the young age of 4.53 billion years. I'm in my prime! I'm practically fresh out of the womb\
@@ -24,4 +24,4 @@ MoM: yeah, and I'm warning you, their bites are more painful than you would beli
 Hands him gun\
 MoM: This gun is incredibly important to me. Take care of it. It has been passed down through my family for generations. My father gave it to me shortly before he passed away, along with a very important message, to uphold the family honor. In his last breath, he requested that --\
 Tom: Ok thanks!\
-*takes gun, heads toward gas station
+*takes gun, heads toward gas station*

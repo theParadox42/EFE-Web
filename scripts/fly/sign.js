@@ -5,21 +5,11 @@ function FlySign(x, txt){
     this.y = height/2-this.h/2;
     this.txt = txt;
     this.padding = 100;
-    this.frame = 0;
+    this.img = imgs.spacesign.clone();
 }
 FlySign.prototype.display = function(p){
-    this.img = imgs.spaceSigns[round(this.frame/12)]
-    this.frame ++;
-    if(this.frame>12){
-        this.frame = 0;
-    }
     push();
-    strokeCap(SQUARE);
-    strokeWeight(10);
-    stroke(242, 242, 242);
-    fill(200);
-    //rect(this.x, this.y, this.w, this.h);
-    image(this.img, this.x, this.y, this.w, this.h)
+    drawAnimation(this.img, this.x + this.w/2, this.y + this.h/2, this.w, this.h);
     fill(0);
     noStroke();
     textSize(40);

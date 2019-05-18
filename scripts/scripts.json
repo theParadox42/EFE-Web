@@ -1,7 +1,7 @@
 {
     "scripts": {
         "load": [
-
+            "loadspecial.js"
         ],
         "runtorocket": [
             "player.js",
@@ -53,7 +53,6 @@
             "main.js"
         ],
         "": [
-            "preload.js",
             "main.js",
             "game.js",
             "input.js"

@@ -12,6 +12,7 @@ function drawAnimation(anim, x, y, w, h){
     pop();
 };
 function preload(){
+    /*
     //Font - DONE
     fonts.pixel = loadFont("/fonts/pixelfont.ttf");
     //Player - DONE
@@ -66,6 +67,7 @@ function preload(){
     for(var i = 0; i<imgs.spaceSigns.length; i++){
         imgs.spaceSigns[i] = loadImage("/art/space/signs/0"+i+".png");
     }
+    */
     //man on the moon
     imgs.manOnTheMoon = Array(3);
     imgs.manOnTheMoon[0] = loadImage("/art/space/man on the moon/man on the moon.png");

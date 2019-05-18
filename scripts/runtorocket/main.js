@@ -1,5 +1,6 @@
 
 function runToRocket(){
+
     background(200, 225, 255);
 
     for(var i = 0; i < runScenery.length; i ++){
@@ -7,7 +8,7 @@ function runToRocket(){
     }
     fill(255, 255, 255, 60);
     rect(0,0,width,height);
-
+//
     push();
     translate(runPlayer.transX, 0);
 
@@ -24,10 +25,7 @@ function runToRocket(){
 };
 
 runToRocket.init = function(){
-    runGround.init();
-    runPlayer.init();
     loadRun.init();
-    loadRun.load();
 };
 runToRocket.reload = function(){
     loadRun.reload();
