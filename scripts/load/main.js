@@ -8,6 +8,7 @@ loadFiles.init = function(){
 }
 let fileLoader = {
     loaded: 0,
+    loadProgress: 0,
     needed: 0,
     neededTypes: 0,
     loadIndex: 0,
@@ -70,7 +71,8 @@ let fileLoader = {
         while(!this.loadOne()){}
     },
     update: function(){
-        if(this.loaded >= this.needed){
+        this.loadProgress = min(this.loadProgress+0.07, this.loaded/this.needed);
+        if(this.loadProgress >= 1){
             game.continue(true);
         }
     },
@@ -81,8 +83,9 @@ let fileLoader = {
         fill(255);
         textSize(50);
         text("Loading...", width/2, height/2);
-        rect(width/2-200, height/2+50, this.loaded/this.needed*400, 50, 10);
+        rect(width/2-200, height/2+50, this.loadProgress*400, 50, 10);
         push();
+        noFill();
         rect(width/2-200, height/2+50, 400, 50, 10);
         pop();
         pop();

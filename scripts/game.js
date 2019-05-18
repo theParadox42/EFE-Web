@@ -60,6 +60,7 @@ var game = {
     },
     run: function(){
         this.getFunc()();
+        resetInput();
     },
     init: function(){
         if(typeof this.getFunc().init == "function"){

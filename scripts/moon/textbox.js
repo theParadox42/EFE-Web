@@ -4,13 +4,14 @@ let moonTextBox = {
     y: 0,
     w: 400,
     h: 200,
+    padding: 10,
     text: "",
     textShowing: 0,
     line: 0,
     show: false,
     run: function(){
         if(this.show === true){
-            if(this.textShowing>=this.text.length&&keys[" "]){
+            if(this.textShowing>=this.text.length&&keysReleased[" "]){
                 this.line ++;
                 if(this.line === 17) this.line ++; //trying to keep the speakers right without having to do other things
                 if(this.line<20){
@@ -21,6 +22,8 @@ let moonTextBox = {
                     this.text = "";
                     moonPlayer.runAway = true;
                 }
+            } else if(keysReleased[" "]){
+                this.textShowing = this.text.length;
             }
             this.display();
             this.textShowing += 0.5;
@@ -32,16 +35,20 @@ let moonTextBox = {
         else
             this.speaker = "Tom";
         push();
-        fill(232, 232, 232);
+        fill(232);
+        stroke(240);
+        strokeWeight(5);
         rect(this.x, this.y, this.w, this.h);
         fill(0, 0, 0);
-        textSize(20);
+        textSize(15);
+        stroke(255);
+        strokeWeight(1);
         textFont(fonts.pixel);
         if(this.line<20){
-            text(this.speaker+": "+this.text.substr(0, this.textShowing), this.x+2, this.y+2, this.w, this.h);
+            text(this.speaker+": "+this.text.substr(0, this.textShowing), this.x+this.padding, this.y+this.padding, this.w-this.padding*2, this.h-this.padding*2);
         }
         if(this.line === 0&&this.textShowing>=this.text.length){
-            text("Press space to continue", this.x+2, this.y+this.h-20);
+            text("Press space to continue", this.x+this.padding, this.y+this.h-20-this.padding*2);
         }
         pop();
     },
