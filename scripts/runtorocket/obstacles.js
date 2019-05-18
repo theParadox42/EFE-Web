@@ -1,4 +1,4 @@
-let runObstacles = [], runSigns = [], runBuildings = [];
+let runObstacles = [], runSigns = [], runScenery = [];
 
 var loadRun = {
     level: 0,

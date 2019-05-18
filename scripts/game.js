@@ -1,11 +1,11 @@
 
 var game = {
-    currentScene: "fly-moon",
-    sceneIndex: 2,
+    currentScene: "run",
+    sceneIndex: 0,
     sceneOrder: [
         // "load",
         "run", // Tanner just change this from now on, the loading was causing problems because there was so many things
-        "build",
+        // "build",
         "fly-moon",
         "moon",
         "fly-mars",
