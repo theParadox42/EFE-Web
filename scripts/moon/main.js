@@ -6,6 +6,7 @@ function moon(){
     image(imgs.moon, 0, 0, width, height);
     moonShip.run();
     moonPlayer.run();
+    moonGun.run();
     moonTextBox.run();
 }
 moon.init = function(){
@@ -13,4 +14,5 @@ moon.init = function(){
     moonShip.init();
     moonPlayer.init();
     moonTextBox.init();
+    moonGun.init();
 }

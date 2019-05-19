@@ -13,7 +13,10 @@ let moonTextBox = {
         if(this.show === true){
             if(this.textShowing>=this.text.length&&(keysReleased[" "]||keysReleased[32]||clicked)){
                 this.line ++;
-                if(this.line === 17) this.line ++; //trying to keep the speakers right without having to do other things
+                if(this.line === 17){
+                    this.line ++; //trying to keep the speakers right without having to do other things
+                    moonGun.appear = true;
+                }
                 if(this.line<20){
                     this.text = moonConversation[this.line];
                     this.textShowing = 0;

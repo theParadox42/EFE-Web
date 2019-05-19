@@ -42,7 +42,8 @@
             "manonthemoon.js",
             "ship.js",
             "player.js",
-            "textbox.js"
+            "textbox.js",
+            "gun.js"
         ],
         "fly/mars": [
             "main.js"

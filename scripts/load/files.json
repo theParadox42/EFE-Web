@@ -22,7 +22,8 @@
         "/art/space/mom/default.png",
         "/art/space/mom/eyesclosed.png",
         "/art/space/mom/eyesopen.png",
-        "/art/mars/martian.png"
+        "/art/mars/martian.png",
+        "/art/space/moongun.png"
     ],
     "animations": [
         [
@@ -80,7 +81,8 @@
             "momdefault",
             "momeyesclosed",
             "momeyesopen",
-            "martian"
+            "martian",
+            "moonGun"
         ],
         "animations": [
             "cloud",
