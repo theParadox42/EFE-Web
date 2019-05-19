@@ -42,7 +42,7 @@ RunPlayer.prototype.control = function(){
         this.gvx = this.normalSpeed * xs;
     } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
         this.vy+=0.3;
-    } if((keys[UP_ARROW] || keys.w || keys[32] || mouseIsPressed) && this.grounded){
+    } if((keys[UP_ARROW] || keys.w || keys[32] || keys[" "] || pressed) && this.grounded){
         this.vy-=15;
     } else if(keys[DOWN_ARROW] || keys.s){
         if(this.grounded && !this.ducking){

@@ -11,7 +11,7 @@ let moonTextBox = {
     show: false,
     run: function(){
         if(this.show === true){
-            if(this.textShowing>=this.text.length&&keysReleased[" "]){
+            if(this.textShowing>=this.text.length&&(keysReleased[" "]||keysReleased[32]||clicked)){
                 this.line ++;
                 if(this.line === 17) this.line ++; //trying to keep the speakers right without having to do other things
                 if(this.line<20){
@@ -22,7 +22,7 @@ let moonTextBox = {
                     this.text = "";
                     moonPlayer.runAway = true;
                 }
-            } else if(keysReleased[" "]){
+            } else if(keysReleased[" "]||keysReleased[32]||clicked){
                 this.textShowing = this.text.length;
             }
             this.display();

@@ -14,6 +14,8 @@ let fileLoader = {
     loadIndex: 0,
     loading: "animations",
     typeIndex: 0,
+    counter: 0,
+    timeNeeded: 0,
     order: [
         "animations",
         "fonts",
@@ -71,7 +73,17 @@ let fileLoader = {
         while(!this.loadOne()){}
     },
     update: function(){
-        this.loadProgress = min(this.loadProgress+0.07, this.loaded/this.needed);
+        this.loadProgress = min(this.loadProgress+0.01, this.loaded/this.needed);
+        if(this.loaded<this.needed){
+            this.loadProgress = this.loaded/this.needed;
+            this.counter ++;
+        } else if(this.timeNeeded == 0){
+            this.timeNeeded = this.counter * 2;
+            this.counter = 0;
+        } else {
+            this.counter ++;
+            this.loadProgress = this.counter/this.timeNeeded;
+        }
         if(this.loadProgress >= 1){
             game.continue(true);
         }
@@ -83,6 +95,8 @@ let fileLoader = {
         fill(255);
         textSize(50);
         text("Loading...", width/2, height/2);
+        stroke(255);
+        strokeWeight(5);
         rect(width/2-200, height/2+50, this.loadProgress*400, 50, 10);
         push();
         noFill();

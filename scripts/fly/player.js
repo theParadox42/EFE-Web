@@ -47,7 +47,7 @@ FlyPlayer.prototype.update = function(){
     }
 }
 FlyPlayer.prototype.control = function(){
-    if(keys[" "]){
+    if(keys[" "] || keys[32]){
         this.speed += 0.3;
         this.vx*=0.8;
         this.vy*=0.8;
@@ -79,7 +79,7 @@ FlyPlayer.prototype.display = function(){
     translate(this.x, this.y);
     rotate(this.r);
     // scale(this.w/this.imgT.width, this.h/this.imgT.height)
-    if(keys[" "]){
+    if(keys[" "]||keys[32]){
         drawAnimation(this.onImg, 0, 0, this.w, this.h);
     } else {
         drawAnimation(this.offImg, 0, 0, this.w, this.h);

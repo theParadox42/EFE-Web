@@ -15,6 +15,17 @@ var game = {
         "fly-venus",
         "ufo"
     ],
+    reqControls: {
+        "load": false,
+        "run": true,
+        "build": true,
+        "fly-moon": true,
+        "moon": false,
+        "fly-mars": true,
+        "fight": true,
+        "fly-venus": true,
+        "ufo": true
+    },
     continue: function(){
         if(this.sceneOrder[this.sceneIndex+1]){
             this.sceneIndex ++;
@@ -62,8 +73,14 @@ var game = {
         return returnFunc;
     },
     run: function(){
+        if(isMobile && this.reqControls[this.currentScene]){
+            updateMobile();
+        }
         this.getFunc()();
         resetInput();
+        if(isMobile && this.reqControls[this.currentScene]){
+            displayMobile();
+        }
     },
     init: function(){
         if(typeof this.getFunc().init == "function"){
@@ -73,6 +90,9 @@ var game = {
             return a == this.currentScene;
         })
         this.sceneIndex = currentIndex >= 0 ? currentIndex : this.sceneIndex;
+        if(isMobile){
+            createMobileControls();
+        }
     },
     resize: function(){
         if(typeof this.getFunc().resize == "function"){

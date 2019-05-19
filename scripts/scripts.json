@@ -56,7 +56,8 @@
         "": [
             "main.js",
             "game.js",
-            "input.js"
+            "input.js",
+            "mobile.js"
         ]
     }
 }
