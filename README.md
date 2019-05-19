@@ -5,13 +5,19 @@ You slept in, and today everyone is getting on the rocket ship to go to mars. Yo
 (Maybe he tries for like 2 more, with some extra plat-former levels, idk)
 ## Part II
 After missing the rocket ships, you decide to build your own before the earth blows up. Run around and collect parts in different levels to build it. You finish and take off  
-(Epic space fight #1?)
-## Part III
+## PART III
+Learn how to fly by going to the moon
+## PART IV
+Meet the man on the moon, and recieve his epic space gun.
+## PART V
+Use your epic skills to fly to mars
+## Part VI
 You arrive at mars, but no one is there, just some note saying they went to Venus because it was more habitable. You fight off martians to get extra fuel.
-## Part IV
-You fly to Venus, but go through asteroids and alien spaceships, can you survive?  
-(Similar to epic space fight #1 if we include it)
-## Part V
+## Part VII
+You fly to Venus, but go through asteroids and ufos
+## PART VIII
+Fight the ultimate ufo boss
+## Part IX
 The end  
 (Maybe you have to survive something on Venus too, extreme weather?)
 ## Credits
