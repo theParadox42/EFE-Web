@@ -6,12 +6,12 @@ var game = {
     // Slash out all the scenes until the one you are working on EXCEPT for "load"
     sceneOrder: [
         "load",
-        // "run",
-        "build",
-        // "fly-moon",
+        "run",
+        // "build",
+        "fly-moon",
         "moon",
-        "fly-mars",
-        "fight",
+        // "fly-mars",
+        // "fight",
         "fly-venus",
         "ufo"
     ],
@@ -50,6 +50,9 @@ var game = {
             break;
             case "fly-venus":
                 returnFunc = flyToVenus;
+            break;
+            case "ufo":
+                returnFunc = ufoBossFight;
             break;
             default:
                 currentScene = "run";
