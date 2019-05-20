@@ -18,13 +18,19 @@ let bGame = {
         }
         this.player.run();
     },
-    init: function(){
-        this.key = {
-            "#": BBlock,
-            "^": BSpike,
-            "%": BPortal,
-            "*": BPart
+    getConst: function(char){
+        switch(char){
+            case "@": return BBlock; break;
+            case "#": return BBlock; break;
+            case "^": return BSpike; break;
+            case "%": return BPortal; break;
+            case "*0": return BPart[0]; break;
+            case "*1": return BPart[1]; break;
+            case "*2": return BPart[2]; break;
+            default: return null; break;
         }
+    },
+    init: function(){
         this.load();
     },
     next: function(){
@@ -40,15 +46,14 @@ let bGame = {
             for(var j = 0; j < this.map[i].length; j ++){
                 let x = j * this.bw;
                 let y = i * this.bh;
-                function constructor(x, y, w, h){
-                    this.key[this.map[i][j]].call(this, x, y, w, h);
-                }
-                constructor.prototype = Object.create(this.key[this.map[i][j]].prototype);
-                if(this.map[i][j]=="*"){
-                    constructor = constructor[this.current.item]
-                }
-                if(constructor){
-                    this.blocks.push(new constructor(x, y, this.bw, this.bh));
+                let k = this.map[i][j];
+                if(this.getConst(k){
+                    if(this.map[i][j]=="*"){
+                        constructor = constructor[this.current.item]
+                    }
+                    if(constructor){
+                        this.blocks.push(new constructor(x, y, this.bw, this.bh));
+                    }
                 } if(this.map[i][j] == "@") {
                     this.player = new BPlayer(x, y, this.bh);
                 }
