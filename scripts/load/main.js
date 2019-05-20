@@ -68,7 +68,7 @@ let fileLoader = {
         return false;
     },
     loadAll: function(){
-        frameRate(2);
+        frameRate(30);
         loadSpecial();
         while(!this.loadOne()){}
     },
