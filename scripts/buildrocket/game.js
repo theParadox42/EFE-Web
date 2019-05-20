@@ -7,15 +7,22 @@ let bGame = {
     level: 0,
     bw: 100,
     bh: 100,
+    h: 0,
+    w: 0,
+    sw: 0,
+    sh: 0,
     key: {},
+    scaleFactor: 0,
     run: function(){
         if(!this.player) return;
         push();
-        scale(height/this.map.length/this.bh);
+        scale(this.scaleFactor);
+        translate(this.player.getTransX(), 0);
+        this.player.update();
         for(var i = 0; i < this.blocks.length; i ++){
             this.blocks[i].run(this.player);
         }
-        this.player.run();
+        this.player.display();
         pop();
     },
     getConst: function(char){
@@ -39,6 +46,11 @@ let bGame = {
     },
     load: function(){
         this.map = this.maps[this.level].map;
+        this.scaleFactor = height/this.map.length/this.bh;
+        this.h = this.map.length * this.bh;
+        this.w = this.map[0].length * this.bw;
+        this.sw = 1/this.scaleFactor * width;
+        this.sh = 1/this.scaleFactor * height;
         this.reload();
     },
     reload: function(){

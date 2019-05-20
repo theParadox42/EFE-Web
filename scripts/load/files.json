@@ -38,6 +38,11 @@
             "/art/earth/blocks/fire/04.png"
         ],
         [
+            4,
+            "/art/earth/blocks/toxic/00.png",
+            "/art/earth/blocks/toxic/04.png"
+        ],
+        [
             5,
             "/art/rocket/rocketon/00.png",
             "/art/rocket/rocketon/05.png"
@@ -89,6 +94,7 @@
         "animations": [
             "cloud",
             "fire",
+            "toxicwaste",
             "rocketOn",
             "rocketOff",
             "rocketengine",

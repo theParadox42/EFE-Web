@@ -19,12 +19,8 @@
         ],
         "buildrocket": [
             "player.js",
-            "block.js",
-            "part.js",
-            "spike.js",
-            "portal.js",
+            "blocks.js",
             "game.js",
-            "spawn.js",
             "main.js"
         ],
         "fly": [
