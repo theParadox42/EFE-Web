@@ -13,7 +13,6 @@ let bGame = {
         for(var i = 0; i < this.blocks.length; i ++){
             if(typeof this.blocks.run == "function"){
                 this.blocks[i].run(this.player);
-            } else {
                 console.log(this.blocks[i]);
             }
         }
@@ -41,7 +40,10 @@ let bGame = {
             for(var j = 0; j < this.map[i].length; j ++){
                 let x = j * this.bw;
                 let y = i * this.bh;
-                let constructor = this.key[this.map[i][j]];
+                function constructor(x, y, w, h){
+                    this.key[this.map[i][j]].call(this, x, y, w, h);
+                }
+                constructor.prototype = Object.create(this.key[this.map[i][j]].prototype);
                 if(this.map[i][j]=="*"){
                     constructor = constructor[this.current.item]
                 }
