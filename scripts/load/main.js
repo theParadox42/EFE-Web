@@ -63,12 +63,12 @@ let fileLoader = {
         if(this.loading == "animations"){
             this.onLoad();
             fileObject[name].frameDelay = data[0] || 4;
-            // console.log(file)
         }
         this.loadIndex++;
         return false;
     },
     loadAll: function(){
+        frameRate(2);
         loadSpecial();
         while(!this.loadOne()){}
     },
@@ -85,6 +85,7 @@ let fileLoader = {
             this.loadProgress = this.counter/this.timeNeeded;
         }
         if(this.loadProgress >= 1){
+            frameRate(60);
             game.continue(true);
         }
     },
