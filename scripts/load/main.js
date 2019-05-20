@@ -94,7 +94,7 @@ let fileLoader = {
         textAlign(CENTER);
         fill(255);
         textSize(50);
-        text("Loading...", width/2, height/2);
+        text("Loading "+this.loading+"...", width/2, height/2);
         stroke(255);
         strokeWeight(5);
         rect(width/2-200, height/2+50, this.loadProgress*400, 50, 10);
