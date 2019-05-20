@@ -10,17 +10,17 @@ let bGame = {
     key: {},
     run: function(){
         if(!this.player) return;
+        push();
+        scale(height/this.map.length/this.bh);
         for(var i = 0; i < this.blocks.length; i ++){
-            if(typeof this.blocks.run == "function"){
-                this.blocks[i].run(this.player);
-                console.log(this.blocks[i]);
-            }
+            this.blocks[i].run(this.player);
         }
         this.player.run();
+        pop();
     },
     getConst: function(char){
         switch(char){
-            case "@": return BBlock; break;
+            case "@": return BSpawn; break;
             case "#": return BBlock; break;
             case "^": return BSpike; break;
             case "%": return BPortal; break;
@@ -44,18 +44,16 @@ let bGame = {
     reload: function(){
         for(var i = 0; i < this.map.length; i ++){
             for(var j = 0; j < this.map[i].length; j ++){
+                let k = this.map[i][j];
+                if(k == "*"){
+                    k += this.maps[this.level].item;
+                }
                 let x = j * this.bw;
                 let y = i * this.bh;
-                let k = this.map[i][j];
-                if(this.getConst(k){
-                    if(this.map[i][j]=="*"){
-                        constructor = constructor[this.current.item]
-                    }
-                    if(constructor){
-                        this.blocks.push(new constructor(x, y, this.bw, this.bh));
-                    }
-                } if(this.map[i][j] == "@") {
-                    this.player = new BPlayer(x, y, this.bh);
+                if(this.getConst(k)){
+                    this.blocks.push(new (this.getConst(k))(x, y, this.bw, this.bh));
+                } if(k == "@") {
+                    this.player = new BPlayer(x, y, this.bh*0.75);
                 }
             }
         }

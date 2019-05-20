@@ -78,7 +78,7 @@ let fileLoader = {
             this.loadProgress = this.loaded/this.needed;
             this.counter ++;
         } else if(this.timeNeeded == 0){
-            this.timeNeeded = this.counter * 2;
+            this.timeNeeded = this.counter;
             this.counter = 0;
         } else {
             this.counter ++;
