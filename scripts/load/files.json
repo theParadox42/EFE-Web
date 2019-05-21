@@ -7,8 +7,9 @@
         "/art/earth/brokencar.png",
         "/art/earth/streetlight.png",
         "/art/earth/sign.png",
+        "/art/earth/trash.png",
         "/art/earth/blocks/spike.png",
-        "/art/earth/blocks/trash.png",
+        "/art/earth/blocks/garbage.png",
         "/art/earth/blocks/grass.png",
         "/art/earth/blocks/platform.png",
         "/art/earth/blocks/refinery.png",
@@ -35,6 +36,11 @@
             4,
             "/art/earth/blocks/fire/00.png",
             "/art/earth/blocks/fire/04.png"
+        ],
+        [
+            4,
+            "/art/earth/blocks/toxic/00.png",
+            "/art/earth/blocks/toxic/04.png"
         ],
         [
             5,
@@ -66,8 +72,9 @@
             "brokenCar",
             "streetlight",
             "woodsign",
-            "spike",
             "trash",
+            "spike",
+            "garbage",
             "grass",
             "platform",
             "refinery",
@@ -87,6 +94,7 @@
         "animations": [
             "cloud",
             "fire",
+            "toxicwaste",
             "rocketOn",
             "rocketOff",
             "rocketengine",

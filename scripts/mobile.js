@@ -31,24 +31,24 @@ mobileControl.prototype.update = function(){
 mobileControl.prototype.display = function(){
     push();
     translate(this.x, this.y);
-    
+
     fill(0, 0, 0, 128);
     stroke(0, 0, 0, 200);
     strokeWeight(5);
-    
+
     rect(0, 0, this.w, this.h);
-    
+
     fill(255, 255, 255, 128);
     textAlign(CENTER, CENTER);
     textFont(fonts.pixel);
     textSize(20);
     text(this.txt, this.w/2, this.h/2);
-    
+
     pop();
 };
 let mobileControls = [];
 function createMobileControls(){
-    let cw = 60;
+    let cw = 80;
     let ch = cw;
     let p = 10;
     let p2 = 2 * p;

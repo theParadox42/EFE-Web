@@ -6,6 +6,7 @@ function FlyPlayer(x, y){
     this.vy = 0;
     this.maxv = 14;
     this.r = 0; //rotation
+    this.health = 3;
     this.w = 100;
     this.h = 40;
     this.speed = 5;
@@ -24,6 +25,20 @@ FlyPlayer.prototype.run = function(){
     this.display();
     this.control();
     this.update();
+    if(this.health < 1){
+        game.getFunc().init();
+    }
+}
+FlyPlayer.prototype.displayHealth = function(){
+    push();
+    stroke(94, 94, 94);
+    strokeWeight(10);
+    fill(0, 0, 0)
+    rect(width-200, 50, 150, 50);
+    fill(39, 183, 20);
+    noStroke();
+    rect(width-200+5, 55, map(this.health, 0, 3, 0, 140), 40);
+    pop();
 }
 FlyPlayer.prototype.update = function(){
     this.shootCooldown ++;

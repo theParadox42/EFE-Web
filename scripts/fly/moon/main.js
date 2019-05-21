@@ -1,5 +1,6 @@
 function flyToMoon(){
     push();
+    background(0, 0, 0);
     if(flyPlayer.x>width/2&&flyPlayer.x<5500){
         translate(-flyPlayer.x+width/2, 0);
     }else if(flyPlayer.x>5500){
@@ -26,13 +27,19 @@ function flyToMoon(){
         }
     }
     pop();
+    flyPlayer.displayHealth();
 }
 flyToMoon.init = function(){
+    flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
-    flySigns.push(new FlySign(200, "Press space to accelerate, use the left and right arrow keys or a and d to steer")); //This is very inefficient. It will be a lot more efficient when it's not a tutorial level
+    flySigns = [];
+    flySigns.push(new FlySign(200, "Press space to accelerate, use the left and right arrow keys or a and d to steer")); //This is very inefficient It will be a lot more efficient when it's not a tutorial level
+    asteroids = [];
     flySigns.push(new FlySign(2900, "Look out for asteroids!"));
-    asteroids.push(new Asteroid(3500, height/2, 150));
+    for(var i = -300; i<height+300; i += 300){
+        asteroids.push(new Asteroid(5200, i, 150));
+    }
     flySigns.push(new FlySign(4400, "Press Z to shoot, try blowing up an asteroid"));
-    asteroids.push(new Asteroid(5200, height/2, 125));
+    asteroids.push(new Asteroid(3500, height/2, 125));
 
 }

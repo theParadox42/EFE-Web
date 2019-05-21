@@ -8,7 +8,9 @@ function Asteroid(x, y, r){
 }
 Asteroid.prototype.run = function(p){
     this.display();
-    this.collide(p);
+    if(!this.dead){
+        this.collide(p);
+    }
     if(this.health < 1){
         this.dead = true; //we need an explosion animation
     }
@@ -17,7 +19,8 @@ Asteroid.prototype.collide = function(p){
     let distance = dist(this.x, this.y, p.x, p.y)
     let r = this.radius + (p.w + p.h) / 4;
     if (distance < r) {
-        console.log("collision");
+        this.dead = true;
+        p.health --;
     }
     for(var i in lasers){
         let l = lasers[i];

@@ -7,25 +7,37 @@ let bGame = {
     level: 0,
     bw: 100,
     bh: 100,
+    h: 0,
+    w: 0,
+    sw: 0,
+    sh: 0,
     key: {},
+    scaleFactor: 0,
     run: function(){
         if(!this.player) return;
+        push();
+        scale(this.scaleFactor);
+        translate(this.player.getTransX(), 0);
+        this.player.update();
         for(var i = 0; i < this.blocks.length; i ++){
-            if(typeof this.blocks.run == "function"){
-                this.blocks[i].run(this.player);
-            } else {
-                console.log(this.blocks[i]);
-            }
+            this.blocks[i].run(this.player);
         }
-        this.player.run();
+        this.player.display();
+        pop();
+    },
+    getConst: function(char){
+        switch(char){
+            case "@": return BSpawn; break;
+            case "#": return BBlock; break;
+            case "^": return BSpike; break;
+            case "%": return BPortal; break;
+            case "*0": return BPart[0]; break;
+            case "*1": return BPart[1]; break;
+            case "*2": return BPart[2]; break;
+            default: return null; break;
+        }
     },
     init: function(){
-        this.key = {
-            "#": BBlock,
-            "^": BSpike,
-            "%": BPortal,
-            "*": BPart
-        }
         this.load();
     },
     next: function(){
@@ -34,21 +46,26 @@ let bGame = {
     },
     load: function(){
         this.map = this.maps[this.level].map;
+        this.scaleFactor = height/this.map.length/this.bh;
+        this.h = this.map.length * this.bh;
+        this.w = this.map[0].length * this.bw;
+        this.sw = 1/this.scaleFactor * width;
+        this.sh = 1/this.scaleFactor * height;
         this.reload();
     },
     reload: function(){
         for(var i = 0; i < this.map.length; i ++){
             for(var j = 0; j < this.map[i].length; j ++){
+                let k = this.map[i][j];
+                if(k == "*"){
+                    k += this.maps[this.level].item;
+                }
                 let x = j * this.bw;
                 let y = i * this.bh;
-                let constructor = this.key[this.map[i][j]];
-                if(this.map[i][j]=="*"){
-                    constructor = constructor[this.current.item]
-                }
-                if(constructor){
-                    this.blocks.push(new constructor(x, y, this.bw, this.bh));
-                } if(this.map[i][j] == "@") {
-                    this.player = new BPlayer(x, y, this.bh);
+                if(this.getConst(k)){
+                    this.blocks.push(new (this.getConst(k))(x, y, this.bw, this.bh));
+                } if(k == "@") {
+                    this.player = new BPlayer(x, y, this.bh*0.75);
                 }
             }
         }
