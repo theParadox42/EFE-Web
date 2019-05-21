@@ -82,7 +82,38 @@ BSpike.prototype.collide = function(p){
 
 // Toxic Waste
 {
-    
+function BToxic(x, y, w, h){
+    BBlock.call(this, x, y, w, h);
+    this.img = imgs.toxic;
+}
+BToxic.prototype = Object.create(BBlock.prototype);
+BToxic.prototype.collide = function(p){
+    if(p.x + p.w - 1 > this.x && p.x + 1 < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y-this.h){
+        p.health -= 5;
+        p.vx *= 0.5;
+        p.vy *= 0.7;
+        p.tint.r -= 40;
+        p.tint.b -= 40;
+    }
+}
+BToxic.prototype.display = function(){
+    push();
+    translate(this.x+this.w/2, this.y+this.h/2);
+    drawAnimation(this.img, 0, 0, this.w, this.h);
+    pop();
+};
+}
+
+// Fire
+{
+function BFire(x, y, w, h){
+    BToxic.call(this, x, y, w, h);
+    this.img = imgs.fire;
+}
+BFire.prototype = Object.create(BToxic.prototype);
+BFire.prototype.collide = function(){
+
+}
 }
 
 }
@@ -93,11 +124,32 @@ BSpike.prototype.collide = function(p){
 // BPortal
 {
 function BPortal(x, y, w, h){
-    BBlock.call(this, x, y, w, h)
+    BBlock.call(this, x, y, w, h);
+    this.img = imgs.portal;
+    this.w *= 2;
+    this.h *= 2;
 }
 BPortal.prototype = Object.create(BBlock.prototype);
-BPortal.prototype.collide = function(){
-
+BPortal.prototype.display = function(){
+    push();
+    imageMode(CENTER);
+    translate(this.x+this.w/2, this.y+this.h/2);
+    rotate(frameCount);
+    image(this.img, 0, 0, this.w, this.h);
+    pop();
+}
+BPortal.prototype.collide = function(p){
+    if(p.x>this.x && p.x+p.w < this.x+this.w&&p.y + p.h / 2 > this.y && p.y< this.y+this.h){
+        let speed = 0.05;
+        p.hasControl = false;
+        p.w = lerp(p.w, 0, speed);
+        p.h = lerp(p.h, 0, speed);
+        p.vx = 0;
+        p.vy = 0;
+        p.x = lerp(p.x, this.x+this.w/2-p.w/2, speed);
+        p.y = lerp(p.y, this.y+this.h/2-p.h/2, speed);
+        p.r += 5;
+    }
 };
 }
 
@@ -119,23 +171,29 @@ BSpawn.prototype.display = function(){
 
 // BParts
 {
-let BPart = [];
-BPart[0] = function(){
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.img = imgs.rocketfin
+var BPart = [];
+BPart[0] = function(x, y, w, h){
+    BBlock.call(this, x, y, w, h);
+    if(!this.img || this.img == imgs.garbage){
+        this.img = imgs.rocketfin;
+    }
+    if(max(this.w, this.h) == this.w){
+        this.dw = this.w;
+        this.dh = this.w * this.img.height / this.img.width;
+    } else {
+        this.dh = this.h;
+        this.dw = this.h * this.img.width / this.img.height;
+    }
 }
 BPart[0].prototype = Object.create(BBlock.prototype);
-BPart[1] = function(){
-    BPart[0].call(this);
-    this.img = imgs.rocketfin;
+BPart[1] = function(x, y, w, h){
+    this.img = imgs.rockettail;
+    BPart[0].call(this, x, y, w, h);
 }
 BPart[1].prototype = Object.create(BPart[0].prototype);
-BPart[2] = function(){
-    BPart[0].call(this);
+BPart[2] = function(x, y, w, h){
     this.img = imgs.rocketengine;
+    BPart[0].call(this, x, y, w, h);
 }
 BPart[2].prototype = Object.create(BPart[0].prototype);
 }

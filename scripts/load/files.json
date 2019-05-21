@@ -14,6 +14,7 @@
         "/art/earth/blocks/platform.png",
         "/art/earth/blocks/refinery.png",
         "/art/earth/blocks/water.png",
+        "/art/earth/blocks/portal.png",
         "/art/mars/fuel.png",
         "/art/rocket/rocketfin.png",
         "/art/rocket/rockettail.png",
@@ -33,7 +34,7 @@
             "/art/cloud/04.png"
         ],
         [
-            4,
+            7,
             "/art/earth/blocks/fire/00.png",
             "/art/earth/blocks/fire/04.png"
         ],
@@ -79,6 +80,7 @@
             "platform",
             "refinery",
             "water",
+            "portal",
             "fueltank",
             "rocketfin",
             "rockettail",
@@ -94,7 +96,7 @@
         "animations": [
             "cloud",
             "fire",
-            "toxicwaste",
+            "toxic",
             "rocketOn",
             "rocketOff",
             "rocketengine",

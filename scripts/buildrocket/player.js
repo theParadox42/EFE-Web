@@ -1,12 +1,20 @@
-function BPlayer(x, y, w){
-    this.x = x;
-    this.y = y;
+function BPlayer(x, by, w){
     this.vx = 0;
     this.vy = 0;
     this.img = imgs.player;
     this.w = w;
     this.h = this.w * this.img.height / this.img.width;
+    this.x = x;
+    this.y = by-this.h;
     this.grounded = false;
+    this.hasControl = true;
+    this.r = 0;
+    this.health = 100;
+    this.tint = {
+        r: 255,
+        g: 255,
+        b: 255
+    }
 }
 BPlayer.prototype.control = function(){
     if(keys[RIGHT_ARROW] || keys.d){
@@ -20,7 +28,13 @@ BPlayer.prototype.control = function(){
     }
 }
 BPlayer.prototype.update = function(){
-    this.control();
+    this.tint.r = constrain(this.tint.r+10, 0, 255);
+    this.tint.g = constrain(this.tint.g+10, 0, 255);
+    this.tint.b = constrain(this.tint.b+10, 0, 255);
+
+    if(this.hasControl){
+        this.control();
+    }
 
     if(!this.grounded){
         this.vy += 0.5;
@@ -40,13 +54,20 @@ BPlayer.prototype.update = function(){
         this.vx = min(this.vx, 0);
     }
 
-    if(this.y > bGame.h) this.kill();
+    if(this.y > bGame.h || this.health < 0) this.kill();
+
+    if(this.w < 0.5){
+        bGame.next();
+    }
 }
 BPlayer.prototype.display = function(){
     push();
     translate(this.x+this.w/2, this.y+this.h/2);
+    rotate(this.r);
     if(this.vx >= 0) scale(-1, 1);
+    tint(this.tint.r, this.tint.g, this.tint.b);
     image(this.img, -this.w/2, -this.h/2, this.w, this.h);
+    noTint();
     pop();
 }
 BPlayer.prototype.kill = function(){

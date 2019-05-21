@@ -24,12 +24,25 @@ let bGame = {
         }
         this.player.display();
         pop();
+
+        // Health Bar
+        push();
+        noStroke();
+        fill(lerpColor(color(255, 0, 0), color(0, 255, 0), constrain(this.player.health/100, 0, 1)));
+        rect(width-210, 10, max(this.player.health, 0)*2, 50);
+        noFill();
+        stroke(0);
+        strokeCap(SQUARE);
+        strokeWeight(10);
+        rect(width-210, 10, 200, 50);
+        pop();
     },
     getConst: function(char){
         switch(char){
-            case "@": return BSpawn; break;
             case "#": return BBlock; break;
             case "^": return BSpike; break;
+            case "x": return BToxic; break;
+            case "f": return BFire; break;
             case "%": return BPortal; break;
             case "*0": return BPart[0]; break;
             case "*1": return BPart[1]; break;
@@ -41,7 +54,7 @@ let bGame = {
         this.load();
     },
     next: function(){
-        this.level = 0;
+        this.level ++;
         this.load();
     },
     load: function(){
@@ -54,6 +67,7 @@ let bGame = {
         this.reload();
     },
     reload: function(){
+        this.blocks = [];
         for(var i = 0; i < this.map.length; i ++){
             for(var j = 0; j < this.map[i].length; j ++){
                 let k = this.map[i][j];
@@ -65,7 +79,7 @@ let bGame = {
                 if(this.getConst(k)){
                     this.blocks.push(new (this.getConst(k))(x, y, this.bw, this.bh));
                 } if(k == "@") {
-                    this.player = new BPlayer(x, y, this.bh*0.75);
+                    this.player = new BPlayer(x, y+this.bh, this.bh*0.75);
                 }
             }
         }
