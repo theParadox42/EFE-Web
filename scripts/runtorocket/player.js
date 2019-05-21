@@ -58,7 +58,7 @@ RunPlayer.prototype.control = function(){
     this.h = this.ducking ? this.dh : this.oh;
 };
 RunPlayer.prototype.update = function(){
-    if(frameCount % 5 == 0){
+    if(frameCount % 20 == 0){
         this.walkingFrame ++; 
         this.walkingFrame = this.walkingFrame % imgs.players.length;
         this.img = imgs.players[this.walkingFrame];
