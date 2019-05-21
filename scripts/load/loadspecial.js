@@ -18,7 +18,7 @@ function loadSpecial(){
     imgs.players = Array(5);
     for(var i = 0; i < imgs.players.length; i ++){
         let n = i;
-        if(i != 0){
+        if(i == 0){
             n = "";
         }
         imgs.players[i] = loadImage("/art/earth/player"+n+".png");
