@@ -111,8 +111,35 @@ function BFire(x, y, w, h){
     this.img = imgs.fire;
 }
 BFire.prototype = Object.create(BToxic.prototype);
-BFire.prototype.collide = function(){
+BFire.prototype.collide = function(p){
+    if(p.x+p.w-1>this.x&&p.x+1<this.x+this.w&&p.y+p.h-1>this.y&&p.y+1<this.y+this.h){
+        p.health -= 6;
+        p.tint.g -= 18;
+        p.tint.b -= 25;
+    }
+}
+}
 
+// Refinery
+{
+function BRefinery(x, y, w, h){
+    BBlock.call(this, x, y, w, h);
+    this.img = imgs.refinery;
+};
+BRefinery.prototype = Object.create(BBlock.prototype);
+}
+
+// Smoke
+{
+function BSmoke(x, y, w, h){
+    BToxic.call(this, x, y, w, h);
+    this.img = imgs.smoke;
+};
+BSmoke.prototype = Object.create(BToxic.prototype);
+BSmoke.prototype.collide = function(p){
+    if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
+        p.y-=5;
+    }
 }
 }
 

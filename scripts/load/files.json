@@ -45,6 +45,11 @@
         ],
         [
             5,
+            "/art/earth/blocks/smoke/00.png",
+            "/art/earth/blocks/smoke/05.png"
+        ],
+        [
+            5,
             "/art/rocket/rocketon/00.png",
             "/art/rocket/rocketon/05.png"
         ],
@@ -97,6 +102,7 @@
             "cloud",
             "fire",
             "toxic",
+            "smoke",
             "rocketOn",
             "rocketOff",
             "rocketengine",

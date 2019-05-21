@@ -40,6 +40,8 @@ let bGame = {
     getConst: function(char){
         switch(char){
             case "#": return BBlock; break;
+            case "r": return BRefinery; break;
+            case "'": return BSmoke; break;
             case "^": return BSpike; break;
             case "x": return BToxic; break;
             case "f": return BFire; break;
