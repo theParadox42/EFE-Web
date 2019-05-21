@@ -45,6 +45,7 @@ RunPlayer.prototype.control = function(){
         this.vy+=0.3;
     } if((keys[UP_ARROW] || keys.w || keys[32] || keys[" "] || pressed) && this.grounded){
         this.vy-=15;
+        this.grounded = false;
     } else if(keys[DOWN_ARROW] || keys.s){
         if(this.grounded && !this.ducking){
             this.y += abs(this.dh-this.oh)+1;
@@ -58,17 +59,18 @@ RunPlayer.prototype.control = function(){
     this.h = this.ducking ? this.dh : this.oh;
 };
 RunPlayer.prototype.update = function(){
-    if(!this.grounded){
-        this.img = imgs.player;
-    } else if(frameCount % 10 == 0){
-        this.walkingFrame ++; 
-        this.walkingFrame = this.walkingFrame % imgs.players.length;
-        this.img = imgs.players[this.walkingFrame];
-    }
     //Collisions
     this.collide();
     //Input
     this.control();
+    // Walking animation
+    if(!this.grounded){
+        this.img = imgs.player;
+    } else if(frameCount % 10 == 0){
+        this.walkingFrame ++;
+        this.walkingFrame = this.walkingFrame % imgs.players.length;
+        this.img = imgs.players[this.walkingFrame];
+    }
     // Gravity
     this.vy+=0.5;
     // Friction
