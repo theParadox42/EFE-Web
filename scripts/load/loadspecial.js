@@ -17,11 +17,11 @@ function loadSpecial(){
     // Player walking animation
     imgs.players = Array(5);
     for(var i = 0; i < imgs.players.length; i ++){
-        let n = i;
+        var n = i;
         if(i == 0){
             n = "";
         }
-        imgs.players[i] = loadImage("/art/earth/player"+n+".png");
+        imgs.players[i] = loadImage("/art/earth/player/player"+n+".png");
     }
     // imgs.spacesign = loadAnimation("/art/space/sign/00.png", "/art/space/sign/01.png")
 }
