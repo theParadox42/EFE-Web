@@ -28,7 +28,8 @@
             "scenery.js",
             "asteroid.js",
             "laser.js",
-            "sign.js"
+            "sign.js",
+            "ufo.js"
         ],
         "fly/moon": [
             "main.js"

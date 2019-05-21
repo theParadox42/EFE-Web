@@ -5,7 +5,7 @@ function FlyPlayer(x, y){
     this.vx = 0;
     this.vy = 0;
     this.maxv = 14;
-    this.r = 0; //rotation
+    this.r = 90; //rotation
     this.health = 3;
     this.w = 100;
     this.h = 40;

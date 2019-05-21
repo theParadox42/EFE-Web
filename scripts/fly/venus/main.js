@@ -21,6 +21,8 @@ function flyToVenus(){
     pop();
 }
 flyToVenus.init = function(){
+    flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
-    asteroids.push(new Asteroid(400, 400, 100))
+    flySigns = [];
+    asteroids = [];
 }
