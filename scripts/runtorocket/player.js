@@ -17,6 +17,7 @@ function RunPlayer(x, y){
     this.controlTrans = true;
     this.grounded = false;
     this.ducking = false;
+    this.walkingFrame = 0;
 };
 RunPlayer.prototype.init = function(){
     this.img = imgs.player;
@@ -57,6 +58,11 @@ RunPlayer.prototype.control = function(){
     this.h = this.ducking ? this.dh : this.oh;
 };
 RunPlayer.prototype.update = function(){
+    if(frameCount % 5 == 0){
+        this.walkingFrame ++; 
+        this.walkingFrame = this.walkingFrame % imgs.players.length;
+        this.img = imgs.players[this.walkingFrame];
+    }
     //Collisions
     this.collide();
     //Input
