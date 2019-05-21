@@ -53,7 +53,7 @@ BPlayer.prototype.kill = function(){
     bGame.reload();
 };
 BPlayer.prototype.getTransX = function(){
-    if(this.x < width/3){
+    if(this.x < bGame.sw/3){
         return 0;
     } else if(this.x < bGame.w - bGame.sw*2/3){
         return -this.x + bGame.sw/3;
