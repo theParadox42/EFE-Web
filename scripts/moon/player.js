@@ -19,7 +19,7 @@ let moonPlayer = {
             if(this.wait>65){
                 manOnTheMoon.appear = true;
             }
-            if(this.runAway){
+            if(this.runAway&&moonGun.x<this.x+this.w/2&&moonGun.y>this.y-this.h/2){
                 this.direction = "left";
                 this.x -= 3;
                 if(this.x<-this.w/2){
