@@ -12,7 +12,7 @@ Asteroid.prototype.run = function(p){
         this.collide(p);
     }
     if(this.health < 1){
-        this.dead = true; //we need an explosion animation
+        this.dead = true; 
     }
 }
 Asteroid.prototype.collide = function(p){
