@@ -4,7 +4,7 @@ let bGame = {
     current: {},
     blocks: [],
     player: null,
-    level: 2,
+    level: 0,
     bw: 100,
     bh: 100,
     h: 0,
