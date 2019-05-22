@@ -10,6 +10,7 @@ function BPlayer(x, by, w){
     this.hasControl = true;
     this.r = 0;
     this.health = 100;
+    this.affectedBy = {};
     this.tint = {
         r: 255,
         g: 255,
@@ -28,6 +29,7 @@ BPlayer.prototype.control = function(){
     }
 }
 BPlayer.prototype.update = function(){
+
     this.tint.r = constrain(this.tint.r+10, 0, 255);
     this.tint.g = constrain(this.tint.g+10, 0, 255);
     this.tint.b = constrain(this.tint.b+10, 0, 255);
@@ -42,14 +44,12 @@ BPlayer.prototype.update = function(){
 
     this.vx *= 0.7;
     this.vy *= 0.99;
-    
+
     this.vx = constrain(this.vx, -15, 15);
     this.vy = constrain(this.vy, -25, 25);
-    
+
     this.x+=this.vx;
     this.y+=this.vy;
-
-    this.grounded = false;
 
     if(this.x < 0){
         this.x = 0;
@@ -64,6 +64,9 @@ BPlayer.prototype.update = function(){
     if(this.w < 0.5){
         bGame.next();
     }
+    
+    this.grounded = false;
+    this.affectedBy = {};
 }
 BPlayer.prototype.display = function(){
     push();

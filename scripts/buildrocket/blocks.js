@@ -137,7 +137,9 @@ function BSmoke(x, y, w, h){
 };
 BSmoke.prototype = Object.create(BToxic.prototype);
 BSmoke.prototype.collide = function(p){
+    if(p.affectedBy.air) return;
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
+        p.affectedBy.air = true;
         p.vy-=0.55;
     }
 }
@@ -151,6 +153,7 @@ function BWater(x, y, w, h){
 }
 BWater.prototype = Object.create(BBlock.prototype);
 BWater.prototype.collide = function(p){
+    if(p.affectedBy.water) return;
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
         p.tint.r -= 11;
         p.tint.g -= 11;
@@ -159,9 +162,31 @@ BWater.prototype.collide = function(p){
         }
         p.vx *= 0.75;
         p.vy *= 0.75;
-        if(keys[32]||keys[" "]||keys[UP_ARROW]&&p.vy>0){
-            p.vy -= 20;
+        if(keys[32]||keys[" "]||keys[UP_ARROW]&&p.vy>1.4){
+            p.vy -= 15;
         }
+        p.affectedBy.water = true;
+    }
+}
+}
+
+// Proton
+{
+function BProton(x, y, w, h){
+    BToxic.call(this, x, y, w, h);
+    this.img = imgs.proton;
+    this.field = 300;
+}
+BProton.prototype = Object.create(BToxic.prototype);
+BProton.prototype.collide = function(p){
+    let d = dist(p.x+p.w/2, p.y+p.h/2, this.x+this.w/2, this.y+this.h/2);
+    if(d<this.field){
+        let force = map(d, 0, this.field, 0, 50);
+        let dx = p.x-this.x;
+        let dy = p.y-this.y;
+        let m = mag(dx, dy);
+        dx*=force/m;
+        dy*=force/m;
     }
 }
 }

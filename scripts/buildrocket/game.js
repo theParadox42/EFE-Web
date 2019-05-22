@@ -45,6 +45,7 @@ let bGame = {
             case "^": return BSpike; break;
             case "~": return BWater; break;
             case "x": return BToxic; break;
+            case "o": return BProton; break;
             case "f": return BFire; break;
             case "%": return BPortal; break;
             case "*0": return BPart[0]; break;
