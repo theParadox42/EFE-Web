@@ -84,7 +84,7 @@ BSpike.prototype.collide = function(p){
 {
 function BToxic(x, y, w, h){
     BBlock.call(this, x, y, w, h);
-    this.img = imgs.toxic;
+    this.img = imgs.toxic.clone();
 }
 BToxic.prototype = Object.create(BBlock.prototype);
 BToxic.prototype.collide = function(p){
@@ -181,7 +181,7 @@ BProton.prototype = Object.create(BToxic.prototype);
 BProton.prototype.collide = function(p){
     let d = dist(p.x+p.w/2, p.y+p.h/2, this.x+this.w/2, this.y+this.h/2);
     if(d<this.field){
-        let force = map(d, 0, this.field, 5, 0);
+        let force = map(d, 0, this.field, 2, 0);
         let dx = p.x-this.x;
         let dy = p.y-this.y;
         let m = mag(dx, dy);
