@@ -43,6 +43,7 @@ let bGame = {
             case "r": return BRefinery; break;
             case "'": return BSmoke; break;
             case "^": return BSpike; break;
+            case "~": return BWater; break;
             case "x": return BToxic; break;
             case "f": return BFire; break;
             case "%": return BPortal; break;
