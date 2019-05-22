@@ -41,6 +41,11 @@ BPlayer.prototype.update = function(){
     }
 
     this.vx *= 0.7;
+    this.vy *= 0.99;
+    
+    this.vx = constrain(this.vx, -15, 15);
+    this.vy = constrain(this.vy, -20, 20);
+    
     this.x+=this.vx;
     this.y+=this.vy;
 

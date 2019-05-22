@@ -152,15 +152,15 @@ function BWater(x, y, w, h){
 BWater.prototype = Object.create(BBlock.prototype);
 BWater.prototype.collide = function(p){
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
-        p.vx *= 0.8;
-        p.vy *= 0.8;
-        p.tint.r -= 15;
-        p.tint.g -= 13;
+        p.tint.r -= 11;
+        p.tint.g -= 11;
         p.grounded = true;
-        p.vy += 0.3;
         if(p.tint.r <= 0){
             p.health --;
         }
+        p.vy += 0.7;
+        p.vx *= 0.75;
+        p.vy *= 0.75;
     }
 }
 }
