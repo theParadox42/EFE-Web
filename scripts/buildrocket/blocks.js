@@ -154,13 +154,14 @@ BWater.prototype.collide = function(p){
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
         p.tint.r -= 11;
         p.tint.g -= 11;
-        p.grounded = true;
         if(p.tint.r <= 0){
             p.health --;
         }
-        p.vy += 0.7;
         p.vx *= 0.75;
         p.vy *= 0.75;
+        if(keys[32]||keys[" "]||keys[UP_ARROW]){
+            p.y-=8;
+        }
     }
 }
 }
