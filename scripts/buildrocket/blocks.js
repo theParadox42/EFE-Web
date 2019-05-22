@@ -138,7 +138,7 @@ function BSmoke(x, y, w, h){
 BSmoke.prototype = Object.create(BToxic.prototype);
 BSmoke.prototype.collide = function(p){
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
-        p.vy-=0.11;
+        p.vy-=0.55;
     }
 }
 }
@@ -150,13 +150,14 @@ function BWater(x, y, w, h){
     this.img = imgs.water;
 }
 BWater.prototype = Object.create(BBlock.prototype);
-BWater.collide = function(p){
+BWater.prototype.collide = function(p){
     if(p.x+p.w>this.x&&p.x<this.x+this.w&&p.y+p.h>this.y&&p.y<this.y+this.h){
         p.vx *= 0.8;
         p.vy *= 0.8;
         p.tint.r -= 15;
         p.tint.g -= 13;
         p.grounded = true;
+        p.vy += 0.3;
         if(p.tint.r <= 0){
             p.health --;
         }
