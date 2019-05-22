@@ -57,7 +57,11 @@ let bGame = {
     },
     next: function(){
         this.level ++;
-        this.load();
+        if(this.maps[this.level]){
+            this.load();
+        } else {
+            game.continue();
+        }
     },
     load: function(){
         this.map = this.maps[this.level].map;
