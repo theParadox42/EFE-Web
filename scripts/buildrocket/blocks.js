@@ -220,6 +220,7 @@ BPortal.prototype.display = function(){
     pop();
 }
 BPortal.prototype.collide = function(p){
+    if(!bGame.canPass) return;
     if(p.x>this.x && p.x+p.w < this.x+this.w&&p.y + p.h / 2 > this.y && p.y< this.y+this.h){
         let speed = 0.05;
         p.hasControl = false;
@@ -254,29 +255,66 @@ BSpawn.prototype.display = function(){
 {
 var BPart = [];
 BPart[0] = function(x, y, w, h){
-    BBlock.call(this, x, y, w, h);
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.collectIndex = 0;
     if(!this.img || this.img == imgs.garbage){
         this.img = imgs.rocketfin;
     }
-    if(max(this.w, this.h) == this.w){
+    this.imgw = this.imgw || this.img.width;
+    this.imgh = this.imgh || this.img.height;
+    if(max(this.imgw, this.imgh) == this.imgw){
         this.dw = this.w;
-        this.dh = this.w * this.img.height / this.img.width;
+        this.dh = this.w * this.imgh / this.imgw;
     } else {
         this.dh = this.h;
-        this.dw = this.h * this.img.width / this.img.height;
+        this.dw = this.h * this.imgw / this.imgh;
     }
+    this.collected = false;
 }
 BPart[0].prototype = Object.create(BBlock.prototype);
+BPart[0].prototype.display = function(){
+    push();
+    imageMode(CENTER);
+    translate(this.x+this.w/2, this.y+this.h/2+sin(frameCount)*10-5);
+    scale(cos(frameCount*5), 1);
+    image(this.img, 0, 0, this.dw, this.dh);
+    pop();
+};
+BPart[0].prototype.collide = function(p){
+    let vx = abs(p.vx)*2, vy = abs(p.vy)*2;
+    if(p.x+p.w-vx>this.x&&p.x+vx<this.x+this.w&&p.y+p.h-vy>this.y&&p.y+vy<this.y+this.h){
+        this.collected = true;
+        p.collected.push(this.collectIndex);
+    }
+}
+
 BPart[1] = function(x, y, w, h){
     this.img = imgs.rockettail;
     BPart[0].call(this, x, y, w, h);
+    this.collectIndex = 1;
 }
 BPart[1].prototype = Object.create(BPart[0].prototype);
+
+
 BPart[2] = function(x, y, w, h){
     this.img = imgs.rocketengine;
+    this.imgw = this.img.getWidth();
+    this.imgh = this.img.getHeight();
     BPart[0].call(this, x, y, w, h);
+    this.collectIndex = 2;
 }
 BPart[2].prototype = Object.create(BPart[0].prototype);
+BPart[2].prototype.display = function(){
+    push();
+    translate(this.x+this.w/2, this.y+this.h/2+sin(frameCount)*10-5);
+    scale(cos(frameCount*5), 1);
+    drawAnimation(this.img, 0, 0, this.dw, this.dh);
+    pop();
+
+}
 }
 
 }

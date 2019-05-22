@@ -11,6 +11,7 @@ function BPlayer(x, by, w){
     this.r = 0;
     this.health = 100;
     this.affectedBy = {};
+    this.collected = [];
     this.tint = {
         r: 255,
         g: 255,
@@ -64,7 +65,7 @@ BPlayer.prototype.update = function(){
     if(this.w < 0.5){
         bGame.next();
     }
-    
+
     this.grounded = false;
     this.affectedBy = {};
 }

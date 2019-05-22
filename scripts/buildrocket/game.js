@@ -4,7 +4,7 @@ let bGame = {
     current: {},
     blocks: [],
     player: null,
-    level: 0,
+    level: 2,
     bw: 100,
     bh: 100,
     h: 0,
@@ -13,14 +13,19 @@ let bGame = {
     sh: 0,
     key: {},
     scaleFactor: 0,
+    canPass: true,
     run: function(){
         if(!this.player) return;
         push();
         scale(this.scaleFactor);
         translate(this.player.getTransX(), 0);
         this.player.update();
-        for(var i = 0; i < this.blocks.length; i ++){
+        for(var i = this.blocks.length-1; i > -1; i --){
             this.blocks[i].run(this.player);
+            if(this.blocks[i].collected){
+                this.blocks.splice(i, 1);
+                this.canPass = true;
+            }
         }
         this.player.display();
         pop();
@@ -81,6 +86,7 @@ let bGame = {
                 let k = this.map[i][j];
                 if(k == "*"){
                     k += this.maps[this.level].item;
+                    this.canPass = false;
                 }
                 let x = j * this.bw;
                 let y = i * this.bh;
