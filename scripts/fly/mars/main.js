@@ -12,7 +12,10 @@ function flyToMars(){
       }
     }
     for(var i in ufos){
-        ufos[i].run();
+        ufos[i].run(flyPlayer);
+        if(ufos[i].dead&&ufos[i].frame>20){
+            ufos.splice(i, 1);
+        }
     }
     flyPlayer.run();
     for(var i in asteroids){
@@ -22,6 +25,7 @@ function flyToMars(){
         }
     }
     pop();
+    flyPlayer.displayHealth();
 }
 
 flyToMars.init = function(){
@@ -30,5 +34,5 @@ flyToMars.init = function(){
     flySigns = [];
     asteroids = [];
     ufos = [];
-    ufos.push(new Ufo(500, height/2))
+    ufos.push(new Ufo(1000, height/2+300))
 }
