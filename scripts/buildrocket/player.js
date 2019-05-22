@@ -22,7 +22,7 @@ BPlayer.prototype.control = function(){
     } if(keys[LEFT_ARROW] || keys.a){
         this.vx -= 5;
     } if((keys[UP_ARROW]||keys.w||keys[" "]||keys[32]) && this.grounded){
-        this.vy -= 15;
+        this.vy -= 17;
     } else if((keys[DOWN_ARROW]||keys.s) && !this.grounded){
         this.vy+=0.2;
     }
@@ -44,7 +44,7 @@ BPlayer.prototype.update = function(){
     this.vy *= 0.99;
     
     this.vx = constrain(this.vx, -15, 15);
-    this.vy = constrain(this.vy, -20, 20);
+    this.vy = constrain(this.vy, -25, 25);
     
     this.x+=this.vx;
     this.y+=this.vy;

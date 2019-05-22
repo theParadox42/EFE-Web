@@ -159,8 +159,8 @@ BWater.prototype.collide = function(p){
         }
         p.vx *= 0.75;
         p.vy *= 0.75;
-        if(keys[32]||keys[" "]||keys[UP_ARROW]){
-            p.y-=8;
+        if(keys[32]||keys[" "]||keys[UP_ARROW]&&p.vy>0){
+            p.vy-=10;
         }
     }
 }
