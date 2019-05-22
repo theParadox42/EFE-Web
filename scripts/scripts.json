@@ -29,7 +29,8 @@
             "asteroid.js",
             "laser.js",
             "sign.js",
-            "ufo.js"
+            "ufo.js",
+            "loadlevel.js"
         ],
         "fly/moon": [
             "main.js"

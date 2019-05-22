@@ -1,3 +1,5 @@
+new p5();
+height = windowHeight;
 function flyToMars(){
     background(0,0,0);
     push();
@@ -27,12 +29,12 @@ function flyToMars(){
     pop();
     flyPlayer.displayHealth();
 }
-
+flyToMars.level = {
+    asteroids: [[1200, windowHeight/2, 100]], //x, y, size
+    ufos: [[1000, windowHeight/2+300]] //x, y
+}
 flyToMars.init = function(){
     flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
-    flySigns = [];
-    asteroids = [];
-    ufos = [];
-    ufos.push(new Ufo(1000, height/2+300))
+    loadLevel(this.level);
 }

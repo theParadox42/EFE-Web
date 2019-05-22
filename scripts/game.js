@@ -6,10 +6,10 @@ var game = {
     // Slash out all the scenes until the one you are working on EXCEPT for "load"
     sceneOrder: [
         "load",
-        "run",
-        "build",
-        "fly-moon",
-        "moon",
+        // "run",
+        // "build",
+        // "fly-moon",
+        // "moon",
         "fly-mars",
         // "fight",
         "fly-venus",
