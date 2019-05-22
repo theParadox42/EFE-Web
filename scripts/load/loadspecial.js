@@ -10,7 +10,7 @@ function loadSpecial(){
         imgs.explosion[i] = loadImage("/art/space/explosion/"+addedZero+i+".png");
     }
     //buildings
-    imgs.buildings = Array(6);
+    imgs.buildings = Array(7);
     for(var i = 0; i < imgs.buildings.length; i ++){
         imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
     }

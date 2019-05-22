@@ -11,7 +11,7 @@ var game = {
         "fly-moon",
         "moon",
         "fly-mars",
-        // "fight",
+        "fight",
         "fly-venus",
         "ufo"
     ],
