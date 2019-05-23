@@ -10,7 +10,7 @@ Ufo.prototype.run = function(p){
     this.display();
     if(!this.dead){
         this.collide(p);
-        this.update(p);
+        if(dist(this.x, this.y, p.x, p.y)<1000) this.update(p);
     }
     if(this.health<1){
         this.dead = true;
