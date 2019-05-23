@@ -33,6 +33,17 @@ let mGame = {
     transX: 0,
     transY: 0,
     timePassed: 0,
+    reload: function(){
+        // Player
+        this.player.reset();
+        // Martian
+        this.martians = [];
+        this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
+        // Reset stuff
+        this.bullets = [];
+        this.fuels = [];
+        this.timePassed = 0;
+    },
     init: function(){
         // Player
         this.player = new MPlayer(-30, -200, 60);
@@ -43,18 +54,13 @@ let mGame = {
         this.background.img = imgs.stars;
         this.background.w = width + 120;
         this.background.h = this.background.w * this.background.img.height / this.background.img.width;
-        // Martian
-        this.martians = [];
-        this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
-        // Other
-        this.bullets = [];
-        this.fuels = [];
-        this.timePassed = 0;
+        // Everything else
+        this.reload();
     },
     run: function(){
         this.timePassed++;
         
-        if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 10),1, 10)){
+        if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 3),1, 8)){
             if(this.player.x>0){
                 this.martians.push(new Martian(random(-this.ground.w/2, -width/2-110), -200, 100));
             } else {

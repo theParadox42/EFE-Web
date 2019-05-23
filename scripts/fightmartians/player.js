@@ -1,6 +1,8 @@
 function MPlayer(x, y, w){
     this.x = x;
     this.y = y;
+    this.ox = this.x;
+    this.oy = this.y;
     this.vx = 0;
     this.kvx = 0;
     this.vy = 0;
@@ -51,7 +53,7 @@ MPlayer.prototype.update = function(){
     mGame.transY = constrain(-this.y, -height, height);
 
     if(this.y > height*1.5) this.health -= 0.2;
-    if(this.health <= 0) mGame.init();
+    if(this.health <= 0) mGame.reload();
 
     this.grounded = false;
     
@@ -101,4 +103,11 @@ MPlayer.prototype.displayStatus = function(){
     pop();
 
     pop();
+}
+MPlayer.prototype.reset = function(){
+    this.x = this.ox;
+    this.y = this.oy;
+    this.vx = 0;
+    this.vy = 0;
+    this.fuel = constrain(this.fuel-~~random(4,7), 0, this.neededFuel);
 }
