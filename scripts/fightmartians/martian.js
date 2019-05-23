@@ -64,6 +64,8 @@ Martian.prototype.update = function(p) {
             mGame.fuels.push(new MFuel(this.x+this.w/8, this.y, this.w*6/8));
         }
         this.dead = true;
+    } if(this.y>height*1.5){
+        this.dead = true;
     }
 };
 Martian.prototype.display = function() {

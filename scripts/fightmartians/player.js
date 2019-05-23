@@ -50,7 +50,7 @@ MPlayer.prototype.update = function(){
     mGame.transX = constrain(-this.x, -mGame.ground.w, mGame.ground.w);
     mGame.transY = constrain(-this.y, -height, height);
 
-    if(this.y > -mGame.transY+height/2) this.health -= 0.2;
+    if(this.y > height*1.5) this.health -= 0.2;
     if(this.health <= 0) mGame.init();
 
     this.grounded = false;
