@@ -110,4 +110,5 @@ MPlayer.prototype.reset = function(){
     this.vx = 0;
     this.vy = 0;
     this.fuel = constrain(this.fuel-~~random(4,7), 0, this.neededFuel);
+    this.health = this.maxHealth;
 }
