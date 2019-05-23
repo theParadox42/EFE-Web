@@ -25,9 +25,10 @@ MPlayer.prototype.control = function(){
         this.vx+=5;
     } if(keys[LEFT_ARROW] || keys.a){
         this.vx-=5;
-    } if((keys[UP_ARROW] || keys.w) && this.grounded && this.vy >= 0){
+    } if((keys[UP_ARROW] || keys.w) && this.grounded && this.vy > -1){
         this.vy -= 25;
-    } if((keys[32] || keys[" "])&&this.reload == 0 ){
+        this.grounded = false;
+    } if((keys[32] || keys[" "])&&this.reload == 0){
         this.reload = this.reloadTime;
         mGame.bullets.push(new MBullet(this.x+this.w/2, this.y+this.h/9+this.h/2, 20*(this.vx>=0?1:-1)))
     }
@@ -56,7 +57,7 @@ MPlayer.prototype.update = function(){
     if(this.health <= 0) mGame.reload();
 
     this.grounded = false;
-    
+
     if(this.fuel >= this.neededFuel){
         game.continue();
     }
