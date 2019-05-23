@@ -16,10 +16,10 @@ MFuel.prototype.display = function(){
     push();
     translate(this.x+this.w/2, this.y);
     scale(cos(frameCount*3), 1);
-    image(this.img, -this.w/2, this.y, this.w, this.h);
+    image(this.img, -this.w/2, 0, this.w, this.h);
     pop();
 }
 MFuel.prototype.run = function(p){
-    // this.collide(p);
+    this.collide(p);
     this.display();
 }
