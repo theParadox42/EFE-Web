@@ -26,6 +26,9 @@ function flyToMars(){
     }
     pop();
     flyPlayer.displayHealth();
+    if(flyPlayer.x>7000){
+        game.continue();
+    }
 }
 flyToMars.level = {
     asteroids: [[1200, 300, 100]], //x, y, size
