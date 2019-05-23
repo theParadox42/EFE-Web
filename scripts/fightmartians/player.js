@@ -40,9 +40,10 @@ MPlayer.prototype.update = function(){
     this.vy+=0.5;
 
     this.vx *= 0.75;
+    this.kvx *= 0.9;
     this.vy *= 0.99;
 
-    this.x+=this.vx;
+    this.x+=this.vx + this.kvx;
     this.y+=this.vy;
 
     mGame.transX = constrain(-this.x, -mGame.ground.w, mGame.ground.w);

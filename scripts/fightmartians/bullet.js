@@ -8,7 +8,7 @@ function MBullet(x, y, vx){
 MBullet.prototype.collide = function(p){
     let vx = abs(this.vx);
     if(this.x+vx>p.x && this.x-vx<p.x+p.w&&this.y+this.h/2>p.y&&this.y-this.h/2<p.y+p.h){
-        p.vx -= 30;
+        p.kvx -= 15;
         if(typeof p.jump == "function") p.jump();
         p.health --;
         this.dead = true;
