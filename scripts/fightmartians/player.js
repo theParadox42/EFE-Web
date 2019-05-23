@@ -2,6 +2,7 @@ function MPlayer(x, y, w){
     this.x = x;
     this.y = y;
     this.vx = 0;
+    this.kvx = 0;
     this.vy = 0;
     this.img = imgs.player;
     this.w = w;
@@ -26,7 +27,7 @@ MPlayer.prototype.control = function(){
         this.vy -= 15;
     } if((keys[32] || keys[" "])&&this.reload == 0 ){
         this.reload = this.reloadTime;
-        mGame.bullets.push(new MBullet(this.x+this.w/2, this.y+this.h/9+this.h/2, this.vx>=0?10:-10))
+        mGame.bullets.push(new MBullet(this.x+this.w/2, this.y+this.h/9+this.h/2, 20*(this.vx>=0?1:-1)))
     }
 };
 MPlayer.prototype.update = function(){
