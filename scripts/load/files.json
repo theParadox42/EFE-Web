@@ -24,8 +24,10 @@
         "/art/space/mom/default.png",
         "/art/space/mom/eyesclosed.png",
         "/art/space/mom/eyesopen.png",
+        "/art/space/moongun.png",
         "/art/mars/martian.png",
-        "/art/space/moongun.png"
+        "/art/mars/mars.jpg",
+        "/art/mars/arena.png"
     ],
     "animations": [
         [
@@ -105,8 +107,10 @@
             "momdefault",
             "momeyesclosed",
             "momeyesopen",
+            "moonGun",
             "martian",
-            "moonGun"
+            "marsbackground",
+            "marsarena"
         ],
         "animations": [
             "cloud",

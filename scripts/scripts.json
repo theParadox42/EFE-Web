@@ -47,7 +47,11 @@
             "main.js"
         ],
         "fightmartians": [
-            "main.js"
+            "main.js",
+            "game.js",
+            "player.js",
+            "martian.js",
+            "rock.js"
         ],
         "fly/venus": [
             "main.js"
