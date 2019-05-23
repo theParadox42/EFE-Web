@@ -51,7 +51,8 @@
             "game.js",
             "player.js",
             "martian.js",
-            "rock.js"
+            "rock.js",
+            "bullet.js"
         ],
         "fly/venus": [
             "main.js"

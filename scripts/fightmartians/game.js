@@ -1,9 +1,10 @@
 let mGame = {
     player: null,
     martians: [],
+    bullets: [],
     ground: {
         y: 0,
-        w: 2000,
+        w: 2500,
         h: 0,
         display: function(){
             push();
@@ -42,6 +43,7 @@ let mGame = {
         this.background.h = this.background.w * this.background.img.height / this.background.img.width;
         // Martian
         this.martians = [];
+        this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
     },
     run: function(){
         push();
@@ -51,11 +53,25 @@ let mGame = {
         pop();
 
         push();
-        translate(this.transX+width/2, this.transY+height/2);
         this.player.update();
+        translate(this.transX+width/2, this.transY+height/2);
         this.ground.display();
         this.ground.collide([this.player].concat(this.martians))
+        for(var i = this.martians.length-1; i > -1; i --){
+            this.martians[i].run(this.player);
+            if(this.martians[i].health <= 0){
+                this.martians.splice(i, 1);
+            }
+        }
+        for(var i = this.bullets.length-1; i > -1; i --){
+            this.bullets[i].run(this.martians);
+            if(this.bullets[i].dead){
+                this.bullets.splice(i, 1);
+            }
+        }
         this.player.display();
+
         pop();
+        this.player.displayStatus();
     }
 };
