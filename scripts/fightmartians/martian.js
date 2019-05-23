@@ -9,6 +9,7 @@ function Martian(x, y, w){
     this.h = this.w * this.img.height / this.img.width;
     this.maxHealth = 3;
     this.health = this.maxHealth;
+    this.dead = false;
 }
 Martian.prototype.jump = function(){
     if(this.grounded&&this.vy>=0){
@@ -18,12 +19,15 @@ Martian.prototype.jump = function(){
 }
 Martian.prototype.collide = function(p) {
     let vx = abs(this.vx)+abs(p.vx), vy = abs(this.vy)+abs(p.vy);
-    if(this.x+this.w-vx>p.x&&this.x+vx<p.x+p.w&&this.y+this.h-vy>p.y&&this.y+vy<p.y){
+    if(this.x+this.w-vx>p.x&&this.x+vx<p.x+p.w&&this.y+this.h-vy>p.y&&this.y+vy<p.y+p.h){
+        this.jump();
+        p.health --;
         if(this.x+this.w/2>p.x+p.w/2){
             p.kvx -= 10;
-            p.health --;
             this.kvs -= 5;
-            this.jump();
+        } else {
+            p.kvx += 10;
+            this.kvs += 5;
         }
     }
 };
@@ -54,6 +58,13 @@ Martian.prototype.update = function(p) {
     this.y+=this.vy;
 
     this.grounded = false;
+    
+    if(this.health <= 0){
+        if(~~random(2)){
+            mGame.fuels.push(new MFuel(this.x+this.w/8, this.y, this.w*6/8));
+        }
+        this.dead = true;
+    }
 };
 Martian.prototype.display = function() {
     push()

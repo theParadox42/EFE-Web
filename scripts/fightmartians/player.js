@@ -81,7 +81,7 @@ MPlayer.prototype.displayStatus = function(){
     rect(-230,30,this.health/this.maxHealth*200, 50);
 
     // Fuel
-    fill(200, 75, 0);
+    fill(200, 120, 0);
     rect(-230, 110, this.fuel/this.neededFuel*200, 50);
     imageMode(CENTER);
     image(this.fuelIcon, -130, 135, 40*this.fuelIcon.width/this.fuelIcon.height, 40);

@@ -2,6 +2,7 @@ let mGame = {
     player: null,
     martians: [],
     bullets: [],
+    fuels: [],
     ground: {
         y: 0,
         w: 2500,
@@ -44,6 +45,9 @@ let mGame = {
         // Martian
         this.martians = [];
         this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
+        // Other
+        this.bullets = [];
+        this.fuels = [];
     },
     run: function(){
         push();
@@ -59,7 +63,7 @@ let mGame = {
         this.ground.collide([this.player].concat(this.martians))
         for(var i = this.martians.length-1; i > -1; i --){
             this.martians[i].run(this.player);
-            if(this.martians[i].health <= 0){
+            if(this.martians[i].dead){
                 this.martians.splice(i, 1);
             }
         }
@@ -69,9 +73,15 @@ let mGame = {
                 this.bullets.splice(i, 1);
             }
         }
+        for(var i = this.fuels.length-1; i > -1; i --){
+            this.fuels[i].run(this.player);
+            if(this.fuels[i].collected){
+                this.fuels.splice(i, 1);
+            }
+        }
         this.player.display();
-
         pop();
+        
         this.player.displayStatus();
     }
 };
