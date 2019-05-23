@@ -54,7 +54,10 @@ MPlayer.prototype.update = function(){
     if(this.health <= 0) mGame.init();
 
     this.grounded = false;
-
+    
+    if(this.fuel >= this.neededFuel){
+        game.continue();
+    }
 };
 MPlayer.prototype.display = function(){
     push();
