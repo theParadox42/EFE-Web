@@ -20,6 +20,6 @@ MFuel.prototype.display = function(){
     pop();
 }
 MFuel.prototype.run = function(p){
-    this.collide(p);
+    // this.collide(p);
     this.display();
 }
