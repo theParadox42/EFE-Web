@@ -53,9 +53,9 @@ let mGame = {
         
         if(this.martians.length<constrain(map(frameCount, 50, 1000),1, 10))){
             if(this.player.x>0){
-                this.martians.push(new Martian(random(-this.ground.w, -width/2-110, 100)));
+                this.martians.push(new Martian(random(-this.ground.w, -width/2-110), -200, 100));
             } else {
-                this.martians.push(new Martian(random(this.ground.w-100, width/2+110, 100)));
+                this.martians.push(new Martian(random(this.ground.w-100, width/2+110), -200, 100));
             }
         }
         
