@@ -50,6 +50,15 @@ let mGame = {
         this.fuels = [];
     },
     run: function(){
+        
+        if(this.martians.length<constrain(map(frameCount, 50, 1000),1, 10))){
+            if(this.player.x>0){
+                this.martians.push(new Martian(random(-this.ground.w, -width/2-110, 100)));
+            } else {
+                this.martians.push(new Martian(random(this.ground.w-100, width/2+110, 100)));
+            }
+        }
+        
         push();
         translate(map(this.transX, -this.ground.w/2, this.ground.w/2, -50, 50)+width/2, map(this.transY, -height, height, -50, 50)+height/2);
         imageMode(CENTER);
