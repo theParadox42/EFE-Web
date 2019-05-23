@@ -32,6 +32,7 @@ let mGame = {
     },
     transX: 0,
     transY: 0,
+    timePassed: 0,
     init: function(){
         // Player
         this.player = new MPlayer(-30, -200, 60);
@@ -48,10 +49,12 @@ let mGame = {
         // Other
         this.bullets = [];
         this.fuels = [];
+        this.timePassed = 0;
     },
     run: function(){
+        this.timePassed++;
         
-        if(this.martians.length<constrain(map(frameCount, 50, 1000, 1, 10),1, 10)){
+        if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 10),1, 10)){
             if(this.player.x>0){
                 this.martians.push(new Martian(random(-this.ground.w/2, -width/2-110), -200, 100));
             } else {
