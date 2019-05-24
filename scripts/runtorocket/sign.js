@@ -5,18 +5,19 @@ function RunSign(x, txt){
     this.h = 250;
     this.dx = this.x+this.w;
     this.txt = txt;
-    this.padding = 20;
+    this.padding = 50;
 }
 RunSign.prototype.display = function(p){
     if(p.x>this.x && this.x<this.dx){
         this.x+=p.vx;
     }
     push();
-    strokeCap(SQUARE);
-    strokeWeight(10);
-    stroke(10);
-    fill(200);
-    rect(this.x, this.y, this.w, this.h);
+    // strokeCap(SQUARE);
+    // strokeWeight(10);
+    // stroke(10);
+    // fill(200);
+    // rect(this.x, this.y, this.w, this.h);
+    image(imgs.woodsign, this.x, this.y, this.w, this.h);
     fill(0);
     noStroke();
     textSize(50);

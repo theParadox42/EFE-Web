@@ -26,6 +26,7 @@ function MPlayer(x, y, w){
     this.reloadTime = 36;
     this.cooldownTime = 15;
     this.cooldown = this.cooldownTime;
+    this.direction = RIGHT;
 };
 MPlayer.prototype.damage = function(){
     if(this.cooldown == 0){
@@ -36,14 +37,16 @@ MPlayer.prototype.damage = function(){
 MPlayer.prototype.control = function(){
     if(keys[RIGHT_ARROW] || keys.d){
         this.vx+=5;
+        this.direction = RIGHT;
     } if(keys[LEFT_ARROW] || keys.a){
+        this.direction = LEFT;
         this.vx-=5;
     } if((keys[UP_ARROW] || keys.w) && this.grounded && this.vy > -1){
         this.vy -= 20;
         this.grounded = false;
     } if((keys[32] || keys[" "])&&this.reload == 0){
         this.reload = this.reloadTime;
-        mGame.bullets.push(new MBullet(this.x+this.w/2, this.y+this.h/9+this.h/2, 20*(this.vx>=0?1:-1)+this.vx))
+        mGame.bullets.push(new MBullet(this.x+this.w/2, this.y+this.h/9+this.h/2, 20*(this.direction==RIGHT?1:-1)+this.vx))
     }
 };
 MPlayer.prototype.update = function(){
@@ -92,7 +95,7 @@ MPlayer.prototype.display = function(){
         push();
         translate(this.x+this.w/2, this.y+this.h/2);
 
-        if(this.vx>=0) scale(-1, 1);
+        if(this.direction==RIGHT) scale(-1, 1);
         imageMode(CENTER)
         image(this.img, 0, 0, this.w, this.h);
 

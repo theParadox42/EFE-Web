@@ -16,7 +16,7 @@ var loadRun = {
         runGround.init();
         runPlayer.init();
         this.txtKey = {
-            "j": "Click/Space/UP/W to jump!",
+            "j": "Click, Space, UP or \"W\" to jump!",
             "f": "Use the arrow keys to move faster/slower",
             "d": "S/DOWN to duck"
         }
