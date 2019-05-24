@@ -27,6 +27,8 @@
         "/art/space/moongun.png",
         "/art/mars/martian.png",
         "/art/mars/mars.jpg",
+        "/art/mars/heart.png",
+        "/art/mars/rock.png",
         "/art/mars/arena.png"
     ],
     "animations": [
@@ -110,6 +112,8 @@
             "moonGun",
             "martian",
             "marsbackground",
+            "pixelheart",
+            "marsrock",
             "marsarena"
         ],
         "animations": [

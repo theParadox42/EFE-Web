@@ -3,9 +3,10 @@ let mGame = {
     martians: [],
     bullets: [],
     fuels: [],
+    rocks: [],
     ground: {
         y: 0,
-        w: 2500,
+        w: 5000,
         h: 0,
         display: function(){
             push();
@@ -18,7 +19,7 @@ let mGame = {
                 let p = ents[i];
                 let vy = abs(p.vy) * 2;
                 if(p.x + p.w > -this.w/2 && p.x < this.w/2 && p.y + p.h + vy/2 > this.y && p.y + p.h*0.9 - vy < this.y){
-                    p.y = min(p.y, this.y-p.h);
+                    p.y = this.y-p.h;
                     p.vy = min(p.vy, 0);
                     p.grounded = true;
                 }
@@ -51,15 +52,21 @@ let mGame = {
         this.ground.img = imgs.marsarena;
         this.ground.h = this.ground.w * this.ground.img.height / this.ground.img.width;
         // Background
-        this.background.img = imgs.stars;
-        this.background.w = width + 120;
+        this.background.img = imgs.marsbackground;
+        this.background.w = width + 220;
         this.background.h = this.background.w * this.background.img.height / this.background.img.width;
+        // Blocks
+        for(var i = 0; i < mrocks.length; i ++){
+            let d = mrocks[i];
+            let bw = this.ground.w/2/20;
+            this.rocks.push(new MRock(d.x/200*this.ground.w-(d.x>0?bw:0),d.y, bw))
+        }
         // Everything else
         this.reload();
     },
     run: function(){
         this.timePassed++;
-        
+
         if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 3),1, 8)){
             if(this.player.x>0){
                 this.martians.push(new Martian(random(-this.ground.w/2, -width/2-110), -200, 100));
@@ -67,7 +74,7 @@ let mGame = {
                 this.martians.push(new Martian(random(this.ground.w/2-100, width/2+110), -200, 100));
             }
         }
-        
+
         push();
         translate(map(this.transX, -this.ground.w/2, this.ground.w/2, -50, 50)+width/2, map(this.transY, -height, height, -50, 50)+height/2);
         imageMode(CENTER);
@@ -85,6 +92,10 @@ let mGame = {
                 this.martians.splice(i, 1);
             }
         }
+        for(var i = 0; i < this.rocks.length; i ++){
+            this.rocks[i].run([this.player].concat(this.martians));
+        }
+        this.player.display();
         for(var i = this.bullets.length-1; i > -1; i --){
             this.bullets[i].run(this.martians);
             if(this.bullets[i].dead){
@@ -97,9 +108,8 @@ let mGame = {
                 this.fuels.splice(i, 1);
             }
         }
-        this.player.display();
         pop();
-        
+
         this.player.displayStatus();
     }
 };
