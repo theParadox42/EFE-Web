@@ -3,6 +3,10 @@
         "load": [
             "loadspecial.js"
         ],
+        "scenes": [
+            "home.js",
+            "won.js"
+        ],
         "runtorocket": [
             "player.js",
             "ground.js",
