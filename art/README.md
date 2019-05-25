@@ -1,2 +1,2 @@
 ﻿## Concept art
-This game is very early in development, these are just some drawings our art, sprite, whatyamacall it guy Hayden has made. Right now all there is a player in a pixel art style he sent me
+The art used in this game. 
