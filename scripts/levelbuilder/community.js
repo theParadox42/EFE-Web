@@ -5,12 +5,10 @@ function communityLevels(){
 
 // JSON loading
 var communityLevelsPath = "https://escape-from-earth.herokuapp.com/levels";
-$.getJSON(communityLevelsPath, function(data, err){
+$.get(communityLevelsPath, function(data, status){
     console.log(data);
-    console.log(err);
-}, function(){
-    console.log("...");
-}).catch(function(e){
+    console.log(status);
+}).catch(function(e, s){
     communityLevelsPath = "/scripts/levelbuilder/stashedcommunitylevels.json";
     $.getJSON(communityLevelsPath, function(data){
         console.log("Failed to load external resource, stuck with local")
