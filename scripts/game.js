@@ -6,6 +6,7 @@ var game = {
     // Slash out all the scenes until the one you are working on EXCEPT for "load"
     sceneOrder: [
         "load",
+        "won",
         "home",
         "run",
         "build",
@@ -15,7 +16,6 @@ var game = {
         "fight",
         "fly-venus",
         "ufo",
-        "won"
         // Other scenes will probably include, "levelbuilder", "leveltester"
     ],
     reqControls: {
@@ -36,6 +36,12 @@ var game = {
             }
         } else {
             console.log("End of scenes");
+        }
+    },
+    setScene: function(newScene){
+        this.currentScene = newScene;
+        if(typeof this.getFunc().init == "function"){
+            this.getFunc().init();
         }
     },
     getFunc: function(){

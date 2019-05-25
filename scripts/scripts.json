@@ -72,7 +72,8 @@
             "build.js",
             "space.js",
             "mars.js",
-            "play.js"
+            "play.js",
+            "community.js"
         ],
         "": [
             "main.js",
