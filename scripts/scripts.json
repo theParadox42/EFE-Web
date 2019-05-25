@@ -65,6 +65,14 @@
         "ufo": [
             "main.js"
         ],
+        "levelbuilder": [
+            "main.js",
+            "run.js",
+            "build.js",
+            "space.js",
+            "mars.js",
+            "play.js"
+        ],
         "": [
             "main.js",
             "game.js",
