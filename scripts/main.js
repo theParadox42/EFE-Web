@@ -3,9 +3,9 @@
  -=o= ESCAPE FROM EARTH =o=-
     Creators:
         theParadox42
-        Tannerderp
+        tannerderp
     All code is licenced under the GNU, see https://github.com/theParadox42/escape-from-earth/blob/master/LICENSE
-    Or go to https://escapefromearth.tk/LICENSE to download
+    Or go to https://escapefromearth.tk/LICENSE for a download
 */
 
 function setup(){
@@ -15,12 +15,11 @@ function setup(){
     game.init();
 };
 function draw(){
+    cursor("default");
+
     game.run();
 };
 function windowResized(){
-    // window.location.reload();
-    resizeCanvas(windowWidth, windowHeight, true);
-    width = windowWidth;
-    height = windowHeight;
-    game.resize();
+    // resizeCanvas(windowWidth, windowHeight);
+    // game.resize();
 }

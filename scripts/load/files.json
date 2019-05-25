@@ -1,6 +1,9 @@
 {
     "fonts": [
-        "/fonts/pixelfont.ttf"
+        "/fonts/pixelfont.ttf",
+        "/fonts/bladerunner.ttf",
+        "/fonts/arcadefont.ttf",
+        "/fonts/londrina.otf"
     ],
     "images": [
         "/art/earth/player.png",
@@ -85,7 +88,10 @@
     ],
     "names": {
         "fonts": [
-            "pixel"
+            "pixel",
+            "bladerunner",
+            "arcade",
+            "londrina"
         ],
         "images": [
             "player",

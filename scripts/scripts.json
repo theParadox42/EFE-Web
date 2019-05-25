@@ -5,7 +5,8 @@
         ],
         "scenes": [
             "home.js",
-            "won.js"
+            "won.js",
+            "button.js"
         ],
         "runtorocket": [
             "player.js",

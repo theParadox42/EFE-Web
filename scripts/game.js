@@ -6,7 +6,7 @@ var game = {
     // Slash out all the scenes until the one you are working on EXCEPT for "load"
     sceneOrder: [
         "load",
-        // "home",
+        "home",
         "run",
         "build",
         "fly-moon",
@@ -15,25 +15,25 @@ var game = {
         "fight",
         "fly-venus",
         "ufo",
-        // "won"
+        "won"
         // Other scenes will probably include, "levelbuilder", "leveltester"
     ],
     reqControls: {
-        "load": false,
         "run": true,
         "build": true,
         "fly-moon": true,
-        "moon": false,
         "fly-mars": true,
         "fight": true,
         "fly-venus": true,
-        "ufo": true
+        "ufo": true,
     },
     continue: function(){
         if(this.sceneOrder[this.sceneIndex+1]){
             this.sceneIndex ++;
             this.currentScene = this.sceneOrder[this.sceneIndex];
-            this.getFunc().init();
+            if(typeof this.getFunc().init == "function"){
+                this.getFunc().init();
+            }
         } else {
             console.log("End of scenes");
         }
@@ -43,6 +43,9 @@ var game = {
         switch(this.currentScene){
             case "load":
                 returnFunc = loadFiles;
+            break;
+            case "home":
+                returnFunc = Home;
             break;
             case "run":
                 returnFunc = runToRocket;
@@ -68,8 +71,17 @@ var game = {
             case "ufo":
                 returnFunc = ufoBossFight;
             break;
+            case "won":
+                returnFunc = Won;
+            break;
+            case "levelbuilder":
+                returnFunc = levelBuilder;
+            break;
+            case "communitylevels":
+                returnFunc = communityLevels;
+            break;
             default:
-                currentScene = "run";
+                currentScene = "home";
                 returnFunc = function(){}
             break;
         }
@@ -86,15 +98,15 @@ var game = {
         }
     },
     init: function(){
-        if(typeof this.getFunc().init == "function"){
-            this.getFunc().init();
-        }
         let currentIndex = this.sceneOrder.indexOf(function(a){
             return a == this.currentScene;
         })
         this.sceneIndex = currentIndex >= 0 ? currentIndex : this.sceneIndex;
         if(isMobile){
             createMobileControls();
+        }
+        if(typeof (this.getFunc().init) == "function"){
+            this.getFunc().init();
         }
     },
     resize: function(){
