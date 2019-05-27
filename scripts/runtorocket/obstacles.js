@@ -9,8 +9,11 @@ var loadRun = {
     buildings: 20,
     clouds: 3,
     hasLoaded: false,
+    mode: "story",
     init: function(){
-        if(this.maps.length == 0) {
+        this.mode = game.currentScene=="run"?"story":"freeplay";
+        console.log(this.mode);
+        if(this.maps.length == 0 && this.mode == "story") {
             return null;
         }
         runGround.init();
@@ -31,8 +34,11 @@ var loadRun = {
         this.hasLoaded = true;
     },
     load: function(){
-        if(!this.maps[this.level] && this.maps.length != 0) return game.continue();
-        this.current = this.maps[this.level];
+        if(!this.maps[this.level] && this.maps.length != 0 && this.mode=="story") return game.continue();
+        if(this.mode!="story"&&!this.current) return false;
+        if(this.mode=="story"){
+            this.current = this.maps[this.level];
+        }
         this.map = this.current.map;
         this.signs = this.current.txt;
         this.reload();
@@ -65,8 +71,12 @@ var loadRun = {
         });
     },
     next: function(){
-        this.level ++;
-        this.load();
+        if(this.mode == "story"){
+            this.level ++;
+            this.load();
+        } else {
+            // Go back to homescreen here
+        }
     }
 }
 var runObstacleWidth = 100;

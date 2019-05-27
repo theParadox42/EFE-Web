@@ -87,6 +87,9 @@ var game = {
             case "communitylevels":
                 returnFunc = communityLevels;
             break;
+            case "playlevel":
+                returnFunc = playLevel;
+            break;
             default:
                 currentScene = "home";
                 returnFunc = function(){}

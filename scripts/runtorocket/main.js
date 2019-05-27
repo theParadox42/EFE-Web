@@ -8,7 +8,7 @@ function runToRocket(){
     }
     fill(255, 255, 255, 60);
     rect(0,0,width,height);
-//
+    
     push();
     translate(runPlayer.transX, 0);
 

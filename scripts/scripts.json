@@ -73,7 +73,8 @@
             "space.js",
             "mars.js",
             "play.js",
-            "community.js"
+            "community.js",
+            "leveldisplay.js"
         ],
         "": [
             "main.js",
