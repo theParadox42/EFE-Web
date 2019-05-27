@@ -112,7 +112,7 @@ let cLevels = [];
 
 // JSON loading
 function getCommunityLevels(){
-    var communityLevelsPath = "http://escape-from-earth.herokuapp.com/levels";
+    var communityLevelsPath = "https://escape-from-earth.herokuapp.com/levels";
     $.getJSON(communityLevelsPath, function(data){
         cLevels = data;
     }).catch(function(){
@@ -129,7 +129,7 @@ getCommunityLevels();
 setInterval(getCommunityLevels, 30000);
 
 function postLevel(newLevel){
-    $.post("http://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
+    $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
         console.log(data);
     })
 }
