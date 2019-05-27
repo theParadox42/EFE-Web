@@ -16,12 +16,14 @@ playLevel.init = function(){
 
 }
 playLevel.level = {};
-playLevel.setup = function(level){
+playLevel.gobackto = "communitylevels";
+playLevel.setup = function(level, gobackto){
     playLevel.level = level;
     let lvl = playLevel.level;
     switch(lvl.type){
         case "run":
             loadRun.current = lvl;
+            loadRun.gobackto = gobackto;
             console.log(loadRun.current);
         break;
     }

@@ -6,7 +6,7 @@ function LevelDisplay(level, w, h){
     this.h = h;
 }
 LevelDisplay.prototype.go = function(){
-    playLevel.setup(this.level)
+    playLevel.setup(this.level, game.currentScene)
     game.setScene("playlevel");
 }
 LevelDisplay.prototype.check = function(){
@@ -22,11 +22,38 @@ LevelDisplay.prototype.check = function(){
 }
 LevelDisplay.prototype.display = function(){
     push();
-    fill(255, 0, 0);
+    var img;
+    switch(this.level.type){
+        case "run":
+            img = imgs.runthumb;
+        break;
+        case "build":
+            img = imgs.buildthumb;
+        break;
+        case "space":
+            img = imgs.spacethumb;
+        break;
+        case "mars":
+            img = imgs.marsthumb;
+        break;
+        default:
+            return console.warn("Not valid type");
+        break;
+    }
+    image(img, this.x, this.y, this.w, this.w);
+
+    fill(0);
+    textAlign(LEFT, TOP);
+    textFont(fonts.londrina);
+    textSize(15);
+    text(this.level.title+"\n"+this.level.creator, this.x+5, this.y+this.w+5, this.w-10, this.h-this.w-10);
+
     strokeWeight(5);
+    noFill();
     stroke(0);
-    rect(this.x, this.y, this.w, this.h, 10);
-    console.log(this.y);
+    rect(this.x, this.y, this.w, this.h, 2);
+
+
     pop();
 }
 LevelDisplay.prototype.draw = function(x, y){
@@ -35,4 +62,4 @@ LevelDisplay.prototype.draw = function(x, y){
     this.check();
     this.display();
 }
-var levelDisplays = [];
+var communityDisplays = [];

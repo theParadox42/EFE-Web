@@ -1,6 +1,8 @@
 function communityLevels(){
     background(225);
 
+    communityLevels.home.check();
+
     if(!communityLevels.hasLoaded){
         if(cLevels.length>0){
             communityLevels.hasLoaded = true;
@@ -23,20 +25,27 @@ function communityLevels(){
         let p = 20;
         var x = p;
         var y = p;
-        let w = levelDisplays[0].w;
-        let h = levelDisplays[0].h;
+        let w = communityDisplays[0].w;
+        let h = communityDisplays[0].h;
         var across = floor(width/(w+p));
         var going = 0;
-        console.log(across);
-        for(var i = 0; i < levelDisplays.length; i ++){
-            levelDisplays[i].draw(x, y);
+        var my = 0;
+        for(var i = 0; i < communityDisplays.length; i ++){
+            communityDisplays[i].draw(x, y);
             going++;
             x+=p+w;
             if(going>=across){
                 x = p;
                 y+=h+p
                 going = 0;
+                if(y+h>height-100){
+                    my = y+h-height+100+p;
+                }
             }
+        }
+        if(scroller.maxY == undefined){
+            scroller.maxY = -my;
+            console.log(my);
         }
         pop();
     }
@@ -54,15 +63,28 @@ function communityLevels(){
     stroke(200);
     strokeWeight(3);
     text("Community Levels", width/2, 75);
+
+    pop();
+
+    push();
+    fill(255);
+    stroke(0);
+    strokeWeight(5);
+    textFont(fonts.bladerunner);
+    textSize(25);
+    communityLevels.home.display(color(0));
     pop();
 }
 communityLevels.hasLoaded = false;
 communityLevels.init = function(){
-    if(cLevels.length <= 0) return false;
+    if(cLevels.length <= 0 || communityDisplays.length > 0) return false;
     communityLevels.hasLoaded = true;
     for(var i = 0; i < cLevels.length; i ++){
-        levelDisplays.push(new LevelDisplay(cLevels[i], 200, 200));
+        communityDisplays.push(new LevelDisplay(cLevels[i], 200, 250));
     }
+    communityLevels.home = new Button("Home", 10, height-60, 100, 50, function(){
+        game.setScene("home");
+    })
 }
 let scroller = {
     x: 0,
@@ -75,9 +97,9 @@ let scroller = {
             this.y = min(this.y+map(mouseY, 100, 200, 15, 5), 0);
         } else if(mouseY>height-100){
             cursor("s-resize");
-            this.y = max(this.y-map(mouseY, height, height-100, 15, 5), -Infinity);
+            this.y = max(this.y-map(mouseY, height, height-100, 15, 5), this.maxY||0);
         } if(keys[DOWN_ARROW] || keys.s){
-            this.y = max(this.y-10, -Infinity);
+            this.y = max(this.y-10, this.maxY||0);
         } if(keys[UP_ARROW] || keys.w){
             this.y = min(this.y+10, 0);
         }
@@ -113,7 +135,8 @@ function postLevel(newLevel){
 }
 /*
 postLevel({
-    map: "______^____^",
+    title: "Easy",
+    map: "______^____^%",
     creator: "theParadox42",
     difficulty: 1,
     type: "run"

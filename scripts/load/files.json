@@ -32,7 +32,11 @@
         "/art/mars/pixel-mars.png",
         "/art/mars/heart.png",
         "/art/mars/rock.png",
-        "/art/mars/arena.png"
+        "/art/mars/arena.png",
+        "/art/thumbnails/run-thumb.png",
+        "/art/thumbnails/platformer-thumb.png",
+        "/art/thumbnails/space-thumb.png",
+        "/art/thumbnails/mars-thumb.png"
     ],
     "animations": [
         [
@@ -120,7 +124,11 @@
             "marsbackground",
             "pixelheart",
             "marsrock",
-            "marsarena"
+            "marsarena",
+            "runthumb",
+            "buildthumb",
+            "spacethumb",
+            "marsthumb"
         ],
         "animations": [
             "cloud",
