@@ -1,9 +1,10 @@
+var bosses = [];
 function loadLevel(level){
     flySigns = [];
     asteroids = [];
     bosses = [];
     for(var i in level.boss){
-        bosses.push(new UfoBoss(level.boss[i][0], level.boss[i][1])); 
+        bosses.push(new UfoBoss(level.boss[i][0], level.boss[i][1]));
     }
     for(var i in level.asteroids){
         let a = level.asteroids[i];
