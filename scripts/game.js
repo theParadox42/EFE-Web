@@ -15,7 +15,7 @@ var game = {
         "fly-mars",
         "fight",
         "fly-venus",
-        // "ufo",
+        "ufo",
         "won"
         // Other scenes will probably include, "levelbuilder", "leveltester"
     ],

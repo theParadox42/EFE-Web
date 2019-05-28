@@ -64,7 +64,8 @@
             "main.js"
         ],
         "ufo": [
-            "main.js"
+            "main.js",
+            "boss.js"
         ],
         "levelbuilder": [
             "main.js",
