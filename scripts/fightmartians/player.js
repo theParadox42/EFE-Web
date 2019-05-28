@@ -16,15 +16,15 @@ function MPlayer(x, y, w){
     this.heartIcon = imgs.pixelheart;
     this.maxlifes = 3;
     this.lifes = this.maxlifes;
-    this.maxHealth = 6;
+    this.maxHealth = 10;
     this.health = this.maxHealth;
     this.dhealth = this.health;
-    this.neededFuel = 30;
+    this.neededFuel = 10;
     this.fuel = 0;
     this.dfuel = this.fuel;
     this.reload = 0;
     this.reloadTime = 36;
-    this.cooldownTime = 15;
+    this.cooldownTime = 30;
     this.cooldown = this.cooldownTime;
     this.direction = RIGHT;
 };

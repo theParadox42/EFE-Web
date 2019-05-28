@@ -4,7 +4,7 @@ let bGame = {
     current: {},
     blocks: [],
     player: null,
-    level: 6,
+    level: 0,
     bw: 100,
     bh: 100,
     h: 0,
@@ -14,6 +14,7 @@ let bGame = {
     key: {},
     scaleFactor: 0,
     canPass: true,
+    mode: "story",
     run: function(){
         if(!this.player) return;
         push();
@@ -63,6 +64,7 @@ let bGame = {
         this.load();
     },
     next: function(){
+        if(this.mode!="story") return game.setScene(this.gobackto);
         this.level ++;
         if(this.maps[this.level]){
             this.load();
@@ -71,7 +73,11 @@ let bGame = {
         }
     },
     load: function(){
-        this.map = this.maps[this.level].map;
+        this.mode = game.currentScene == "build" ? "story" : "freeplay";
+        if(!this.maps[this.level]&&this.mode=="story") return;
+        if(this.mode == "story"){
+            this.map = this.maps[this.level].map;
+        } else if(!this.map) return;
         this.scaleFactor = height/this.map.length/this.bh;
         this.h = this.map.length * this.bh;
         this.w = this.map[0].length * this.bw;

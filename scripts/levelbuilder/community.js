@@ -131,14 +131,26 @@ setInterval(getCommunityLevels, 30000);
 function postLevel(newLevel){
     $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
         console.log(data);
-    })
+        getCommunityLevels();
+    }).catch(function(e, t, n){
+        console.log("Error posting new level")
+        console.log(t);
+        console.log(n);
+    });
 }
+
 /*
 postLevel({
-    title: "Easy",
-    map: "______^____^%",
+    title: "Platformer",
+    map: "",
     creator: "theParadox42",
-    difficulty: 1,
-    type: "run"
+    difficulty: 2,
+    type: "build",
+    level: [],
+    objects: {
+        "width": 5000,
+        "asteroids": []
+        "ufos": []
+    }
 })
-*/
+//*/

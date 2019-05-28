@@ -67,7 +67,7 @@ let mGame = {
     run: function(){
         this.timePassed++;
 
-        if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 3),1, 8)){
+        if(this.martians.length<constrain(map(this.timePassed, 50, 1000, 1, 3),1, 8) && frameCount % 180 == 0){
             if(this.player.x>0){
                 this.martians.push(new Martian(random(-this.ground.w/2, -width/2-110), -200, 100));
             } else {

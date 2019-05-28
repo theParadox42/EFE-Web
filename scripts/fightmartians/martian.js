@@ -34,9 +34,9 @@ Martian.prototype.collide = function(p) {
 };
 Martian.prototype.control = function(p){
     if(this.x>p.x+p.w){
-        this.vx-=3;
+        this.vx-=2.5;
     } else if(this.x+this.w<p.x){
-        this.vx+=3;
+        this.vx+=2.5;
     } else {
         this.jump();
     }

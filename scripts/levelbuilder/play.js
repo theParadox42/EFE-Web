@@ -4,6 +4,9 @@ function playLevel(){
         case "run":
             runToRocket();
         break;
+        case "build":
+            buildRocket();
+        break;
     }
 }
 playLevel.init = function(){
@@ -11,6 +14,9 @@ playLevel.init = function(){
     switch(lvl.type){
         case "run":
             loadRun.init();
+        break;
+        case "build":
+            bGame.init();
         break;
     }
 
@@ -24,7 +30,10 @@ playLevel.setup = function(level, gobackto){
         case "run":
             loadRun.current = lvl;
             loadRun.gobackto = gobackto;
-            console.log(loadRun.current);
+        break;
+        case "build":
+            bGame.map = lvl.level;
+            bGame.gobackto = gobackto;
         break;
     }
 }
