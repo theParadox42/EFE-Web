@@ -76,6 +76,9 @@
             "community.js",
             "leveldisplay.js"
         ],
+        "fly/freeplay": [
+            "main.js"
+        ],
         "": [
             "main.js",
             "game.js",

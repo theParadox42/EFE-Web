@@ -3,15 +3,19 @@ function FlyFreeplay(){
     background(0, 0, 0);
     if(flyPlayer.x>width/2&&flyPlayer.x<FlyFreeplay.level.w){
         translate(-flyPlayer.x+width/2, 0);
-    }else if(flyPlayer.x>5500){
-        translate(-5500+width/2, 0);
+    }else if(flyPlayer.x>FlyFreeplay.level.w){
+        translate(-FlyFreeplay.level.w+width/2, 0);
     }
-    if(flyPlayer.x>5500+width/2){
-        game.setScene(FlyFreeplay.gobackto)();
+    if(flyPlayer.x>FlyFreeplay.level.w+width/2){
+        game.setScene(FlyFreeplay.gobackto);
     }
     displayStars();
-    for(var i in flySigns){
-        flySigns[i].display(flyPlayer);
+
+    for(var i = ufos.length-1; i>-1; i--){
+        ufos[i].run(flyPlayer);
+        if(ufos[i].dead&&ufos[i].frame>20){
+            ufos.splice(i, 1);
+        }
     }
     for(var i in lasers){
       lasers[i].run();

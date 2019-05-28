@@ -7,6 +7,9 @@ function playLevel(){
         case "build":
             buildRocket();
         break;
+        case "space":
+            FlyFreeplay();
+        break;
     }
 }
 playLevel.init = function(){
@@ -17,6 +20,12 @@ playLevel.init = function(){
         break;
         case "build":
             bGame.init();
+        break;
+        case "space":
+            FlyFreeplay.init();
+        break;
+        default:
+            game.setScene("home");
         break;
     }
 
@@ -34,6 +43,9 @@ playLevel.setup = function(level, gobackto){
         case "build":
             bGame.map = lvl.level;
             bGame.gobackto = gobackto;
+        break;
+        case "space":
+            FlyFreeplay.set(lvl.objects, gobackto);
         break;
     }
 }
