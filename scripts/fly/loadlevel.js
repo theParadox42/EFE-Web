@@ -13,7 +13,7 @@ function loadLevel(level){
     ufos = [];
     for(var i in level.ufos){
         let u  = level.ufos[i];
-        ufos.push(new Ufo(u[0], u[1]));
+        ufos.push(new Ufo(u[0], u[1]*height/100));
     }
 }
 

@@ -33,11 +33,13 @@
         "/art/mars/heart.png",
         "/art/mars/rock.png",
         "/art/mars/arena.png",
+        "art/space/ufoboss.png",
         "/art/thumbnails/run-thumb.png",
         "/art/thumbnails/platformer-thumb.png",
         "/art/thumbnails/space-thumb.png",
         "/art/thumbnails/mars-thumb.png",
-        "art/space/ufoboss.png"
+        "/art/misc/pausebtn.png",
+        "/art/misc/playbtn.png"
     ],
     "animations": [
         [
@@ -127,10 +129,12 @@
             "marsrock",
             "marsarena",
             "runthumb",
+            "ufoboss",
             "buildthumb",
             "spacethumb",
             "marsthumb",
-            "ufoboss"
+            "pausebtn",
+            "playbtn"
         ],
         "animations": [
             "cloud",
