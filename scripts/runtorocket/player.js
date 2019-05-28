@@ -52,9 +52,15 @@ RunPlayer.prototype.control = function(){
             this.ducking = true;
         } else if(!this.grounded){
             this.ducking = false;
+            if(this.h == this.dh){
+                this.y -= abs(this.dh-this.oh);
+            }
         }
     } else {
         this.ducking = false;
+        if(this.h == this.dh){
+            this.y -= abs(this.dh-this.oh);
+        }
     }
     this.h = this.ducking ? this.dh : this.oh;
 };
