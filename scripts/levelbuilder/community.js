@@ -77,14 +77,14 @@ function communityLevels(){
 }
 communityLevels.hasLoaded = false;
 communityLevels.init = function(){
-    if(cLevels.length <= 0 || communityDisplays.length > 0) return false;
+    communityLevels.home = new Button("Home", 10, height-60, 100, 50, function(){
+        game.setScene("home");
+    })
+    if(cLevels.length <= 0 || communityDisplays.length > 0) return;
     communityLevels.hasLoaded = true;
     for(var i = 0; i < cLevels.length; i ++){
         communityDisplays.push(new LevelDisplay(cLevels[i], 200, 250));
     }
-    communityLevels.home = new Button("Home", 10, height-60, 100, 50, function(){
-        game.setScene("home");
-    })
 }
 let scroller = {
     x: 0,
@@ -97,9 +97,9 @@ let scroller = {
             this.y = min(this.y+map(mouseY, 100, 200, 15, 5), 0);
         } else if(mouseY>height-100){
             cursor("s-resize");
-            this.y = max(this.y-map(mouseY, height, height-100, 15, 5), this.maxY||0);
+            this.y = max(this.y-map(mouseY, height, height-100, 15, 5), (this.maxY||0));
         } if(keys[DOWN_ARROW] || keys.s){
-            this.y = max(this.y-10, this.maxY||0);
+            this.y = max(this.y-10, (this.maxY||0));
         } if(keys[UP_ARROW] || keys.w){
             this.y = min(this.y+10, 0);
         }
@@ -126,7 +126,7 @@ function getCommunityLevels(){
     });
 }
 getCommunityLevels();
-setInterval(getCommunityLevels, 30000);
+setInterval(getCommunityLevels, 10000);
 
 function postLevel(newLevel){
     $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
