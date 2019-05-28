@@ -1,13 +1,13 @@
 function FlyFreeplay(){
     push();
     background(0, 0, 0);
-    if(flyPlayer.x>width/2&&flyPlayer.x<FlyFreeplay.level.width){
+    if(flyPlayer.x>width/2&&flyPlayer.x<FlyFreeplay.level.w){
         translate(-flyPlayer.x+width/2, 0);
     }else if(flyPlayer.x>5500){
         translate(-5500+width/2, 0);
     }
     if(flyPlayer.x>5500+width/2){
-        game.continue();
+        game.setScene(FlyFreeplay.gobackto)();
     }
     displayStars();
     for(var i in flySigns){
@@ -29,11 +29,13 @@ function FlyFreeplay(){
     pop();
     flyPlayer.displayHealth();
 }
-FlyFreeplay.set = function(){
-
+FlyFreeplay.set = function(level, gobackto){
+    this.level = level;
+    this.gobackto = gobackto;
 }
 FlyFreeplay.init = function(){
     flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
-    loadLevel(this.level);
+    this.level.w = this.level.width / 100 * height
+    loadDynamicLevel(this.level);
 }

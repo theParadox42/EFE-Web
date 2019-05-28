@@ -6,7 +6,7 @@ var game = {
     // Slash out all the scenes until the one you are working on EXCEPT for "load"
     sceneOrder: [
         "load",
-        // "communitylevels",
+        "communitylevels",
         "home",
         "run",
         "build",

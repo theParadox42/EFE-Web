@@ -12,15 +12,10 @@ RunSign.prototype.display = function(p){
         this.x+=p.vx;
     }
     push();
-    // strokeCap(SQUARE);
-    // strokeWeight(10);
-    // stroke(10);
-    // fill(200);
-    // rect(this.x, this.y, this.w, this.h);
     image(imgs.woodsign, this.x, this.y, this.w, this.h);
     fill(0);
     noStroke();
-    textSize(50);
+    textSize(40);
     textFont(fonts.pixel);
     text(this.txt, this.x+this.padding, this.y+this.padding, this.w-this.padding*2, this.h-this.padding*2);
     pop();

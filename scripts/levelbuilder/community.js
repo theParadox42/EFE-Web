@@ -145,12 +145,25 @@ postLevel({
     map: "",
     creator: "theParadox42",
     difficulty: 2,
-    type: "build",
+    type: "space",
     level: [],
     objects: {
         "width": 5000,
-        "asteroids": []
-        "ufos": []
+        "asteroids": [
+            [105, 50, 30],
+            [100, 10, 30],
+            [95, 90, 30],
+            [110, 60, 40],
+            [115, 30, 25],
+            [120, 40, 35],
+            [125, 40, 50]
+        ],
+        "ufos": [
+            [200, 50],
+            [300, 0],
+            [400, 150],
+            [500, 30]
+        ]
     }
 })
 //*/

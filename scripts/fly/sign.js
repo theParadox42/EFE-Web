@@ -12,7 +12,7 @@ FlySign.prototype.display = function(p){
     drawAnimation(this.img, this.x + this.w/2, this.y + this.h/2, this.w, this.h);
     fill(0);
     noStroke();
-    textSize(40);
+    textSize(35);
     textFont(fonts.pixel);
     text(this.txt, this.x+this.padding, this.y+this.padding, this.w-this.padding*2, this.h-this.padding*2);
     pop();
