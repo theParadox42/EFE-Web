@@ -36,7 +36,8 @@
         "/art/thumbnails/run-thumb.png",
         "/art/thumbnails/platformer-thumb.png",
         "/art/thumbnails/space-thumb.png",
-        "/art/thumbnails/mars-thumb.png"
+        "/art/thumbnails/mars-thumb.png",
+        "art/space/ufoboss.png"
     ],
     "animations": [
         [
@@ -128,7 +129,8 @@
             "runthumb",
             "buildthumb",
             "spacethumb",
-            "marsthumb"
+            "marsthumb",
+            "ufoboss"
         ],
         "animations": [
             "cloud",
