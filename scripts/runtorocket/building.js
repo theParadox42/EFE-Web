@@ -17,7 +17,7 @@ RunBuilding.prototype.update = function(p){
     }
 }
 RunBuilding.prototype.display = function(){
-    console.log(this.x+", "+this.y);
+    // console.log(this.x+", "+this.y);
     push();
     image(this.img, this.x, this.y, this.w, this.h);
     pop();
