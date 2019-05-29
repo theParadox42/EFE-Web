@@ -112,15 +112,25 @@ var game = {
     pause: function(){
         push();
         this.paused = true;
-        fill(0, 0, 0, 100);
+        fill(0, 0, 0, 180);
         noStroke();
         rect(0, 0, width, height);
-        imageMode(CENTER);
-        var minSide = min(width, height)-100
+        this.minSide = this.minSide || min(min(width, height),imgs.playbtn.width*2)/2
         noStroke();
         fill(255);
-        ellipse(width/2, height/2, minSide+50, minSide+50);
-        image(imgs.playbtn, width/2, height/2, minSide, minSide);
+        ellipse(width/2, height/2, this.minSide*1.1, this.minSide*1.1);
+        rectMode(CENTER);
+        stroke(0);
+        strokeWeight(5);
+        rect(width/2, height/2+this.minSide*0.7, width/2, this.minSide*0.2)
+        textAlign(CENTER, CENTER);
+        noStroke();
+        fill(0);
+        textFont(fonts.londrina);
+        textSize(this.minSide*0.15);
+        text("Home", width/2, height/2+this.minSide*0.7);
+        imageMode(CENTER);
+        image(imgs.playbtn, width/2, height/2, this.minSide, this.minSide);
         pop();
         this.pausedImage = get();
     },
@@ -140,11 +150,16 @@ var game = {
     },
     updatePaused: function(){
         if(this.paused){
-            if(clicked){
-                clicked = false;
-                this.paused = false;
-            } else if(pressed){
-                pressed = false;
+            if(dist(mouseX, mouseY, width/2, height/2)<this.minSide*0.55){
+                cursor(HAND);
+                if(clicked){
+                    this.paused = false;
+                }
+            } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9){
+                cursor(HAND);
+                if(clicked){
+                    this.setScene("home");
+                }
             }
         } else {
             if(mouseX<50 && mouseY<50){
