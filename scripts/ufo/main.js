@@ -18,7 +18,13 @@ function ufoBossFight(){
         }
     }
     for(var i in bosses){
-        bosses[i].run();
+        bosses[i].run(flyPlayer);
+        if(bosses[i].dead&&bosses[i].frame>20){
+            bosses.splice(i, 1);
+            if(bosses.length === 0){
+                game.continue();
+            }
+        }
     }
     flyPlayer.run();
     for(var i  = asteroids.length-1; i>-1; i--){

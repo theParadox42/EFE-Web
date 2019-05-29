@@ -5,9 +5,41 @@ function UfoBoss(x, y){
     this.w = imgs.ufoboss.width*0.5;
     this.h = imgs.ufoboss.height*0.5;
     this.health = 100;
+    this.radius = this.w/2;
+    this.frame = 0;
 }
-UfoBoss.prototype.run = function(){
+UfoBoss.prototype.run = function(p){
     this.display();
+    this.collide(p);
+    this.update();
+}
+UfoBoss.prototype.update = function(){
+    if(this.health < 1){
+        this.dead = true;
+        this.img = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
+        this.frame ++;
+    }
+}
+UfoBoss.prototype.collide = function(p){
+    let distance = dist(this.x, this.y, p.x, p.y)
+    let r = this.radius + (p.w + p.h) / 4;
+    if (distance < r) {
+        p.x -= p.vx;
+        p.y -= p.vy;
+        p.thrustCooldown = 0;
+        p.vx *= -3;
+        p.vy *= -3;
+        p.health --;
+    }
+    for(var i in lasers){
+        let l = lasers[i];
+        distance = dist(this.x, this.y, l.x, l.y);
+        r = l.radius + this.radius;
+        if (distance < r) {
+            l.dead = true;
+            this.health --;
+        }
+    }
 }
 UfoBoss.prototype.display = function(){
     push();
@@ -22,7 +54,8 @@ UfoBoss.prototype.displayHealth = function(){
     strokeWeight(10);
     fill(0, 0, 0, 0);
     rect(width/2-100, 50, 200, 100);
+    noStroke();
     fill(204, 14, 14);
-    rect(width/2-95, 55, map(this.health, 0, 100, 0, 200), 90)
+    rect(width/2-95, 55, map(this.health, 0, 100, 0, 190), 90)
     pop();
 }
