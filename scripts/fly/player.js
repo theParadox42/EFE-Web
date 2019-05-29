@@ -15,6 +15,7 @@ function FlyPlayer(x, y){
     this.offImg = {};
     this.onImg = {};
     this.shootCooldown = 0;
+    this.thrustCooldown = 30;
 }
 FlyPlayer.prototype.init = function(){
     this.offImg = imgs.rocketOff;
@@ -42,6 +43,7 @@ FlyPlayer.prototype.displayHealth = function(){
 }
 FlyPlayer.prototype.update = function(){
     this.shootCooldown ++;
+    this.thrustCooldown ++;
     this.r += this.rvel;
     this.rvel *= 0.9;
     this.x+=this.vx;
@@ -62,7 +64,7 @@ FlyPlayer.prototype.update = function(){
     }
 }
 FlyPlayer.prototype.control = function(){
-    if(keys[" "] || keys[32]){
+    if((keys[" "] || keys[32])&&this.thrustCooldown>30){
         this.speed += 0.3;
         this.vx*=0.8;
         this.vy*=0.8;
