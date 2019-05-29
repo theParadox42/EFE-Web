@@ -1,4 +1,4 @@
-function RunCar(x, y){
+function RunCar(x){
     this.x = x;
     this.img = imgs.brokenCar;
     this.w = runObstacleWidth * 2;
