@@ -71,6 +71,7 @@ let bGame = {
             case "*0": return BPart[0]; break;
             case "*1": return BPart[1]; break;
             case "*2": return BPart[2]; break;
+            case "*3": return BPart[3]; break;
             default: return null; break;
         }
     },

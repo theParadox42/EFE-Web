@@ -83,6 +83,11 @@
             "/art/rocket/engine/05.png"
         ],
         [
+            4,
+            "/art/rocket/flame/00.png",
+            "/art/rocket/flame/05.png"
+        ],
+        [
             10,
             "/art/space/sign/00.png",
             "/art/space/sign/01.png"
@@ -145,6 +150,7 @@
             "rocketOn",
             "rocketOff",
             "rocketengine",
+            "rocketflame",
             "spacesign",
             "ufo"
         ]

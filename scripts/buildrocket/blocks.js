@@ -334,7 +334,7 @@ BPart[1].prototype = Object.create(BPart[0].prototype);
 
 
 BPart[2] = function(x, y, w, h){
-    this.img = imgs.rocketengine;
+    this.img = this.img || imgs.rocketengine;
     this.imgw = this.img.getWidth();
     this.imgh = this.img.getHeight();
     BPart[0].call(this, x, y, w, h);
@@ -349,6 +349,13 @@ BPart[2].prototype.display = function(){
     pop();
 
 }
+
+BPart[3] = function(x, y, w, h){
+    this.img = imgs.rocketflame;
+    BPart[2].call(this, x, y, w, h);
+}
+BPart[3].prototype = Object.create(BPart[2].prototype);
+
 }
 
 }
