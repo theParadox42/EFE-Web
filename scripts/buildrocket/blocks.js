@@ -55,6 +55,15 @@ BBlock.prototype.run = function(p){
 }
 }
 
+// Asphalt
+{
+function BAsphalt(x, y, w, h){
+    BBlock.call(this, x, y, w, h);
+    this.img = imgs.asphalt;
+}
+BAsphalt.prototype = Object.create(BBlock.prototype);
+}
+
 // BSpike
 {
 function BSpike(x, y, w, h){
@@ -75,6 +84,31 @@ BSpike.prototype.collide = function(p){
             }
         } else {
             p.kill();
+        }
+    }
+}
+}
+
+// Platform
+{
+function BPlatform(x, y, w, h){
+    BBlock.call(this, x, y, w, h);
+    this.img = imgs.platform;
+}
+BPlatform.prototype = Object.create(BBlock.prototype);
+BPlatform.prototype.collide = function(p){
+    let vx = abs(p.vx), vy = abs(p.vy);
+    if(p.x + p.w + vx + 1 > this.x && p.x - vx - 1 < this.x + this.w && p.y + p.h + vy > this.y && p.y - vy < this.y + this.h){
+        if(p.x + p.w - vx * 2 - 1 > this.x && p.x + vx * 2 + 1 < this.x + this.w){
+            if(p.y + p.h - vy - 1 < this.y && !(keys[DOWN_ARROW]||keys.s) && p.vy>0) {
+                p.y = min(p.y, this.y-p.h);
+                if(p.y + p.h >= this.y){
+                    p.vy = min(p.vy, 0);
+                    if(p.vy >= 0){
+                        p.grounded = true;
+                    }
+                }
+            }
         }
     }
 }
@@ -162,7 +196,7 @@ BWater.prototype.collide = function(p){
         }
         p.vx *= 0.75;
         p.vy *= 0.75;
-        if(keys[32]||keys[" "]||keys[UP_ARROW]&&p.vy>1.4){
+        if((keys[32]||keys[" "]||keys[UP_ARROW]||keys.w)&&p.vy>1.4){
             p.vy -= 20;
         }
         p.affectedBy.water = true;

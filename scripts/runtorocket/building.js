@@ -1,6 +1,7 @@
 function RunBuilding(x, z, h, type){
     this.x = x;
-    this.y = runGround.y - h;
+    if(game.currentScene == "build") this.y = height-h;
+    else this.y = runGround.y - h;
     this.z = z;
     this.vx = 1/this.z;
     this.img = imgs.buildings[type];
@@ -16,6 +17,7 @@ RunBuilding.prototype.update = function(p){
     }
 }
 RunBuilding.prototype.display = function(){
+    console.log(this.x+", "+this.y);
     push();
     image(this.img, this.x, this.y, this.w, this.h);
     pop();

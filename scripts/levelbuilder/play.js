@@ -10,6 +10,9 @@ function playLevel(){
         case "space":
             FlyFreeplay();
         break;
+        default:
+            game.setScene("home");
+        break;
     }
 }
 playLevel.init = function(){

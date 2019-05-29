@@ -17,6 +17,8 @@ function BPlayer(x, by, w){
         g: 255,
         b: 255
     }
+    this.transX = 0;
+    this.ptransX = this.transX;
 }
 BPlayer.prototype.control = function(){
     if(keys[RIGHT_ARROW] || keys.d){
@@ -83,11 +85,13 @@ BPlayer.prototype.kill = function(){
     bGame.reload();
 };
 BPlayer.prototype.getTransX = function(){
+    this.ptransX = this.transX;
     if(this.x < bGame.sw/3){
-        return 0;
+        this.transX = 0;
     } else if(this.x < bGame.w - bGame.sw*2/3){
-        return -this.x + bGame.sw/3;
+        this.transX = -this.x + bGame.sw/3;
     } else {
-        return -bGame.w + bGame.sw;
+        this.transX = -bGame.w + bGame.sw;
     }
+    return this.transX || 0;
 }

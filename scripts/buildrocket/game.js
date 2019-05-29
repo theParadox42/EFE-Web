@@ -3,8 +3,9 @@ let bGame = {
     map: [],
     current: {},
     blocks: [],
+    buildings: [],
     player: null,
-    level: 0,
+    level: 1,
     bw: 100,
     bh: 100,
     h: 0,
@@ -16,7 +17,18 @@ let bGame = {
     canPass: true,
     mode: "story",
     run: function(){
-        if(!this.player) return;
+
+        if(!this.player || !(this.player instanceof BPlayer)) return;
+
+        for(var i = 0; i < this.buildings.length; i ++){
+            this.buildings[i].run(this.player);
+        }
+        push();
+        noStroke();
+        fill(255, 50);
+        rect(0, 0, width, height);
+        pop();
+
         push();
         scale(this.scaleFactor);
         translate(this.player.getTransX(), 0);
@@ -45,8 +57,10 @@ let bGame = {
     },
     getConst: function(char){
         switch(char){
+            case "a": return BAsphalt; break;
             case "#": return BBlock; break;
             case "r": return BRefinery; break;
+            case "-": return BPlatform; break;
             case "'": return BSmoke; break;
             case "^": return BSpike; break;
             case "~": return BWater; break;
@@ -83,6 +97,13 @@ let bGame = {
         this.w = this.map[0].length * this.bw;
         this.sw = 1/this.scaleFactor * width;
         this.sh = 1/this.scaleFactor * height;
+        this.buildings = [];
+        for(var i = 0; i < 20; i ++){
+            this.buildings.push(new RunBuilding(random(width), random(2, 6), random(height*3/4, height/2), ~~random(imgs.buildings.length)));
+        }
+        this.buildings.sort(function(a, b){
+            return b.z-a.z;
+        });
         this.reload();
     },
     reload: function(){

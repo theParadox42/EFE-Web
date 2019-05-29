@@ -1,14 +1,13 @@
 
 var game = {
      /** Keep this this **/
-    currentScene: "load",
-    sceneIndex: 0,
-    // Slash out all the scenes until the one you are working on EXCEPT for "load"
+    currentScene: "load", // Current scene, should stay on "load"
+    sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
         "load",
         // "communitylevels",
         "home",
-        "run",
+        // "run",
         "build",
         "fly-moon",
         "moon",
@@ -17,9 +16,10 @@ var game = {
         "fly-venus",
         "ufo",
         "won"
-        // Other scenes will probably include, "levelbuilder", "leveltester"
+        // Other scenes not in the scene order include "communitylevels" and "playlevel"
     ],
     hasPause: {
+        // What scenes need a pause button
         "run": true,
         "build": true,
         "fly-moon": true,
@@ -31,6 +31,7 @@ var game = {
         "playlevel": true
     },
     reqControls: {
+        // What scenes require key controls
         "run": true,
         "build": true,
         "fly-moon": true,
@@ -56,6 +57,10 @@ var game = {
         if(typeof this.getFunc().init == "function"){
             this.getFunc().init();
         }
+        var newIndex = this.sceneOrder.findIndex(function(a){
+            return a == this.currentScene;
+        })
+        this.sceneIndex = newIndex >= 1 ? newIndex : 1;
     },
     getFunc: function(){
         var returnFunc;
@@ -103,8 +108,9 @@ var game = {
                 returnFunc = playLevel;
             break;
             default:
-                currentScene = "home";
+                this.currentScene = "home";
                 returnFunc = function(){}
+                console.log("Unknown scene, switching to home...");
             break;
         }
         return returnFunc;
