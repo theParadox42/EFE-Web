@@ -40,7 +40,7 @@ function Home(){
     textFont(fonts.londrina)
     textSize(50);
     Home.play.draw();
-    if(hasWon){
+    if(hasWon||true){
         textSize(25);
         Home.build.draw();
         Home.community.draw();
