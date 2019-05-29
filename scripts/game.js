@@ -7,7 +7,7 @@ var game = {
         "load",
         // "communitylevels",
         "home",
-        // "run",
+        "run",
         "build",
         "fly-moon",
         "moon",
