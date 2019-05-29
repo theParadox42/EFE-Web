@@ -99,7 +99,7 @@ let bGame = {
         this.sh = 1/this.scaleFactor * height;
         this.buildings = [];
         for(var i = 0; i < 20; i ++){
-            this.buildings.push(new RunBuilding(random(width), random(2, 6), random(height*3/4, height/2), ~~random(imgs.buildings.length)));
+            this.buildings.push(new BuildBuilding(random(width), random(2, 6), random(height*3/4, height/2), ~~random(imgs.buildings.length)));
         }
         this.buildings.sort(function(a, b){
             return b.z-a.z;
