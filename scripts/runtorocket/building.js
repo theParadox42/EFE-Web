@@ -27,7 +27,7 @@ RunBuilding.prototype.run = function(p){
 
 
 function BuildBuilding(x, z, h, type){
-    RunBuilding.call(this, x, y, z, h, type);
+    RunBuilding.call(this, x, z, h, type);
     this.y = height-h;
     this.vx *= bGame.scaleFactor;
 };
