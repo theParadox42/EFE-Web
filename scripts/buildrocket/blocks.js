@@ -15,7 +15,7 @@ function BBlock(x, y, w, h){
 }
 BBlock.prototype.collide = function(p){
     let vx = abs(p.vx), vy = abs(p.vy);
-    if(p.x + p.w + vx + 1 > this.x && p.x - vx - 1 < this.x + this.w && p.y + p.h + vy > this.y && p.y - vy < this.y + this.h){
+    if(p.x + p.w + vx + 1 > this.x && p.x - vx - 1 < this.x + this.w && p.y + p.h + vy >= this.y && p.y - vy <= this.y + this.h){
         if(p.x + p.w - vx * 2 - 1 > this.x && p.x + vx * 2 + 1 < this.x + this.w){
             if(p.y + p.h / 2 > this.y + this.h / 2){
                 p.y = max(p.y, this.y+this.h);
