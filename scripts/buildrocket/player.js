@@ -42,7 +42,6 @@ BPlayer.prototype.updateAnimation = function(){
         if(this.grounded && abs(this.vx) > 0.1) {
             this.walkingFrame = (this.walkingFrame + 1) % imgs.players.length;
             this.img = imgs.players[this.walkingFrame];
-        }
         } else {
             this.img = imgs.player;
         }
