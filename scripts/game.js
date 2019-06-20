@@ -6,8 +6,8 @@ var game = {
     sceneOrder: [
         "load",
         // "communitylevels",
-        // "home",
-        // "run",
+        "home",
+        "run",
         "build",
         "fly-moon",
         "moon",
