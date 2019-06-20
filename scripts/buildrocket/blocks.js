@@ -26,9 +26,9 @@ BBlock.prototype.collide = function(p){
                 p.y = min(p.y, this.y-p.h);
                 if(p.y + p.h >= this.y){
                     p.vy = min(p.vy, 0);
-                    if(p.vy >= 0){
+                    // if(p.vy >= 0){
                         p.grounded = true;
-                    }
+                    // }
                 }
             }
         } else if(p.y + p.h - vy - 1 > this.y && p.y + vy + 1 < this.y + this.h) {

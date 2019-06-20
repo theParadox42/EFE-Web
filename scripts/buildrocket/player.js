@@ -1,4 +1,5 @@
 function BPlayer(x, by, w){
+    // Basic x, y, speed, width, height
     this.vx = 0;
     this.vy = 0;
     this.img = imgs.player;
@@ -6,6 +7,7 @@ function BPlayer(x, by, w){
     this.h = this.w * this.img.height / this.img.width;
     this.x = x;
     this.y = by-this.h;
+    // Status
     this.grounded = false;
     this.hasControl = true;
     this.r = 0;
@@ -17,8 +19,12 @@ function BPlayer(x, by, w){
         g: 255,
         b: 255
     }
+    // Translate
     this.transX = 0;
     this.ptransX = this.transX;
+    // Running animation stuff
+    this.walkingFrame = 0;
+    this.isRunning = false;
 }
 BPlayer.prototype.control = function(){
     if(keys[RIGHT_ARROW] || keys.d){
@@ -28,10 +34,22 @@ BPlayer.prototype.control = function(){
     } if((keys[UP_ARROW]||keys.w||keys[" "]||keys[32]) && this.grounded){
         this.vy -= 17;
     } else if((keys[DOWN_ARROW]||keys.s) && !this.grounded){
-        this.vy+=0.2;
+        this.vy += 0.2;
+    }
+}
+BPlayer.prototype.updateAnimation = function(){
+    if(!this.grounded){
+        this.img = imgs.player;
+        console.log(this.grounded);
+    } else {
+        if(frameCount % 12 == 0){
+            this.walkingFrame = (this.walkingFrame + 1) % imgs.players.length;
+            this.img = imgs.players[this.walkingFrame];
+        }
     }
 }
 BPlayer.prototype.update = function(){
+    this.updateAnimation();
 
     this.tint.r = constrain(this.tint.r+10, 0, 255);
     this.tint.g = constrain(this.tint.g+10, 0, 255);

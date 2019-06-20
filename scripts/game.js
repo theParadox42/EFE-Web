@@ -121,7 +121,7 @@ var game = {
         fill(0, 0, 0, 180);
         noStroke();
         rect(0, 0, width, height);
-        this.minSide = this.minSide || min(min(width, height),imgs.playbtn.width*2)/2
+        this.minSide = this.minSide || min(min(width, height), imgs.playbtn.width * 2) / 2;
         noStroke();
         fill(255);
         ellipse(width/2, height/2, this.minSide*1.1, this.minSide*1.1);
@@ -161,7 +161,7 @@ var game = {
                 if(clicked){
                     this.paused = false;
                 }
-            } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9){
+            } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.6&&mouseY<height/2+this.minSide*0.8){
                 cursor(HAND);
                 if(clicked){
                     this.setScene("home");
