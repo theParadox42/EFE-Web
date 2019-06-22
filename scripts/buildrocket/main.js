@@ -6,3 +6,6 @@ function buildRocket(){
 buildRocket.init = function(){
     bGame.init();
 }
+buildRocket.reset = function(){
+    bGame.reset();
+}

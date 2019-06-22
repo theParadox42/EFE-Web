@@ -78,6 +78,9 @@ var loadRun = {
             // Go back to homescreen here
             game.setScene(this.gobackto)
         }
+    },
+    reset: function(){
+        this.level = 0;
     }
 }
 var runObstacleWidth = 100;

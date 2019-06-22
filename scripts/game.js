@@ -1,4 +1,3 @@
-
 var game = {
      /** Keep this this **/
     currentScene: "load", // Current scene, should stay on "load"
@@ -18,6 +17,16 @@ var game = {
         "won"
         // Other scenes not in the scene order include "communitylevels" and "playlevel"
     ],
+    canSave: {
+        "run": true,
+        "build": true,
+        "fly-moon": true,
+        "moon": true,
+        "fly-mars": true,
+        "fight": true,
+        "fly-venus": true,
+        "ufo": true
+    },
     hasPause: {
         // What scenes need a pause button
         "run": true,
@@ -43,14 +52,11 @@ var game = {
     paused: false,
     continue: function(){
         if(this.sceneOrder[this.sceneIndex+1]){
+            if(typeof this.getFunc().reset == "function") this.getFunc().reset();
             this.sceneIndex ++;
             this.currentScene = this.sceneOrder[this.sceneIndex];
-            if(typeof this.getFunc().init == "function"){
-                this.getFunc().init();
-            }
-        } else {
-            console.log("End of scenes");
-        }
+            if(typeof this.getFunc().init == "function") this.getFunc().init();
+        } else console.log("End of scenes");
     },
     setScene: function(newScene){
         this.currentScene = newScene;
@@ -178,6 +184,48 @@ var game = {
                 }
             }
         }
+    },
+    alreadyLoaded: false,
+    saveProgress: function(scene){
+        if(!this.hasPause[this.currentScene]) return console.log("Not a valid scene to save from");
+        var saveObject = {};
+        saveObject.scene = scene || this.currentScene;
+        var data = 0;
+        switch(saveObject.scene){
+            case "run":
+                data = loadRun.level;
+            break;
+            case "build":
+                data = bGame.level;
+            break;
+        }
+        var saves = JSON.parse(localStorage.saves);
+        saves.unshift(saveObject);
+        localStorage.saves = JSON.stringify(saves);
+    },
+    loadProgress: function(i){
+        i = i || 0;
+        if(!localStorage.saves) return console.log("No saves found");
+        var savedData;
+        try {
+            savedData = JSON.parse(localStorage.saves);
+        } catch(e){
+            return console.warn("Unparsable data type")
+        }
+        if(typeof savedData != "object" || !savedData.length) return console.warn("Not an array");
+        var savedObject = savedData[i];
+        if(typeof savedObject != "object") return console.warn("Not an object");
+        if(savedObject.data){
+            switch(savedObject.scene){
+                case "run":
+                    loadRun.level = savedObject.data;
+                break;
+                case "build":
+                    bGame.level = savedObject.data;
+                break;
+            }
+        }
+        this.setScene(savedObject.scene);
     },
     run: function(){
 

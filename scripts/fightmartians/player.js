@@ -16,7 +16,7 @@ function MPlayer(x, y, w){
     this.heartIcon = imgs.pixelheart;
     this.maxlifes = 3;
     this.lifes = this.maxlifes;
-    this.maxHealth = 10;
+    this.maxHealth = 6;
     this.health = this.maxHealth;
     this.dhealth = this.health;
     this.neededFuel = 10;

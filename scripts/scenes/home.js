@@ -31,7 +31,6 @@ function Home(){
     textFont(fonts.arcade);
     text("EARTH", width/2, height/2-150);
     pop();
-
     // Buttons
     push();
     fill(0, 0, 0, 100);
@@ -40,11 +39,9 @@ function Home(){
     textFont(fonts.londrina)
     textSize(50);
     Home.play.draw();
-    if(hasWon||true){
-        textSize(25);
-        Home.build.draw();
-        Home.community.draw();
-    }
+    textSize(25);
+    Home.build.draw();
+    Home.community.draw();
     pop();
 }
 Home.init = function(){

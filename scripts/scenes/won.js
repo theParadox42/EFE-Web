@@ -30,6 +30,8 @@ function Won(){
     text("You made your own rocket, defeated martians, destroyed the UFO, and safely landed on Venus", 100, height/2-150, width-200, 200);
 
     // New stuff
+    // I decided to not require winning the game
+    /*
     textFont(fonts.pixel);
     textSize(40);
     fill(0, 120, 120);
@@ -39,6 +41,7 @@ function Won(){
     rect(width/2-tw/2-30, height-100, tw+50, 70, 10);
     fill(255);
     text(message, width/2, height-80);
+    */
 
     pop();
 

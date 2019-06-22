@@ -125,6 +125,9 @@ let bGame = {
                 }
             }
         }
+    },
+    reset: function() {
+        this.level = 0;
     }
 }
 
