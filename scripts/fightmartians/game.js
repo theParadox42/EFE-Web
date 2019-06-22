@@ -45,7 +45,7 @@ let mGame = {
         this.fuels = [];
         this.timePassed = 0;
     },
-    init: function(){
+    init: function(rocks){
         // Player
         this.player = new MPlayer(-30, -200, 60);
         // Ground
@@ -56,8 +56,8 @@ let mGame = {
         this.background.w = width + 220;
         this.background.h = this.background.w * this.background.img.height / this.background.img.width;
         // Blocks
-        for(var i = 0; i < mrocks.length; i ++){
-            let d = mrocks[i];
+        for(var i = 0; i < rocks.length; i ++){
+            let d = rocks[i];
             let bw = this.ground.w/2/20;
             this.rocks.push(new MRock(d.x/200*this.ground.w-(d.x>0?bw:0),d.y, bw))
         }

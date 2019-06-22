@@ -10,6 +10,9 @@ function playLevel(){
         case "space":
             FlyFreeplay();
         break;
+        case "mars":
+            fightMartians();
+        break;
         default:
             game.setScene("home");
         break;
@@ -26,6 +29,9 @@ playLevel.init = function(){
         break;
         case "space":
             FlyFreeplay.init();
+        break;
+        case "mars":
+            fightMartians.init(lvl.objects.blocks);
         break;
         default:
             game.setScene("home");
@@ -49,6 +55,9 @@ playLevel.setup = function(level, gobackto){
         break;
         case "space":
             FlyFreeplay.set(lvl.objects, gobackto);
+        break;
+        case "mars":
+            // Unneeded
         break;
     }
 }

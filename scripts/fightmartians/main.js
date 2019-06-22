@@ -3,6 +3,6 @@ function fightMartians(){
 
     mGame.run();
 }
-fightMartians.init = function(){
-    mGame.init();
+fightMartians.init = function(rocks){
+    mGame.init(rocks || mrocks);
 }
