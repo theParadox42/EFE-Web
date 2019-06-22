@@ -29,11 +29,14 @@ RunPlayer.prototype.init = function(){
 };
 RunPlayer.prototype.collide = function(){
     if(this.y+this.h+this.vy>runGround.y){
-        this.vy = min(0, this.vy);
         this.grounded = true;
+        this.y = runGround.y - this.h;
     }
 }
 RunPlayer.prototype.control = function(){
+
+    var by = this.y + this.h;
+
     var xs = this.ducking ? 0.6 : 1;
     if(keys[RIGHT_ARROW] || keys.d){
         this.gvx = this.fastSpeed * xs;
@@ -41,32 +44,29 @@ RunPlayer.prototype.control = function(){
         this.gvx = this.slowSpeed * xs;
     } else {
         this.gvx = this.normalSpeed * xs;
-    } if((keys[DOWN_ARROW] || keys.s) && !this.grounded){
-        this.vy+=0.3;
-    } if((keys[UP_ARROW] || keys.w || keys[32] || keys[" "] || pressed) && this.grounded){
-        this.vy-=15;
+    } if((keys[UP_ARROW] || keys.w || keys[32] || keys[" "] || pressed) && this.grounded && this.vy >= 0){
+        this.vy-=16;
         this.grounded = false;
     } else if(keys[DOWN_ARROW] || keys.s){
         if(this.grounded && !this.ducking){
-            this.y += abs(this.dh-this.oh)+1;
             this.ducking = true;
         } else if(!this.grounded){
             this.ducking = false;
-            if(this.h == this.dh){
-                this.y -= abs(this.dh-this.oh);
-            }
+            this.vy += 0.3;
         }
     } else {
         this.ducking = false;
-        if(this.h == this.dh){
-            this.y -= abs(this.dh-this.oh);
-        }
     }
     this.h = this.ducking ? this.dh : this.oh;
+
+    this.y = by - this.h + 1;
 };
 RunPlayer.prototype.update = function(){
     //Collisions
     this.collide();
+    if(this.grounded){
+        this.vy = min(0, this.vy);
+    }
     //Input
     this.control();
     // Walking animation
