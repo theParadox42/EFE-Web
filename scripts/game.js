@@ -219,14 +219,21 @@ var game = {
                 data = bGame.level;
             break;
         }
+        var currentDate = new Date();
+        saveObject.date = {
+            year: currentDate.getYear(),
+            month: currentDate.getMonth(),
+            day: currentDate.getDate(),
+            hour: currentDate.getHours(),
+            minute: currentDate.getMinutes()
+        };
         if(typeof data != "undefined") saveObject.data = data;
         var saves = JSON.parse(localStorage.saves || "[]");
         saves.unshift(saveObject);
         localStorage.saves = JSON.stringify(saves);
     },
-    retrieveProgress: function(i){
+    retrieveProgress: function(i, arr){
         i = i || 0;
-        console.log("?");
         if(!localStorage.saves) return console.log("No saves found");
         var savedData;
         try {
@@ -235,13 +242,13 @@ var game = {
             return console.warn("Unparsable data type")
         }
         if(typeof savedData != "object" || !savedData.length) return console.warn("Not an array");
+        if(arr) return savedData;
         var savedObject = savedData[i];
         if(typeof savedObject != "object") return console.warn("Not an object");
         return savedObject;
     },
-    loadProgress: function(i){
-
-        var savedObject = this.retrieveProgress();
+    loadProgress: function(obj){
+        var savedObject = obj ? obj : this.retrieveProgress();
 
         if(savedObject.data){
             switch(savedObject.scene){

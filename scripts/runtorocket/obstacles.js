@@ -12,7 +12,6 @@ var loadRun = {
     mode: "story",
     init: function(){
         this.mode = game.currentScene=="run"?"story":"freeplay";
-        console.log(this.mode);
         if(this.maps.length == 0 && this.mode == "story") {
             return null;
         }

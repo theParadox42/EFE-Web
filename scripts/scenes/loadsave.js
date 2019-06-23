@@ -34,31 +34,75 @@ function LoadSaves(){
     strokeWeight(5);
     textAlign(CENTER, CENTER);
 
-    var x = 50, y = 250
-    var saves = game.retrieveProgress();
+    var mx = 50, my = 50, px = 10, py = 10;
+    var x = mx, y = 200 + my;
+    const w = 200, h = 70;
+    var saves = game.retrieveProgress(0, true);
     if(!saves) game.setScene("home");
     else {
         for(var i = 0; i < saves.length; i ++){
             var save = saves[i];
-            var txt = save.scene;
-            if(save.date){
-
+            ds(save, x, y, w, h);
+            x += w + px;
+            if(x + w > width - mx){
+                x = mx;
+                y += h + my;
             }
-            ds(txt, x, y);
+            if(y + h > height - my) {
+                saves.pop();
+            }
         }
     }
 
     pop();
 }
-LoadSaves.displaySave = function(txt, x, y){
-    var w = 200, h = 70;
+LoadSaves.displaySave = function(obj, x, y, w, h){
     rect(x, y, w, h, 10);
     push();
     fill(0);
     stroke(100);
     strokeWeight(2);
+    var txt;
+    switch(obj.scene){
+        case "run":
+            txt = "Run To Rocket"
+        break;
+        case "build":
+            txt = "Build Rocket";
+        break;
+        case "fly-moon":
+            txt = "Fly to the Moon";
+        break;
+        case "moon":
+            txt = "Moon";
+        break;
+        case "fly-mars":
+            txt = "Fly to Mars";
+        break;
+        case "fight":
+            txt = "Mars";
+        break;
+        case "fly-venus":
+            txt = "Fly to Venus";
+        break;
+        case "ufo":
+            txt = "UFO Fight";
+        break;
+        default:
+            txt = obj.scene;
+        break;
+    }
+    if(obj.date){
+        txt += "\n"+obj.date.month + "/" + obj.date.day + " - "+obj.date.hour+":"+obj.date.minute;
+    }
     text(txt, x+w/2, y+h/2);
     pop();
+    if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h){
+        cursor(HAND);
+        if(clicked){
+            game.loadProgress(obj);
+        }
+    }
 }
 LoadSaves.init = function(){
 
