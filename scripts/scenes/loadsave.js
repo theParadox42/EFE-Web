@@ -55,6 +55,15 @@ function LoadSaves(){
     }
 
     pop();
+
+    push();
+    fill(0, 0, 0, 100);
+    stroke(200);
+    strokeWeight(5);
+    textFont(fonts.londrina)
+    textSize(25);
+    LoadSaves.HomeBtn.draw();
+    pop();
 }
 LoadSaves.displaySave = function(obj, x, y, w, h){
     rect(x, y, w, h, 10);
@@ -92,6 +101,9 @@ LoadSaves.displaySave = function(obj, x, y, w, h){
             txt = obj.scene;
         break;
     }
+    if(typeof obj.data == "number"){
+        txt += " - " + obj.data;
+    }
     if(obj.date){
         txt += "\n"+obj.date.month + "/" + obj.date.day + " - "+obj.date.hour+":"+obj.date.minute;
     }
@@ -105,5 +117,7 @@ LoadSaves.displaySave = function(obj, x, y, w, h){
     }
 }
 LoadSaves.init = function(){
-
+    this.HomeBtn = new Button("Home", 10, height-60, 100, 50, function(){
+        game.setScene("home");
+    })
 }
