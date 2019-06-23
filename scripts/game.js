@@ -241,7 +241,7 @@ var game = {
     },
     loadProgress: function(i){
 
-        var savedObject = retrieveProgress();
+        var savedObject = this.retrieveProgress();
 
         if(savedObject.data){
             switch(savedObject.scene){
