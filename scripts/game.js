@@ -130,19 +130,22 @@ var game = {
         this.minSide = this.minSide || min(min(width, height), imgs.playbtn.width * 2) / 2;
         noStroke();
         fill(255);
-        ellipse(width/2, height/2, this.minSide*1.1, this.minSide*1.1);
+        ellipse(width/2, height/2 - this.minSide * 0.3, this.minSide*1.1, this.minSide*1.1);
         rectMode(CENTER);
         stroke(0);
         strokeWeight(5);
-        rect(width/2, height/2+this.minSide*0.7, width/2, this.minSide*0.2)
+        rect(width/2, height/2+this.minSide*0.5, width/2, this.minSide*0.2)
+        if(this.canSave[this.currentScene]){
+            rect(width/2, height/2 + this.minSide * 0.8, width/2, this.minSide*0.2);
+        }
         textAlign(CENTER, CENTER);
         noStroke();
         fill(0);
         textFont(fonts.londrina);
         textSize(this.minSide*0.15);
-        text("Home", width/2, height/2+this.minSide*0.7);
+        text("Home", width/2, height/2+this.minSide*0.5);
         imageMode(CENTER);
-        image(imgs.playbtn, width/2, height/2, this.minSide, this.minSide);
+        image(imgs.playbtn, width/2, height/2 - this.minSide * 0.3, this.minSide, this.minSide);
         pop();
         this.pausedImage = get();
     },
@@ -162,15 +165,20 @@ var game = {
     },
     updatePaused: function(){
         if(this.paused){
-            if(dist(mouseX, mouseY, width/2, height/2)<this.minSide*0.55){
+            if(dist(mouseX, mouseY, width/2, height/2 - this.minSide * 0.3) < this.minSide*0.55){
                 cursor(HAND);
                 if(clicked){
                     this.paused = false;
                 }
-            } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.6&&mouseY<height/2+this.minSide*0.8){
+            } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.4&&mouseY<height/2+this.minSide*0.6){
                 cursor(HAND);
                 if(clicked){
                     this.setScene("home");
+                }
+            } else if(this.canSave[this.currentScene] && mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9) {
+                cursor(HAND);
+                if(clicked){
+                    this.saveProgress();
                 }
             }
         } else {
@@ -199,7 +207,8 @@ var game = {
                 data = bGame.level;
             break;
         }
-        var saves = JSON.parse(localStorage.saves);
+        if(typeof data != "undefined") saveObject.data = data;
+        var saves = JSON.parse(localStorage.saves || "[]");
         saves.unshift(saveObject);
         localStorage.saves = JSON.stringify(saves);
     },

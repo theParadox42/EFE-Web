@@ -55,4 +55,4 @@ Home.init = function(){
         game.setScene("communitylevels");
     });
 }
-let hasWon = localStorage.hasWon || false;
+let hasWon = localStorage.hasWon ? true : false;

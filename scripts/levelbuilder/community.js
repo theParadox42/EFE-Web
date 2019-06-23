@@ -93,10 +93,8 @@ let scroller = {
     ay: 0,
     update: function(){
         if(mouseY<200&&mouseY>100){
-            cursor("n-resize");
             this.y = min(this.y+map(mouseY, 100, 200, 15, 5), 0);
         } else if(mouseY>height-100){
-            cursor("s-resize");
             this.y = max(this.y-map(mouseY, height, height-100, 15, 5), (this.maxY||0));
         } if(keys[DOWN_ARROW] || keys.s){
             this.y = max(this.y-10, (this.maxY||0));
