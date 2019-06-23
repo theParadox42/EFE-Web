@@ -42,10 +42,17 @@ function Home(){
     textSize(25);
     Home.build.draw();
     Home.community.draw();
+    if(localStorage.saves){
+        Home.load.draw();
+    }
     pop();
+
 }
 Home.init = function(){
     Home.play = new Button("Play Story Mode", width/2-200, height/2+10, 400, 100, function(){
+        if(game.loadFirstOnPlay){
+            return game.loadProgress();
+        }
         game.continue();
     });
     Home.build = new Button("Build Levels", width/2-200, height/2+130, 190, 100, function(){
@@ -54,5 +61,8 @@ Home.init = function(){
     Home.community = new Button("Play Community\nLevels", width/2+10, height/2+130, 190, 100, function(){
         game.setScene("communitylevels");
     });
+    Home.load = new Button("Load Save", width/2-150, height/2+250, 300, 60, function(){
+        game.setScene("loadsaves")
+    })
 }
 let hasWon = localStorage.hasWon ? true : false;

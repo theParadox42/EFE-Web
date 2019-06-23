@@ -1,3 +1,4 @@
+
 var game = {
      /** Keep this this **/
     currentScene: "load", // Current scene, should stay on "load"
@@ -50,6 +51,7 @@ var game = {
         "ufo": true,
     },
     paused: false,
+    loadFirstOnPlay: false,
     continue: function(){
         if(this.sceneOrder[this.sceneIndex+1]){
             if(typeof this.getFunc().reset == "function") this.getFunc().reset();
@@ -104,6 +106,9 @@ var game = {
             case "won":
                 returnFunc = Won;
             break;
+            case "loadsaves":
+                returnFunc = LoadSaves;
+            break;
             case "levelbuilder":
                 returnFunc = levelBuilder;
             break;
@@ -144,6 +149,11 @@ var game = {
         textFont(fonts.londrina);
         textSize(this.minSide*0.15);
         text("Home", width/2, height/2+this.minSide*0.5);
+        text("Save", width/2, height/2+this.minSide*0.8);
+        textSize(this.minSide*0.05);
+        fill(255);
+        text("Going home also saves your progress", width/2, height-this.minSide*0.05);
+
         imageMode(CENTER);
         image(imgs.playbtn, width/2, height/2 - this.minSide * 0.3, this.minSide, this.minSide);
         pop();
@@ -173,6 +183,8 @@ var game = {
             } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.4&&mouseY<height/2+this.minSide*0.6){
                 cursor(HAND);
                 if(clicked){
+                    this.saveProgress();
+                    this.loadFirstOnPlay = true;
                     this.setScene("home");
                 }
             } else if(this.canSave[this.currentScene] && mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9) {
@@ -212,8 +224,9 @@ var game = {
         saves.unshift(saveObject);
         localStorage.saves = JSON.stringify(saves);
     },
-    loadProgress: function(i){
+    retrieveProgress: function(i){
         i = i || 0;
+        console.log("?");
         if(!localStorage.saves) return console.log("No saves found");
         var savedData;
         try {
@@ -224,6 +237,12 @@ var game = {
         if(typeof savedData != "object" || !savedData.length) return console.warn("Not an array");
         var savedObject = savedData[i];
         if(typeof savedObject != "object") return console.warn("Not an object");
+        return savedObject;
+    },
+    loadProgress: function(i){
+
+        var savedObject = retrieveProgress();
+
         if(savedObject.data){
             switch(savedObject.scene){
                 case "run":

@@ -57,6 +57,7 @@ Won.init = function(){
     Won.menu = new Button("Menu",width/2-150, height/2+50, 300, 60, function(){
         game.setScene("home");
     });
-    localStorage.hasWon = true;
+    localStorage.hasWon = "true";
     hasWon = localStorage.hasWon;
+    game.loadFirstOnPlay = false;
 }
