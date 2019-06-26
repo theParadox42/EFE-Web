@@ -2,7 +2,7 @@ var levelsBuilt = JSON.parse(localStorage.myLevels || "[]");
 
 function levelBuilder(){
     if(levelBuilder.building=="none"){
-        
+        levelBuilderMenu();
     } else {
         switch(levelBuilder.building){
             case "run":

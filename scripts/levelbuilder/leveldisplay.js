@@ -1,9 +1,10 @@
-function LevelDisplay(level, w, h){
+function LevelDisplay(level, w, h, editable){
     this.level = level;
     this.x = 0;
     this.y = 0;
     this.w = w;
     this.h = h;
+    this.editable = editable;
 }
 LevelDisplay.prototype.go = function(){
     playLevel.setup(this.level, game.currentScene)
@@ -53,6 +54,7 @@ LevelDisplay.prototype.display = function(){
     stroke(0);
     rect(this.x, this.y, this.w, this.h, 2);
 
+    
 
     pop();
 }

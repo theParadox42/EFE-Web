@@ -53,7 +53,8 @@ Home.init = function(){
         if(game.loadFirstOnPlay == "always"){
             return game.loadProgress();
         } else if(game.loadFirstOnPlay == "never") {
-
+            game.continue();
+            return;
         } else if (localStorage.currentSave){
             return game.setScene("choose");
         }

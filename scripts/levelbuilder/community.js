@@ -45,7 +45,6 @@ function communityLevels(){
         }
         if(scroller.maxY == undefined){
             scroller.maxY = -my;
-            console.log(my);
         }
         pop();
     }
@@ -85,6 +84,7 @@ communityLevels.init = function(){
     for(var i = 0; i < cLevels.length; i ++){
         communityDisplays.push(new LevelDisplay(cLevels[i], 200, 250));
     }
+    scroller.reset();
 }
 let scroller = {
     x: 0,
@@ -105,6 +105,12 @@ let scroller = {
         this.ay = this.y+100;
         translate(this.x, this.y);
     },
+    reset: function(){
+        this.x = 0;
+        this.y = 0;
+        this.ax = 0;
+        this.ay = 0;
+    }
 };
 let cLevels = [];
 

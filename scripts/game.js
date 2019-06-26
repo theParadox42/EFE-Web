@@ -2,10 +2,11 @@
 var game = {
      /** Keep this this **/
     currentScene: "load", // Current scene, should stay on "load"
+    previousScene: "home",
     sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
         "load",
-        // "communitylevels",
+        // "levelbuilder",
         "home",
         "run",
         "build",
@@ -54,6 +55,7 @@ var game = {
     paused: false,
     loadFirstOnPlay: false,
     continue: function(){
+        this.previousScene = this.currentScene;
         if(this.sceneOrder[this.sceneIndex+1]){
             if(typeof this.getFunc().reset == "function") this.getFunc().reset();
             this.sceneIndex ++;
@@ -61,18 +63,25 @@ var game = {
             if(typeof this.getFunc().init == "function") this.getFunc().init();
         } else console.log("End of scenes");
     },
-    setScene: function(newScene){
-        if(typeof this.getFunc().reset == "function") this.getFunc().reset();
+    setScene: function(newScene, error){
+        if(!error) {
+            this.previousScene = this.currentScene;
+            if(typeof this.getFunc().reset == "function") this.getFunc().reset();
+        }
         if(typeof newScene == "number"){
             this.currentScene = this.sceneOrder[newScene];
         } else if(typeof newScene == "string") {
             this.currentScene = newScene;
         }
         if(typeof this.getFunc().init == "function") this.getFunc().init();
-        var newIndex = this.sceneOrder.findIndex(function(a){
-            return a == this.currentScene;
-        })
-        this.sceneIndex = newIndex >= 1 ? newIndex : this.sceneIndex;
+        if(typeof newScene == "number"){
+            this.sceneIndex = newScene;
+        } else {
+            var newIndex = this.sceneOrder.findIndex(function(a){
+                return a == this.currentScene;
+            })
+            this.sceneIndex = newIndex >= 1 ? newIndex : 1;
+        }
     },
     getFunc: function(){
         var returnFunc;
@@ -126,7 +135,7 @@ var game = {
                 returnFunc = playLevel;
             break;
             default:
-                this.currentScene = "home";
+                this.setScene("home", "error");
                 returnFunc = function(){}
                 console.log("Unknown scene, switching to home...");
             break;
@@ -155,7 +164,7 @@ var game = {
         fill(0);
         textFont(fonts.londrina);
         textSize(this.minSide*0.15);
-        text("Home", width/2, height/2+this.minSide*0.5);
+        text(this.currentScene == "playlevel" ? "Back" : "Home", width/2, height/2+this.minSide*0.5);
         text("Save", width/2, height/2+this.minSide*0.8);
         textSize(this.minSide*0.05);
         fill(255);
@@ -190,8 +199,8 @@ var game = {
             } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.4&&mouseY<height/2+this.minSide*0.6){
                 cursor(HAND);
                 if(clicked){
-                    this.saveCurrentProgress();
-                    this.setScene("home");
+                    if(this.currentScene!="playlevel")this.saveCurrentProgress();
+                    this.setScene(this.currentScene=="playlevel"?this.previousScene:"home");
                 }
             } else if(this.canSave[this.currentScene] && mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9) {
                 cursor(HAND);
@@ -217,7 +226,7 @@ var game = {
         localStorage.currentSave = JSON.stringify(progress);
     },
     saveProgress: function(scene, returnObj){
-        
+
         if(!this.hasPause[this.currentScene]) return console.log("Not a valid scene to save from");
         var saveObject = {};
         saveObject.scene = scene || this.currentScene;
