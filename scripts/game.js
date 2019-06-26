@@ -49,6 +49,7 @@ var game = {
         "fight": true,
         "fly-venus": true,
         "ufo": true,
+        "playlevel": true
     },
     paused: false,
     loadFirstOnPlay: false,
@@ -61,14 +62,17 @@ var game = {
         } else console.log("End of scenes");
     },
     setScene: function(newScene){
-        this.currentScene = newScene;
-        if(typeof this.getFunc().init == "function"){
-            this.getFunc().init();
+        if(typeof this.getFunc().reset == "function") this.getFunc().reset();
+        if(typeof newScene == "number"){
+            this.currentScene = this.sceneOrder[newScene];
+        } else if(typeof newScene == "string") {
+            this.currentScene = newScene;
         }
+        if(typeof this.getFunc().init == "function") this.getFunc().init();
         var newIndex = this.sceneOrder.findIndex(function(a){
             return a == this.currentScene;
         })
-        this.sceneIndex = newIndex >= 1 ? newIndex : 1;
+        this.sceneIndex = newIndex >= 1 ? newIndex : this.sceneIndex;
     },
     getFunc: function(){
         var returnFunc;
@@ -78,6 +82,9 @@ var game = {
             break;
             case "home":
                 returnFunc = Home;
+            break;
+            case "choose":
+                returnFunc = ChooseUseSave;
             break;
             case "run":
                 returnFunc = runToRocket;
@@ -183,8 +190,7 @@ var game = {
             } else if(mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.4&&mouseY<height/2+this.minSide*0.6){
                 cursor(HAND);
                 if(clicked){
-                    this.saveProgress();
-                    this.loadFirstOnPlay = true;
+                    this.saveCurrentProgress();
                     this.setScene("home");
                 }
             } else if(this.canSave[this.currentScene] && mouseX>width/4&&mouseX<width*3/4&&mouseY>height/2+this.minSide*0.7&&mouseY<height/2+this.minSide*0.9) {
@@ -206,7 +212,12 @@ var game = {
         }
     },
     alreadyLoaded: false,
-    saveProgress: function(scene){
+    saveCurrentProgress: function(){
+        var progress = this.saveProgress(null, true);
+        localStorage.currentSave = JSON.stringify(progress);
+    },
+    saveProgress: function(scene, returnObj){
+        
         if(!this.hasPause[this.currentScene]) return console.log("Not a valid scene to save from");
         var saveObject = {};
         saveObject.scene = scene || this.currentScene;
@@ -228,9 +239,21 @@ var game = {
             minute: currentDate.getMinutes()
         };
         if(typeof data != "undefined") saveObject.data = data;
+        if(returnObj) return saveObject;
         var saves = JSON.parse(localStorage.saves || "[]");
         saves.unshift(saveObject);
         localStorage.saves = JSON.stringify(saves);
+    },
+    retrieveCurrentProgress: function(){
+        if(!localStorage.currentSave) return console.log("No saves found");
+        var savedObject;
+        try {
+            savedObject = JSON.parse(localStorage.currentSave);
+        } catch(e){
+            return console.warn("Unparsable data type")
+        }
+        if(typeof savedObject != "object") return console.warn("Not an object");
+        return savedObject;
     },
     retrieveProgress: function(i, arr){
         i = i || 0;
@@ -248,7 +271,7 @@ var game = {
         return savedObject;
     },
     loadProgress: function(obj){
-        var savedObject = obj ? obj : this.retrieveProgress();
+        var savedObject = obj ? obj : this.retrieveCurrentProgress();
 
         if(savedObject.data){
             switch(savedObject.scene){

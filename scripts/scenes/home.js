@@ -1,4 +1,3 @@
-
 function Home(){
 
     // Starry background w/ rocket
@@ -49,9 +48,14 @@ function Home(){
 
 }
 Home.init = function(){
+
     Home.play = new Button("Play Story Mode", width/2-200, height/2+10, 400, 100, function(){
-        if(game.loadFirstOnPlay){
+        if(game.loadFirstOnPlay == "always"){
             return game.loadProgress();
+        } else if(game.loadFirstOnPlay == "never") {
+
+        } else if (localStorage.currentSave){
+            return game.setScene("choose");
         }
         game.continue();
     });

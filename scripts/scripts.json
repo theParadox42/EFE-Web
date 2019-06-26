@@ -5,6 +5,7 @@
         ],
         "scenes": [
             "home.js",
+            "choose.js",
             "won.js",
             "button.js",
             "loadsave.js"
@@ -70,6 +71,7 @@
         ],
         "levelbuilder": [
             "main.js",
+            "menu.js",
             "run.js",
             "build.js",
             "space.js",

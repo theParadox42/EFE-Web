@@ -1,6 +1,8 @@
+var levelsBuilt = JSON.parse(localStorage.myLevels || "[]");
+
 function levelBuilder(){
     if(levelBuilder.building=="none"){
-
+        
     } else {
         switch(levelBuilder.building){
             case "run":
@@ -20,6 +22,9 @@ function levelBuilder(){
             break;
         }
     }
+}
+levelBuilder.save = function(){
+    localStorage.myLevels = JSON.stringify(levelsBuilt || "[]");
 }
 levelBuilder.init = function(){
     levelBuilder.building = "none";
