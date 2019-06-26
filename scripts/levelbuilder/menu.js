@@ -3,17 +3,25 @@ function levelBuilderMenu(){
 
     background(225);
 
-    communityLevels.home.check();
+    levelBuilderMenu.home.check();
 
     if(levelsBuilt.length <= 0){
         push();
-        textAlign(CENTER);
+        textAlign(CENTER, BOTTOM);
         fill(0);
         textFont(fonts.londrina);
         textSize(40);
-        text("You don't have any levels", width/2, height/2);
+        text("You don't have any levels", width/2, height/2-60);
         pop();
 
+        push();
+        fill(255);
+        stroke(0);
+        strokeWeight(5);
+        textFont(fonts.londrina);
+        textSize(25);
+        levelBuilderMenu.newLevel.draw(color(0));
+        pop();
     } else {
         push();
         translate(0, 100);
@@ -57,7 +65,7 @@ function levelBuilderMenu(){
     textSize(50);
     stroke(200);
     strokeWeight(3);
-    text("Community Levels", width/2, 75);
+    text("Level Builder", width/2, 75);
 
     pop();
 
@@ -71,7 +79,11 @@ function levelBuilderMenu(){
     pop();
 
 }
-
 levelBuilderMenu.init = function(){
-    // this.newLevel = 
+    this.home = new Button("Home", 10, height-60, 100, 50, function(){
+        game.setScene("home");
+    })
+    this.newLevel = new Button("New Level", width/2-100, height/2-30, 200, 60, function(){
+
+    })
 }

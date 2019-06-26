@@ -78,7 +78,8 @@
             "mars.js",
             "play.js",
             "community.js",
-            "leveldisplay.js"
+            "leveldisplay.js",
+            "newlevel.js"
         ],
         "fly/freeplay": [
             "main.js"

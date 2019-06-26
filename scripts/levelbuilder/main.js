@@ -17,6 +17,9 @@ function levelBuilder(){
             case "mars":
                 buildArena();
             break;
+            case "new":
+                createNewLevel();
+            break;
             default:
                 levelBuilder.building = "none";
             break;
@@ -28,4 +31,8 @@ levelBuilder.save = function(){
 }
 levelBuilder.init = function(){
     levelBuilder.building = "none";
+    levelBuilderMenu.init();
+}
+levelBuilder.createNew = function(){
+    levelBuilder.building = "new";
 }
