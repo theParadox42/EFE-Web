@@ -84,6 +84,7 @@ levelBuilderMenu.init = function(){
         game.setScene("home");
     })
     this.newLevel = new Button("New Level", width/2-100, height/2-30, 200, 60, function(){
-
+        levelBuilder.building = "new";
+        createNewLevel.init();
     })
 }
