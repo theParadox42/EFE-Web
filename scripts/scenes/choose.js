@@ -36,7 +36,7 @@ function ChooseUseSave(){
     textSize(25);
     cus.alwaysResume.draw();
     cus.alwaysRestart.draw();
-
+    cus.back.draw();
     pop();
 
 }
@@ -54,5 +54,8 @@ ChooseUseSave.init = function(){
     this.alwaysRestart = new Button("Always Restart", width/2+10, 440, 290, 100, function(){
         game.loadFirstOnPlay = "never";
         game.setScene(2);
+    });
+    this.back = new Button("Back", width/2-100, 560, 200, 80, function(){
+        game.setScene("home");
     });
 }
