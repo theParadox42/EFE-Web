@@ -1,30 +1,36 @@
 var levelsBuilt = JSON.parse(localStorage.myLevels || "[]");
 
 function levelBuilder(){
-    if(levelBuilder.building=="none"){
-        levelBuilderMenu();
-    } else {
-        switch(levelBuilder.building){
-            case "run":
-                buildRunMap();
-            break;
-            case "build":
-                buildPlatformer();
-            break;
-            case "space":
-                buildSpaceLevel();
-            break;
-            case "mars":
-                buildArena();
-            break;
-            case "new":
-                createNewLevel();
-            break;
-            default:
-                levelBuilder.building = "none";
-            break;
-        }
+    levelBuilder.getFunc()();
+}
+levelBuilder.getFunc = function(){
+    switch(levelBuilder.building){
+        case "run":
+            return buildRunMap;
+        break;
+        case "build":
+            return buildPlatformer;
+        break;
+        case "space":
+            return buildSpaceLevel;
+        break;
+        case "mars":
+            return buildArena;
+        break;
+        case "new":
+            return createNewLevel;
+        break;
+        case "none":
+            return levelBuilderMenu;
+        break;
+        default:
+            levelBuilder.building = "none";
+            return levelBuilderMenu;
+        break;
     }
+}
+levelBuilder.switchType = function(){
+
 }
 levelBuilder.save = function(){
     localStorage.myLevels = JSON.stringify(levelsBuilt || "[]");

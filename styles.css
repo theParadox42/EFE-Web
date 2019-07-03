@@ -22,3 +22,28 @@ canvas {
     text-align: center;
     font-family: Arial;
 }
+select, button, input[type="text"] {
+    padding: 15px;
+    border-radius: 10px;
+    border-width: medium;
+    outline: none;
+    border-top-color: #ffffff;
+    border-left-color: #cccccc;
+    border-right-color: #666666;
+    border-bottom-color: #333333;
+    font-size: 20px;
+}
+select, button {
+    border-top-color: #cccccc;
+    border-left-color: #aaaaaa;
+    border-right-color: #444444;
+    border-bottom-color: #222222;
+    font-size: 30px;
+}
+input.small-text {
+    font-size: 16px;
+}
+input.big-text {
+    font-size: 30px;
+    border-width: thick;
+}

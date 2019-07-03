@@ -1,5 +1,4 @@
 function levelBuilderMenu(){
-    background(230);
 
     background(225);
 
