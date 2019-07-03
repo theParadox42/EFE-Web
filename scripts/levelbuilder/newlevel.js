@@ -27,6 +27,13 @@ createNewLevel.init = function(){
     inputs.submit = createButton("Create!");
     inputs.submit.position(width/4, 320);
     inputs.submit.style("width", (width/2+50)+"px");
+    inputs.submit.mouseReleased(createLevel);
+}
+function createLevel(){
+    levelsBuilt.unshift(new LevelBuilderLevel(inputs.name.value(), inputs.creator.value(),inputs.type.value()));
+    levelBuilder.building = inputs.type.value();
+    inputs.destroyAll();
+    currentBuildingLevel = levelsBuilt[0];
 }
 var inputs = {};
 inputs.destroyAll = function(){
