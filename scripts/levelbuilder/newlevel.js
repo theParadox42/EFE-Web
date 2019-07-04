@@ -2,7 +2,13 @@ function createNewLevel(){
     background(255);
 
     localStorage.author = inputs.creator.value();
+
+    if(createNewLevel.waitForRelease && clicked){
+        clicked = false;
+        createLevel();
+    }
 }
+createNewLevel.waitForRelease = false;
 createNewLevel.init = function(){
     inputs.name = createInput("New Level", "text");
     inputs.name.position(width/4, 50);
@@ -37,13 +43,16 @@ createNewLevel.init = function(){
     inputs.submit = createButton("Create!");
     inputs.submit.position(width/4, 320);
     inputs.submit.style("width", (width/2+50)+"px");
-    inputs.submit.mouseReleased(createLevel);
+    inputs.submit.mouseReleased(function(){
+        createNewLevel.waitForRelease = true;
+    });
 }
 function createLevel(){
     levelsBuilt.unshift(new LevelBuilderLevel(inputs.name.value(), inputs.creator.value(),inputs.type.value()));
-    levelBuilder.building = inputs.type.value();
-    inputs.destroyAll();
     currentBuildingLevel = levelsBuilt[0];
+    levelBuilder.setType(inputs.type.value());
+    inputs.destroyAll();
+    clicked = false;
 }
 var inputs = {};
 inputs.destroyAll = function(){

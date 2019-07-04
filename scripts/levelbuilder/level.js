@@ -5,7 +5,7 @@ function LevelBuilderLevel(name, creator, type, difficulty){
     this.difficulty = difficulty || 1;
     switch(this.type){
         case "run":
-            this.map = "";
+            this.map = "___c=__^__^____^__xxl%";
         break;
         case "build":
             this.level = [

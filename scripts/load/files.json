@@ -38,6 +38,7 @@
         "/art/thumbnails/platformer-thumb.png",
         "/art/thumbnails/space-thumb.png",
         "/art/thumbnails/mars-thumb.png",
+        "/art/thumbnails/x.png",
         "/art/misc/pausebtn.png",
         "/art/misc/playbtn.png"
     ],
@@ -138,6 +139,7 @@
             "buildthumb",
             "spacethumb",
             "marsthumb",
+            "x",
             "pausebtn",
             "playbtn"
         ],

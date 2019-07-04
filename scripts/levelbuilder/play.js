@@ -59,5 +59,8 @@ playLevel.setup = function(level, gobackto){
         case "mars":
             // Unneeded
         break;
+        default:
+            game.setScene("communitylevels");
+        break;
     }
 }

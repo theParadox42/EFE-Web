@@ -92,12 +92,20 @@ RunPlayer.prototype.update = function(){
     // Resets grounded
     this.grounded = false;
     // Translate
+    this.updateTranslate();
+};
+RunPlayer.prototype.updateTranslate = function(off, map){
     this.ptransX = this.transX;
-    this.viewSpace = width/3;
+    this.viewSpace = off ? 0 : width/3;
     if(this.x > this.viewSpace && this.controlTrans){
         this.transX = -this.x+this.viewSpace;
     }
-};
+    if(off){
+        if(this.x+width > map.length * runObstacleWidth){
+            this.transX = - map.length * runObstacleWidth + width;
+        }
+    }
+}
 RunPlayer.prototype.display = function(){
     push();
     translate(this.x+this.w/2,this.y);

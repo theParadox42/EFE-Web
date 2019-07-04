@@ -38,7 +38,10 @@ levelBuilder.save = function(){
 }
 levelBuilder.init = function(){
     levelBuilder.building = "none";
+    // levelBuilder.building = "new";
+
     levelBuilderMenu.init();
+    // createNewLevel.init();
 }
 levelBuilder.createNew = function(){
     levelBuilder.building = "new";

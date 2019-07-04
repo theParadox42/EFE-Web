@@ -38,7 +38,7 @@ LevelDisplay.prototype.display = function(){
             img = imgs.marsthumb;
         break;
         default:
-            return console.warn("Not valid type");
+            img = imgs.x;
         break;
     }
     image(img, this.x, this.y, this.w, this.w);
@@ -53,9 +53,7 @@ LevelDisplay.prototype.display = function(){
     noFill();
     stroke(0);
     rect(this.x, this.y, this.w, this.h, 2);
-
     
-
     pop();
 }
 LevelDisplay.prototype.draw = function(x, y){
