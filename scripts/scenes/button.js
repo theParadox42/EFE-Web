@@ -13,9 +13,9 @@ Button.prototype.check = function(){
         cursor(HAND);
         if(pressed){
             pressed = false;
-            this.func();
         } if(clicked){
             clicked = false;
+            this.func();
         }
     }
 }

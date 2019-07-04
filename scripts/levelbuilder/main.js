@@ -1,5 +1,5 @@
 var levelsBuilt = JSON.parse(localStorage.myLevels || "[]");
-var currentBuildingLevel = {};
+var currentBuildingLevel = null;
 function levelBuilder(){
     levelBuilder.getFunc()();
 }

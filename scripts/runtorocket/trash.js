@@ -1,4 +1,4 @@
-function RunTrash(x, y){
+function RunTrash(x){
     this.x = x;
     this.img = imgs.trash;
     this.w = runObstacleWidth;

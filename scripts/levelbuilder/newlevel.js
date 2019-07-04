@@ -20,9 +20,19 @@ createNewLevel.init = function(){
     inputs.type.position(width/4, 250);
     inputs.type.style("width", (width/2)+"px");
     inputs.type.option("Run", "run");
-    inputs.type.option("Platformer", "build");
+    inputs.type.option("Platformer", "build")//.attribute("disabled");
     inputs.type.option("Space", "space");
     inputs.type.option("Mars", "mars");
+
+    var disabledOptions = ["build", "space", "mars"];
+    for(var i = 0; i < disabledOptions.length; i ++){
+        for(var j = 0; j < inputs.type.elt.children.length; j ++){
+            var o = inputs.type.elt.children[j];
+            if(o.getAttribute("value") == disabledOptions[i]){
+                o.setAttribute("disabled", true)
+            }
+        }
+    }
 
     inputs.submit = createButton("Create!");
     inputs.submit.position(width/4, 320);

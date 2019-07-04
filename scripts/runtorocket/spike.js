@@ -1,6 +1,5 @@
-function RunSpike(x, y){
+function RunSpike(x){
     this.x = x;
-    this.y = y;
     this.img = imgs.spike
     this.w = runObstacleWidth;
     this.h = round(this.w * this.img.height / this.img.width);
