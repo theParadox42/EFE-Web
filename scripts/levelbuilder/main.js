@@ -37,11 +37,11 @@ levelBuilder.save = function(){
     localStorage.myLevels = JSON.stringify(levelsBuilt || "[]");
 }
 levelBuilder.init = function(){
-    levelBuilder.building = "none";
-    // levelBuilder.building = "new";
+    // levelBuilder.building = "none";
+    levelBuilder.building = "new";
 
-    levelBuilderMenu.init();
-    // createNewLevel.init();
+    // levelBuilderMenu.init();
+    createNewLevel.init();
 }
 levelBuilder.createNew = function(){
     levelBuilder.building = "new";

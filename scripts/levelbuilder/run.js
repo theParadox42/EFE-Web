@@ -91,15 +91,13 @@ buildRunMap.menu = {
             if(i == "length") continue;
             var x = map(j, 0, this.items.length, d.x+this.padding, d.x+d.w-this.padding);
             image(this.items[i].img,x+(this.iconSize-this.items[i].w)/2, d.y+this.padding+(this.iconSize-this.items[i].h)/2, this.items[i].w, this.items[i].h);
-
             if(mouseX>x&&mouseX<x+this.iconSize&&mouseY>d.y+this.padding&&mouseY<d.y+d.h-this.padding){
                 cursor(HAND);
-                if(clicked){
+                if(clicked && !this.items[i].action){
                     clicked = false;
                     this.carrying = i;
                 }
             }
-
             j ++;
         }
         pop();
@@ -111,9 +109,16 @@ buildRunMap.menu = {
         }
     },
     handleClick: function(){
-        this.placeBlock();
+        if(this.items[this.carrying].action){
+            switch(this.carrying){
+
+            }
+        } else {
+            this.placeBlock();
+        }
     },
     placeBlock: function(){
+
         var i = floor((mouseX-runPlayer.transX) / runObstacleWidth);
         if(i == currentBuildingLevel.map.length - 1) return;
         var mapArr = currentBuildingLevel.map.split("");
@@ -141,7 +146,8 @@ buildRunMap.menu = {
             "^": "spike",
             "l": "streetlight",
             "c": "brokenCar",
-            "_": "x"
+            "_": "x",
+            "pause": "pausebtn"
         }
         this.items = {};
         this.items.length = 0;
@@ -157,6 +163,7 @@ buildRunMap.menu = {
                 this.items[i].h = this.iconSize;
                 this.items[i].w = this.iconSize * this.items[i].img.width / this.items[i].img.height;
             }
+            if(i.length != 1) this.items[i].action = true;
             this.items.length ++;
         }
     }
