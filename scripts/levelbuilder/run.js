@@ -140,17 +140,7 @@ buildRunMap.menu = {
         pop();
 
 
-        if(this.paused){
-            mouseX = savedMouseX;
-            mouseY = savedMouseY;
-            clicked = savedClickData;
-            image(this.pausedImg, 0, 0, width, height);
-            if(clicked){
-                this.paused = false;
-            }
-            clicked = false;
-            return;
-        }
+        if(this.paused) return this.runPause(savedMouseX, savedMouseY, savedClickData);
 
         // Handle clicks outside of buttons & stuff
         if(mouseX>d.x&&mouseX<d.x+d.w&&mouseY>d.y&&mouseY<d.y+d.h){
@@ -160,6 +150,35 @@ buildRunMap.menu = {
             var itemCarrying = this.items[this.carrying];
             image(itemCarrying.img, mouseX-itemCarrying.w/2, mouseY-itemCarrying.h/2, itemCarrying.w, itemCarrying.h)
         }
+    },
+    runPause: function(smx, smy, sc){
+        mouseX = smx;
+        mouseY = smy;
+        clicked = sc;
+
+        push();
+        image(this.pausedImg, 0, 0, width, height);
+
+        fill(245);
+        stroke(10);
+        strokeWeight(3);
+        rect(width/4, 100, width/2, 100, 20);
+        rect(width/4, 225, width/2, 100, 20);
+        rect(width/4, 350, width/2, 100, 20);
+        rect(width/4, 475, width/2, 50, 20);
+        noStroke();
+        fill(10);
+        textFont(fonts.londrina);
+        textSize(50);
+        textAlign(CENTER, CENTER);
+        text("Resume", width/2, 150);
+        text("Save", width/2, 275);
+        text("Save & Quit", width/2, 400);
+        textSize(30);
+        text("Quit", width/2, 500);
+        pop();
+
+        clicked = false;
     },
     handleClick: function(){
         if(this.paused){
