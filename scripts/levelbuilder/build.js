@@ -18,7 +18,7 @@ function buildPlatformer(){
 buildPlatformer.init = function(){
     this.bw = 100;
     this.bh = 100;
-    this.itemsKey = ["a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "pause", "edit"];
+    this.itemsKey = ["a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit"];
     this.items = Array(this.itemsKey.length);
     this.itemPadding = width/100;//padding
     this.iw = width/this.items.length - this.itemPadding*2;
@@ -43,7 +43,6 @@ buildPlatformer.load = function(){
     this.w = map[0].length * this.bw;
     this.sw = 1/this.scaleFactor * width;
     this.sh = 1/this.scaleFactor * height;
-    console.log(this.scaleFactor);
     this.reload();
 }
 buildPlatformer.reload = function(){
@@ -52,16 +51,13 @@ buildPlatformer.reload = function(){
     for(var i = 0; i < map.length; i ++){
         for(var j = 0; j < map[i].length; j ++){
             let k = map[i][j];
-            // if(k == "*"){
-            //     k += maps[this.level].item; I don't know what this is all about
-            //     this.canPass = false;
-            // }
             let x = j * this.bw;
             let y = i * this.bh;
             if(bGame.getConst(k)){
                 this.blocks.push(new (bGame.getConst(k))(x, y, this.bw, this.bh));
             } if(k == "@") {
-                this.player = new BPlayer(x, y+this.bh, this.bh*0.75);
+                // this.player = new BPlayer(x, y+this.bh, this.bh*0.75);
+                this.blocks.push(new BuildMenuButton("@", x, y, this.bw * 0.75, this.bw))
             }
         }
     }
@@ -73,16 +69,12 @@ String.prototype.replaceAt=function(index, char) {
 }
 buildPlatformer.placeItem = function(){
     var map = currentBuildingLevel.level;
-    for(var i in map){
-        for(var j in map[i]){
-            let k = map[i][j];
-            let x = j * this.bw;
-            let y = i * this.bh;
-            if(mouseX*this.scaleFactor>x&&mouseX*this.scaleFactor<x+this.bw&&mouseY*this.scaleFactor>y&&mouseY*this.scaleFactor<y+this.bh){
-                currentBuildingLevel.level[i] = currentBuildingLevel.level[i].replaceAt(j, this.placingItem);
-            }
-        }
-    }
+    var my = (mouseY/this.scaleFactor)-this.itemBarHeight;
+    var mx = mouseX/this.scaleFactor;
+    if(mouseY<this.itemBarHeight) return;
+    var x = floor(mx/this.bw);
+    var y = floor(my/this.bh)
+    currentBuildingLevel.level[y] = currentBuildingLevel.level[y].replaceAt(x, this.placingItem);
 }
 buildPlatformer.itemBar = function(){
     push();
@@ -96,11 +88,28 @@ buildPlatformer.itemBar = function(){
         o.x = x+this.itemPadding;
         o.y = this.itemPadding;
         o.display();
-        if(mouseX>x&&mouseX<x+o.w&&mouseY>0&&mouseY<this.items[0].h){
+        if(mouseX>o.x&&mouseX<o.x+o.w&&mouseY>o.y&&mouseY<o.y+o.h){
             cursor(HAND);
             if(clicked){
-                this.placing = true;
-                this.placingItem = this.itemsKey[i];
+                if(o.notBlock){
+                    switch(o.type){
+                        case "pause":
+                            levelBuilder.pause();
+                            console.log
+                        break;
+                        case "edit":
+                            cursor("not-allowed");
+                        break;
+                        case "player":
+                            this.placing = true;
+                            this.placingItem = "@";
+                        break;
+                    }
+                } else {
+                    this.placing = true;
+                    this.placingItem = this.itemsKey[i];
+                }
+                clicked = false;
             }
         }
     }
@@ -124,12 +133,11 @@ buildPlatformer.displayGrid = function(){
 }
 
 
-function BuildMenuButton(type){
+function BuildMenuButton(type, x, y, w, bw){
     this.notBlock = true;
-    this.x = 0;
-    this.y = 0;
-    this.w = 100;
-    this.h = 100;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.type = type;
     this.img = {};
     switch(type){
         case "pause":
@@ -138,11 +146,36 @@ function BuildMenuButton(type){
         case "edit":
             this.img = imgs.editicon;
         break;
+        case "player":
+            this.img = imgs.player;
+        break;
+        case "@":
+            this.img = imgs.player;
+        break;
+        default:
+            this.img = imgs.x;
+        break;
+    }
+    if(type=="@" && typeof w == "number"){
+        this.w = w;
+        this.h = this.img.height / this.img.width * this.w;
+        this.bw = bw;
+    } else {
+        this.w = w || 100;
+        this.h = this.w;
     }
 }
 BuildMenuButton.prototype.display = function(){
     push();
     imageMode(CORNER);
-    image(this.img, this.x, this.y, this.w, this.h);
+    let img = this.img;
+    if(this.type == "@"){
+        image(img, this.x, this.y+this.bw-this.h, this.w, this.h);
+    } else if(this.type == "player"){
+        var w = this.w * img.width / img.height;
+        image(img, this.x + this.w / 2 - w / 2, this.y, w, this.h);
+    } else {
+        image(img, this.x, this.y, this.w, this.h);
+    }
     pop();
 }
