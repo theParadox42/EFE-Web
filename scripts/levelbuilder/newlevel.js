@@ -8,7 +8,9 @@ function createNewLevel(){
         createLevel();
     }
 }
-createNewLevel.waitForRelease = false;
+createNewLevel.init = function(){
+    this.waitForRelease = false;
+}
 createNewLevel.init = function(){
     inputs.name = createInput("New Level", "text");
     inputs.name.position(width/4, 50);
