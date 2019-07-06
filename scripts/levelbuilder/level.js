@@ -5,21 +5,29 @@ function LevelBuilderLevel(title, creator, type, difficulty){
     this.difficulty = difficulty || 1;
     switch(this.type){
         case "run":
-            this.map = "___c=__^__^____^__xxl%";
+            this.map = "_______________%";
         break;
         case "build":
             this.level = [
-                "                        ",
-                "                        ",
-                "                        ",
-                "                        ",
-                "                        ",
-                "                        ",
-                "                        "
+                "________________________",
+                "________________________",
+                "________________________",
+                "________________________",
+                "________________________",
+                "________________________",
+                "________________________"
             ]
         break;
         case "space":
+            this.objects = {
+                width: 200,
+                asteroids: [
 
+                ],
+                ufos: [
+                    
+                ]
+            }
         break;
         case "mars":
 

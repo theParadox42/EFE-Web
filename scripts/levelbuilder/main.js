@@ -120,6 +120,7 @@ levelBuilder.paused = function(){
             } else if(mouseY>300&&mouseY<360){
                 cursor(HAND);
                 if(clicked){
+                    this.removeLevel(currentBuildingLevel.index);
                     this.setType("none");
                     this.isPaused = false;
                 }

@@ -40,7 +40,8 @@
         "/art/thumbnails/mars-thumb.png",
         "/art/thumbnails/x.png",
         "/art/misc/pausebtn.png",
-        "/art/misc/playbtn.png"
+        "/art/misc/playbtn.png",
+        "/art/misc/editicon.png"
     ],
     "animations": [
         [
@@ -141,7 +142,8 @@
             "marsthumb",
             "x",
             "pausebtn",
-            "playbtn"
+            "playbtn",
+            "editicon"
         ],
         "animations": [
             "cloud",

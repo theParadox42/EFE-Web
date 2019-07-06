@@ -2,8 +2,9 @@ function buildPlatformer(){
     background(200, 225, 250);
     buildPlatformer.itemBar();
     push();
-    scale(this.scaleFactor);
-    if(this.player) translate(this.player.getTransX());
+    translate(0, buildPlatformer.itemBarHeight);
+    scale(buildPlatformer.scaleFactor);
+    if(buildPlatformer.player) translate(buildPlatformer.player.getTransX());
     buildPlatformer.displayGrid();
     for(var i in buildPlatformer.blocks){
         buildPlatformer.blocks[i].display();
@@ -17,20 +18,27 @@ function buildPlatformer(){
 buildPlatformer.init = function(){
     this.bw = 100;
     this.bh = 100;
-    this.itemsKey = ["a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%"];
+    this.itemsKey = ["a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "pause", "edit"];
     this.items = Array(this.itemsKey.length);
-    this.load();
+    this.itemPadding = width/100;//padding
+    this.iw = width/this.items.length - this.itemPadding*2;
     for(var i in this.itemsKey){
-        this.items[i] = new (bGame.getConst(this.itemsKey[i]))(0, 0);
-        this.items[i].w = width/this.items.length;
-        this.items[i].h = this.items[i].w;
+        var constr = bGame.getConst(this.itemsKey[i])
+        if(constr){
+            this.items[i] = new (constr)(0, 0);
+        } else {
+            this.items[i] = new BuildMenuButton(this.itemsKey[i]);
+        }
+        this.items[i].w = this.iw;
+        this.items[i].h = this.iw;
     }
     this.itemSpace = (this.items.length*100);
-    console.log(this.items[0].w)
+    this.itemBarHeight = width/this.items.length;
+    this.load();
 }
 buildPlatformer.load = function(){
     var map = currentBuildingLevel.level;
-    this.scaleFactor = height/map.length/this.bh;
+    this.scaleFactor = (height-this.itemBarHeight)/(map.length*this.bh);
     this.h = map.length * this.bh;
     this.w = map[0].length * this.bw;
     this.sw = 1/this.scaleFactor * width;
@@ -51,7 +59,7 @@ buildPlatformer.reload = function(){
             let x = j * this.bw;
             let y = i * this.bh;
             if(bGame.getConst(k)){
-                this.blocks.push(new (bGame.getConst(k))(x*this.scaleFactor, y*this.scaleFactor, this.bw, this.bh));
+                this.blocks.push(new (bGame.getConst(k))(x, y, this.bw, this.bh));
             } if(k == "@") {
                 this.player = new BPlayer(x, y+this.bh, this.bh*0.75);
             }
@@ -80,17 +88,14 @@ buildPlatformer.itemBar = function(){
     push();
     fill(41, 41, 41, 100);
     noStroke();
-    rect(0, 0, width, this.items[0].h);
+    rect(0, 0, width, this.itemBarHeight);
     var x = 0;
     for(var i in this.items){
         var o = this.items[i];
         var x = map(i, 0, this.items.length, 0, width);
-        push();
-        translate(x, 0);
-        var img = o.img;
-        if(Array.isArray(img.images)) img = img.images[0];
-        image(img, 0, 0, o.w, o.h);
-        pop();
+        o.x = x+this.itemPadding;
+        o.y = this.itemPadding;
+        o.display();
         if(mouseX>x&&mouseX<x+o.w&&mouseY>0&&mouseY<this.items[0].h){
             cursor(HAND);
             if(clicked){
@@ -105,15 +110,39 @@ buildPlatformer.displayGrid = function(){
     var map = currentBuildingLevel.level;
     for(var i in map){
         for(var j in map[i]){
-            var x = j*this.bw*this.scaleFactor;
-            var y = i*this.bh*this.scaleFactor;
+            var x = j*this.bw;
+            var y = i*this.bh;
             push();
             stroke(0, 0, 0);
             strokeWeight(0.5);
-            fill(0, 0, 0, 0);
+            noFill();
             rectMode(LEFT);
-            rect(x, y, this.bw*this.scaleFactor, this.bh*this.scaleFactor);
+            rect(x, y, this.bw, this.bh);
             pop();
         }
     }
+}
+
+
+function BuildMenuButton(type){
+    this.notBlock = true;
+    this.x = 0;
+    this.y = 0;
+    this.w = 100;
+    this.h = 100;
+    this.img = {};
+    switch(type){
+        case "pause":
+            this.img = imgs.pausebtn;
+        break;
+        case "edit":
+            this.img = imgs.editicon;
+        break;
+    }
+}
+BuildMenuButton.prototype.display = function(){
+    push();
+    imageMode(CORNER);
+    image(this.img, this.x, this.y, this.w, this.h);
+    pop();
 }

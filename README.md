@@ -22,4 +22,4 @@ The end
 (Maybe you have to survive something on Venus too, extreme weather?)
 ## Credits
 Created by theParadox42, tannerderp, and Hayden  
-Contact theParadox42 for any issues at nathaniel.fargo@gmail.com
+Contact theParadox42 for any issues at paradox42.programming@gmail.com
