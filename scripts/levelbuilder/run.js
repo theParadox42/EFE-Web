@@ -46,6 +46,17 @@ buildRunMap.init = function(){
 buildRunMap.menu = {
     carrying: "_",
     items: {},
+    paused: false,
+    pause: function(){
+        resetMatrix();
+        push();
+        fill(0, 0, 0, 150);
+        noStroke();
+        rect(0, 0, width, height);
+        pop();
+        this.pausedImg = get();
+        this.paused = true;
+    },
     update: function(){
         buildRunObjs = [];
         var runmap = currentBuildingLevel.map;
@@ -81,6 +92,17 @@ buildRunMap.menu = {
         }
     },
     runItems: function(){
+
+        var savedClickData = clicked,
+            savedMouseX = mouseX,
+            savedMouseY = mouseY;
+        if(this.paused) {
+             clicked = false;
+             mouseX = -1;
+             mouseY = -1;
+        }
+
+        // the Dock/Blocks
         push();
         fill(255, 200);
         noStroke();
@@ -93,26 +115,54 @@ buildRunMap.menu = {
             image(this.items[i].img,x+(this.iconSize-this.items[i].w)/2, d.y+this.padding+(this.iconSize-this.items[i].h)/2, this.items[i].w, this.items[i].h);
             if(mouseX>x&&mouseX<x+this.iconSize&&mouseY>d.y+this.padding&&mouseY<d.y+d.h-this.padding){
                 cursor(HAND);
-                if(clicked && !this.items[i].action){
+                if(clicked){
+                    if(this.items[i].paused){
+                        this.pause();
+                    } else {
+                        this.carrying = i;
+                    }
                     clicked = false;
-                    this.carrying = i;
+                    savedClickData = false;
                 }
             }
             j ++;
         }
         pop();
 
-        if(!(mouseX>d.x&&mouseX<d.x+d.w&&mouseY>d.y&&mouseY<d.y+d.h)){
-            cursor(HAND);
+        // The left and right arrows
+        push();
+        var arrows = {
+            cy: height/2,
+            w: 50,
+            h: 50
+        }
+
+        pop();
+
+
+        if(this.paused){
+            mouseX = savedMouseX;
+            mouseY = savedMouseY;
+            clicked = savedClickData;
+            image(this.pausedImg, 0, 0, width, height);
+            if(clicked){
+                this.paused = false;
+            }
+            clicked = false;
+            return;
+        }
+
+        // Handle clicks outside of buttons & stuff
+        if(mouseX>d.x&&mouseX<d.x+d.w&&mouseY>d.y&&mouseY<d.y+d.h){
+            clicked = false;
+        } else {
+            cursor("none");
             var itemCarrying = this.items[this.carrying];
             image(itemCarrying.img, mouseX-itemCarrying.w/2, mouseY-itemCarrying.h/2, itemCarrying.w, itemCarrying.h)
         }
     },
     handleClick: function(){
-        if(this.items[this.carrying].action){
-            switch(this.carrying){
-
-            }
+        if(this.paused){
         } else {
             this.placeBlock();
         }
@@ -163,7 +213,7 @@ buildRunMap.menu = {
                 this.items[i].h = this.iconSize;
                 this.items[i].w = this.iconSize * this.items[i].img.width / this.items[i].img.height;
             }
-            if(i.length != 1) this.items[i].action = true;
+            if(i.length != 1) this.items[i].paused = true;
             this.items.length ++;
         }
     }
