@@ -123,6 +123,6 @@ levelBuilderMenu.init = function(){
 levelBuilderMenu.createDisplays = function(){
     levelBuildDisplays = [];
     for(var i = 0; i < levelsBuilt.length; i ++){
-        levelBuildDisplays.push(new LevelDisplay(levelsBuilt[i], 200, 300));
+        levelBuildDisplays.push(new LevelDisplay(levelsBuilt[i], 200, 300, true));
     }
 }
