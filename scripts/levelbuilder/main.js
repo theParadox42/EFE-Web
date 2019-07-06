@@ -100,7 +100,7 @@ levelBuilder.paused = function(){
     text("Save & Quit",  width/2+10, 240, width/4-10);
     textSize(25);
     text("Delete Level", width/4,    330, width/4);
-    text("Edit Name",    width/2+10, 330, width/4-10);
+    text("Play",    width/2+10, 330, width/4-10);
     pop();
 
     // Logic
@@ -133,7 +133,12 @@ levelBuilder.paused = function(){
                     this.isPaused = false;
                 }
             } else if(mouseY>300&&mouseY<360){
-                cursor("not-allowed")
+                cursor(HAND);
+                if(clicked){
+                    playLevel.setup(currentBuildingLevel, game.currentScene)
+                    game.setScene("playlevel");
+                    this.isPaused = false;
+                }
             }
         }
     }

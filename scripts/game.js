@@ -165,10 +165,13 @@ var game = {
         textFont(fonts.londrina);
         textSize(this.minSide*0.15);
         text(this.currentScene == "playlevel" ? "Back" : "Home", width/2, height/2+this.minSide*0.5);
-        text("Save", width/2, height/2+this.minSide*0.8);
-        textSize(this.minSide*0.05);
-        fill(255);
-        text("Going home also saves your progress", width/2, height-this.minSide*0.05);
+
+        if(this.canSave[this.currentScene]){
+            text("Save", width/2, height/2+this.minSide*0.8);
+            textSize(this.minSide*0.05);
+            fill(255);
+            text("Going home also saves your progress", width/2, height-this.minSide*0.05);
+        }
 
         imageMode(CENTER);
         image(imgs.playbtn, width/2, height/2 - this.minSide * 0.3, this.minSide, this.minSide);

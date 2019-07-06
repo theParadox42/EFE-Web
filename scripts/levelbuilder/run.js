@@ -23,6 +23,31 @@ function buildRunMap(){
     }
     pop();
 
+    if(currentBuildingLevel.map.length >= 10){
+        push();
+        fill(240);
+        strokeWeight(5);
+        stroke(10);
+        var sx = (currentBuildingLevel.map.length-1) * runObstacleWidth;
+        var row = runObstacleWidth
+        var sy = 10;
+        rect(sx+5, sy, row-10, row-10);
+        strokeWeight(7);
+        line(sx+15, sy+(row-10)/2, sx+row-15, sy+(row-10)/2);
+        mouseX-=runPlayer.transX;
+        if(mouseX>sx+5&&mouseX<sx+row-10&&mouseY>sy&&mouseY<sy+row-10){
+            cursor(HAND);
+            if(clicked){
+                clicked = false;
+                buildRunMap.menu.popMap();
+            }
+        }
+        mouseX+=runPlayer.transX;
+        pop();
+    }
+
+    pop();
+
     runPlayer.updateTranslate(true, currentBuildingLevel.map);
 
     buildRunMap.menu.runItems();
@@ -30,7 +55,6 @@ function buildRunMap(){
         buildRunMap.menu.handleClick();
     }
 
-    pop();
 }
 var buildRunObjs = null;
 
@@ -120,14 +144,42 @@ buildRunMap.menu = {
         pop();
 
         // The left and right arrows
-        push();
         var arrows = {
             cy: height/2,
-            w: 50,
-            h: 50
+            w: 175,
+            h: 175
         }
-
+        push();
+        // translate(-runPlayer.transX, 0);
+        rectMode(CENTER);
+        fill(255, 200);
+        noStroke();
+        rect(0, arrows.cy, arrows.w*2, arrows.h, 20);
+        rect(width, arrows.cy, arrows.w*2, arrows.h, 20);
         pop();
+        // player.controlTrans = true;
+        var scrollXSpeed = 5;
+        if(keys[RIGHT_ARROW]||keys.d){
+            runPlayer.x+=scrollXSpeed;
+        } if(keys[LEFT_ARROW]||keys.a){
+            runPlayer.x-=scrollXSpeed;
+        }
+        if(mouseIsPressed){
+            scrollXSpeed *= 3;
+        }
+        if(mouseY>arrows.cy-arrows.h/2&&mouseY<arrows.cy+arrows.h/2){
+            if(mouseX<arrows.w){
+                if(clicked){
+                    clicked = false;
+                }
+                runPlayer.x-=scrollXSpeed;
+            } else if(mouseX>width-arrows.w){
+                runPlayer.x+=scrollXSpeed;
+                if(clicked){
+                    clicked = false;
+                }
+            }
+        }
 
         //Pause
         if(shouldPause) return levelBuilder.pause();
@@ -144,16 +196,22 @@ buildRunMap.menu = {
     runPause: function(smx, smy, sc){
 
     },
-    handleClick: function(){
-        if(this.paused){
-        } else {
-            this.placeBlock();
+    popMap: function(){
+        var mapArr = currentBuildingLevel.map.split("");
+        mapArr.pop();
+        if(mapArr[mapArr.length-1] == "="){
+            mapArr[mapArr.length-2] = "_";
         }
+        mapArr[mapArr.length-1] = "%";
+        currentBuildingLevel.map = mapArr.join("");
+        this.update();
+    },
+    handleClick: function(){
+        this.placeBlock();
     },
     placeBlock: function(){
 
         var i = floor((mouseX-runPlayer.transX) / runObstacleWidth);
-        if(i == currentBuildingLevel.map.length - 1) return;
         var mapArr = currentBuildingLevel.map.split("");
         if(mapArr[i] == "="){
             mapArr[i-1] = "_";
@@ -165,7 +223,9 @@ buildRunMap.menu = {
             mapArr[i+1] = "=";
         }
         currentBuildingLevel.map = mapArr.join("");
-
+        if(currentBuildingLevel.map[currentBuildingLevel.map.length-1] != "%"){
+            currentBuildingLevel.map += "%";
+        }
         this.update();
     },
     init: function(){

@@ -101,7 +101,8 @@ RunPlayer.prototype.updateTranslate = function(off, map){
         this.transX = -this.x+this.viewSpace;
     }
     if(off){
-        if(this.x+width > map.length * runObstacleWidth){
+        this.x = constrain(this.x, 0, map.length * runObstacleWidth - width);
+        if(this.x+width >= map.length * runObstacleWidth){
             this.transX = - map.length * runObstacleWidth + width;
         }
     }
