@@ -48,8 +48,8 @@ createNewLevel.init = function(){
     });
 }
 function createLevel(){
-    levelsBuilt.unshift(new LevelBuilderLevel(inputs.name.value(), inputs.creator.value(),inputs.type.value()));
-    currentBuildingLevel = levelsBuilt[0];
+    levelBuilder.addLevel(new LevelBuilderLevel(inputs.name.value(), inputs.creator.value(),inputs.type.value()));
+    levelBuilder.openLevel(0);
     levelBuilder.setType(inputs.type.value());
     inputs.destroyAll();
     clicked = false;

@@ -1,5 +1,5 @@
-function LevelBuilderLevel(name, creator, type, difficulty){
-    this.name = name || "New Level";
+function LevelBuilderLevel(title, creator, type, difficulty){
+    this.title = title || "New Level";
     this.creator = creator || "Anonymous";
     this.type = type || "";
     this.difficulty = difficulty || 1;
