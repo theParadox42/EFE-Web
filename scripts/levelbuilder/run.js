@@ -34,8 +34,6 @@ function buildRunMap(){
 }
 var buildRunObjs = null;
 
-buildRunMap.handleClick = function(){
-}
 buildRunMap.init = function(){
     this.carrying = "x";
     runPlayer.reset();
@@ -93,14 +91,7 @@ buildRunMap.menu = {
     },
     runItems: function(){
 
-        var savedClickData = clicked,
-            savedMouseX = mouseX,
-            savedMouseY = mouseY;
-        if(this.paused) {
-             clicked = false;
-             mouseX = -1;
-             mouseY = -1;
-        }
+        var shouldPause = false;
 
         // the Dock/Blocks
         push();
@@ -117,12 +108,11 @@ buildRunMap.menu = {
                 cursor(HAND);
                 if(clicked){
                     if(this.items[i].paused){
-                        this.pause();
+                        shouldPause = true;
                     } else {
                         this.carrying = i;
                     }
                     clicked = false;
-                    savedClickData = false;
                 }
             }
             j ++;
@@ -139,8 +129,8 @@ buildRunMap.menu = {
 
         pop();
 
-
-        if(this.paused) return this.runPause(savedMouseX, savedMouseY, savedClickData);
+        //Pause
+        if(shouldPause) return levelBuilder.pause();
 
         // Handle clicks outside of buttons & stuff
         if(mouseX>d.x&&mouseX<d.x+d.w&&mouseY>d.y&&mouseY<d.y+d.h){
@@ -152,35 +142,7 @@ buildRunMap.menu = {
         }
     },
     runPause: function(smx, smy, sc){
-        mouseX = smx;
-        mouseY = smy;
-        clicked = sc;
 
-        push();
-        image(this.pausedImg, 0, 0, width, height);
-
-        fill(245);
-        stroke(10);
-        strokeWeight(3);
-        rect(width/4,    100,  width/2,    80, 20);
-        rect(width/4,    200,  width/4-10, 80, 20);
-        rect(width/2+10, 200,  width/4-10, 80, 20);
-        rect(width/4,    300,  width/4-10, 60, 20);
-        rect(width/2+10, 300,  width/4-10, 60, 20);
-        noStroke();
-        fill(10);
-        textFont(fonts.londrina);
-        textSize(50);
-        textAlign(CENTER, CENTER);
-        text("Resume",      width/2, 140);
-        text("Save",        width/4, 240, width/4);
-        text("Save & Quit", width/2, 240, width/4);
-        textSize(30);
-        text("Quit",        width/4, 330, width/4);
-        text("Edit Name",   width/2, 330, width/4);
-        pop();
-
-        clicked = false;
     },
     handleClick: function(){
         if(this.paused){

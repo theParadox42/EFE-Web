@@ -53,7 +53,7 @@ LevelDisplay.prototype.display = function(){
     noFill();
     stroke(0);
     rect(this.x, this.y, this.w, this.h, 2);
-    
+
     pop();
 }
 LevelDisplay.prototype.draw = function(x, y){
@@ -62,4 +62,5 @@ LevelDisplay.prototype.draw = function(x, y){
     this.check();
     this.display();
 }
-var communityDisplays = [];
+var communityDisplays = [],
+    levelBuildDisplays = [];
