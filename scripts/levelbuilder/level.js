@@ -9,7 +9,13 @@ function LevelBuilderLevel(title, creator, type, difficulty){
         break;
         case "build":
             this.level = [
-                ""
+                "                        ",
+                "                        ",
+                "                        ",
+                "                        ",
+                "                        ",
+                "                        ",
+                "                        "
             ]
         break;
         case "space":
