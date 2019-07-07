@@ -41,7 +41,8 @@
         "/art/thumbnails/x.png",
         "/art/misc/pausebtn.png",
         "/art/misc/playbtn.png",
-        "/art/misc/editicon.png"
+        "/art/misc/editicon.png",
+        "/art/misc/uploadicon.png"
     ],
     "animations": [
         [
@@ -143,7 +144,8 @@
             "x",
             "pausebtn",
             "playbtn",
-            "editicon"
+            "editicon",
+            "uploadicon"
         ],
         "animations": [
             "cloud",

@@ -22,7 +22,7 @@ canvas {
     text-align: center;
     font-family: Arial;
 }
-select, button, input[type="text"] {
+select, button, input {
     padding: 15px;
     border-radius: 10px;
     border-width: medium;

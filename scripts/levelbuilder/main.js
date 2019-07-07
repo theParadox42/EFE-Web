@@ -5,6 +5,7 @@ var currentBuildingLevel = null;
 // Level Builder Function
 function levelBuilder(){
     if(levelBuilder.isPaused) return levelBuilder.paused();
+    if(levelBuilder.isEditingStats) return levelBuilder.editingStats();
     levelBuilder.getFunc()();
 }
 levelBuilder.getFunc = function(){
@@ -59,6 +60,7 @@ levelBuilder.save = function(){
 }
 levelBuilder.pause = function(){
     this.isPaused = true;
+    this.isEditingStats = false;
     push();
     resetMatrix();
     noStroke();
@@ -146,8 +148,113 @@ levelBuilder.paused = function(){
 
     clicked = false;
 }
+levelBuilder.editStats = function(){
+    this.isEditingStats = true;
+    this.isPaused = false;
+    this.ei = {};//edit inputs
+    var ei = this.ei;
+    ei.title = createInput(currentBuildingLevel.title, "text");
+    ei.title.attribute("placeholder", "Title");
+    ei.title.position(width/4, 50);
+    ei.title.style("width", width/2+"px");
+    ei.title.addClass("big-text");
+
+    ei.creator = createInput(currentBuildingLevel.creator, "text");
+    ei.creator.attribute("placeholder", "Creator");
+    ei.creator.position(width/4, 150);
+    ei.creator.style("width", width/2+"px");
+    ei.creator.addClass("big-text");
+
+    var doWidth,
+        minWidth,
+        currentWidth,
+        doHeight,
+        minHeight,
+        currentHeight;
+    switch(currentBuildingLevel.type){
+        case "run":
+            doWidth = true;
+            minWidth = 10;
+            currentWidth = currentBuildingLevel.map.length;
+        break;
+        case "build":
+            doWidth = true;
+            minWidth = 15;
+            currentWidth = currentBuildingLevel.level[0].length;
+            doHeight = true;
+            minHeight = 8;
+            currentHeight = currentBuildingLevel.level.length;
+        break;
+        case "space":
+            doWidth = true;
+            minWidth = 200;
+            currentWidth = currentBuildingLevel.objects.width;
+        break;
+    }
+    var by = 250
+    if(doWidth){
+        ei.width = createInput(currentWidth, "number");
+        ei.width.attribute("placeholder", "Width");
+        ei.width.position(width/4, 250);
+        ei.width.style("width", width/2+"px");
+        ei.minWidth = minWidth;
+        by+=80;
+    } if(doHeight){
+        ei.height = createInput(currentHeight, "number");
+        ei.height.attribute("placeholder", "Height");
+        ei.height.position(width/4, 330);
+        ei.height.style("width", width/2+"px");
+        ei.minHeight = minHeight;
+        by+=80;
+    }
+    ei.submit = createButton("Save");
+    ei.submit.position(width/4, by);
+    ei.submit.style("width", (width/4-10)+"px");
+    ei.submit.mouseReleased(function(){
+        ei.waitFor.submit = true;
+    })
+
+    ei.cancel = createButton("Cancel");
+    ei.cancel.position(width/2+10, by);
+    ei.cancel.style("width", (width/4-10)+"px");
+    ei.cancel.mouseReleased(function(){
+        ei.waitFor.cancel = true;
+    })
+
+    ei.waitFor = {};
+    ei.destroyInputs = function(){
+        for(var i in ei){
+            if(typeof ei[i] == "object"){
+                if(typeof ei[i].remove == "function") ei[i].remove();
+            }
+        }
+    }
+}
+levelBuilder.editingStats = function(){
+    background(245);
+    var ei = this.ei;
+
+    if(clicked){
+        if(ei.waitFor.submit){
+            if(ei.width){
+                ei.width.value(max(ei.minWidth, ei.width.value()))
+            }
+            if(ei.height){
+                ei.height.value(max(ei.minHeight, ei.height.value()))
+            }
+            LevelBuilderLevel.updateLevel(currentBuildingLevel,ei.title.value(), ei.creator.value(), ei.width?ei.width.value():null, ei.height?ei.height.value():null);
+            this.isEditingStats = false;
+            ei.destroyInputs();
+            if(typeof this.getFunc().init == "function") this.getFunc().init();
+        } else if(ei.waitFor.cancel){
+            this.isEditingStats = false;
+            ei.destroyInputs();
+        }
+    }
+}
 levelBuilder.init = function(){
     this.isPaused = false;
+    this.isEditingStats = false;
 
     levelBuilder.building = levelBuilder.building || "none";
     // levelBuilder.building = "new";

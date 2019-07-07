@@ -367,9 +367,8 @@ function BAir(x, y, w, h){
     this.img = imgs.x;
 }
 BAir.prototype = Object.create(BBlock.prototype);
-BAir.prototype.display = function(){};
+BAir.prototype.display = function(actually){
+    if(actually) image(this.img, this.x, this.y, this.w, this.h);
+};
 BAir.prototype.collide = function(){};
-BAir.prototype.displayX = function(){
-    image(this.img, this.x, this.y, this.w, this.h);
-}
 }

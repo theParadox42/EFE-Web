@@ -1,6 +1,5 @@
 function buildPlatformer(){
     background(200, 225, 250);
-    buildPlatformer.itemBar();
     push();
     translate(0, buildPlatformer.itemBarHeight);
     scale(buildPlatformer.scaleFactor);
@@ -10,6 +9,10 @@ function buildPlatformer(){
         buildPlatformer.blocks[i].display();
     }
     pop();
+    buildPlatformer.itemBar();
+    if(mouseY>buildPlatformer.itemBarHeight){
+        buildPlatformer.displayItem();
+    }
     if(clicked&&buildPlatformer.placing){
         buildPlatformer.placeItem();
         buildPlatformer.reload();
@@ -18,7 +21,7 @@ function buildPlatformer(){
 buildPlatformer.init = function(){
     this.bw = 100;
     this.bh = 100;
-    this.itemsKey = ["a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit"];
+    this.itemsKey = ["_", "a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit"];
     this.items = Array(this.itemsKey.length);
     this.itemPadding = width/100;//padding
     this.iw = width/this.items.length - this.itemPadding*2;
@@ -31,6 +34,7 @@ buildPlatformer.init = function(){
         }
         this.items[i].w = this.iw;
         this.items[i].h = this.iw;
+        this.items[i].keyValue = this.itemsKey[i];
     }
     this.itemSpace = (this.items.length*100);
     this.itemBarHeight = width/this.items.length;
@@ -62,18 +66,22 @@ buildPlatformer.reload = function(){
         }
     }
 }
-String.prototype.replaceAt=function(index, char) {
-    var a = this.split("");
-    a[index] = char;
-    return a.join("");
-}
 buildPlatformer.placeItem = function(){
     var map = currentBuildingLevel.level;
-    var my = (mouseY/this.scaleFactor)-this.itemBarHeight;
+    var my = (mouseY-this.itemBarHeight)/this.scaleFactor;
     var mx = mouseX/this.scaleFactor;
     if(mouseY<this.itemBarHeight) return;
     var x = floor(mx/this.bw);
-    var y = floor(my/this.bh)
+    var y = floor(my/this.bh);
+    if(this.placingItem == "@"){
+        for(var i = 0; i < map.length; i ++){
+            for(var j = 0; j < map[i].length; j ++){
+                if(map[i][j] == "@"){
+                    currentBuildingLevel.level[i] = currentBuildingLevel.level[i].replaceAt(j, "_");
+                }
+            }
+        }
+    }
     currentBuildingLevel.level[y] = currentBuildingLevel.level[y].replaceAt(x, this.placingItem);
 }
 buildPlatformer.itemBar = function(){
@@ -87,7 +95,7 @@ buildPlatformer.itemBar = function(){
         var x = map(i, 0, this.items.length, 0, width);
         o.x = x+this.itemPadding;
         o.y = this.itemPadding;
-        o.display();
+        o.display(true);
         if(mouseX>o.x&&mouseX<o.x+o.w&&mouseY>o.y&&mouseY<o.y+o.h){
             cursor(HAND);
             if(clicked){
@@ -95,10 +103,9 @@ buildPlatformer.itemBar = function(){
                     switch(o.type){
                         case "pause":
                             levelBuilder.pause();
-                            console.log
                         break;
                         case "edit":
-                            cursor("not-allowed");
+                            levelBuilder.editStats();
                         break;
                         case "player":
                             this.placing = true;
@@ -122,8 +129,8 @@ buildPlatformer.displayGrid = function(){
             var x = j*this.bw;
             var y = i*this.bh;
             push();
-            stroke(0, 0, 0);
-            strokeWeight(0.5);
+            stroke(255, 64);
+            strokeWeight(2);
             noFill();
             rectMode(LEFT);
             rect(x, y, this.bw, this.bh);
@@ -131,7 +138,36 @@ buildPlatformer.displayGrid = function(){
         }
     }
 }
+buildPlatformer.displayItem = function(){
+    if(this.placing){
+        var o = this.items.find(function(a){
+            return a.keyValue == buildPlatformer.placingItem || (a.keyValue == "player" && buildPlatformer.placingItem == "@");
+        })
+        var old = {
+            x: o.x,
+            y: o.y,
+            w: o.w,
+            h: o.h
+        }
 
+        var d = 100/o.h;
+        o.w *= d;
+        o.h *= d;
+        o.x = mouseX - o.w / 2;
+        o.y = mouseY - o.h / 2;
+        o.display(true);
+
+        for(var i in old){
+            o[i] = old[i];
+        }
+    }
+}
+
+String.prototype.replaceAt=function(index, char) {
+    var a = this.split("");
+    a[index] = char;
+    return a.join("");
+}
 
 function BuildMenuButton(type, x, y, w, bw){
     this.notBlock = true;
@@ -167,6 +203,10 @@ function BuildMenuButton(type, x, y, w, bw){
 }
 BuildMenuButton.prototype.display = function(){
     push();
+    var tx = this.x+(this.w||this.bw)/2;
+    translate(tx, 0);
+    scale(-1, 1);
+    translate(-tx, 0);
     imageMode(CORNER);
     let img = this.img;
     if(this.type == "@"){

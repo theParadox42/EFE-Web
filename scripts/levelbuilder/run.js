@@ -115,7 +115,7 @@ buildRunMap.menu = {
     },
     runItems: function(){
 
-        var shouldPause = false;
+        var shouldPause, shouldEdit;
 
         // the Dock/Blocks
         push();
@@ -131,8 +131,10 @@ buildRunMap.menu = {
             if(mouseX>x&&mouseX<x+this.iconSize&&mouseY>d.y+this.padding&&mouseY<d.y+d.h-this.padding){
                 cursor(HAND);
                 if(clicked){
-                    if(this.items[i].paused){
+                    if(i == "pause"){
                         shouldPause = true;
+                    } else if(i == "edit"){
+                        shouldEdit = true;
                     } else {
                         this.carrying = i;
                     }
@@ -183,6 +185,7 @@ buildRunMap.menu = {
 
         //Pause
         if(shouldPause) return levelBuilder.pause();
+        if(shouldEdit) return levelBuilder.editStats();
 
         // Handle clicks outside of buttons & stuff
         if(mouseX>d.x&&mouseX<d.x+d.w&&mouseY>d.y&&mouseY<d.y+d.h){
@@ -192,9 +195,6 @@ buildRunMap.menu = {
             var itemCarrying = this.items[this.carrying];
             image(itemCarrying.img, mouseX-itemCarrying.w/2, mouseY-itemCarrying.h/2, itemCarrying.w, itemCarrying.h)
         }
-    },
-    runPause: function(smx, smy, sc){
-
     },
     popMap: function(){
         var mapArr = currentBuildingLevel.map.split("");
@@ -240,7 +240,8 @@ buildRunMap.menu = {
             "l": "streetlight",
             "c": "brokenCar",
             "_": "x",
-            "pause": "pausebtn"
+            "pause": "pausebtn",
+            "edit": "editicon"
         }
         this.items = {};
         this.items.length = 0;
@@ -256,7 +257,6 @@ buildRunMap.menu = {
                 this.items[i].h = this.iconSize;
                 this.items[i].w = this.iconSize * this.items[i].img.width / this.items[i].img.height;
             }
-            if(i.length != 1) this.items[i].paused = true;
             this.items.length ++;
         }
     }
