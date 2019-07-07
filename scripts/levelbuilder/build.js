@@ -143,6 +143,7 @@ buildPlatformer.displayItem = function(){
         var o = this.items.find(function(a){
             return a.keyValue == buildPlatformer.placingItem || (a.keyValue == "player" && buildPlatformer.placingItem == "@");
         })
+        if(!o) return console.warn("No item to display");
         var old = {
             x: o.x,
             y: o.y,
@@ -155,6 +156,20 @@ buildPlatformer.displayItem = function(){
         o.h *= d;
         o.x = mouseX - o.w / 2;
         o.y = mouseY - o.h / 2;
+        // Something that didn't work
+        /*
+        if(typeof o.img.changeFrame == "function") {
+             // var f = o.img.getFrame();
+             // if(f == 0){
+             //     f = o.img.getLastFrame();
+             // } else {
+             //     f --;
+             // }
+             // o.img.changeFrame(f);
+             // o.img.play();
+             o.img.stop();
+        }
+        */
         o.display(true);
 
         for(var i in old){
