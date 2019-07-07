@@ -3,6 +3,7 @@ function LevelBuilderLevel(title, creator, type, difficulty){
     this.creator = creator || "Anonymous";
     this.type = type || "";
     this.difficulty = difficulty || 1;
+    this.verified = false;
     switch(this.type){
         case "run":
             this.map = "_______________%";
@@ -65,7 +66,7 @@ LevelBuilderLevel.updateLevel = function(level, title, creator, w, h){
                 if(w){
                     while(level.level[0].length > w){
                         for(var i = 0; i < level.level.length; i ++){
-                            level.level[i] = level.level[i].replaceAt(level.level[i].length, "");
+                            level.level[i] = level.level[i].replaceAt(level.level[i].length-1, "");
                         }
                     }
                     while(level.level[0].length < w){
@@ -78,6 +79,4 @@ LevelBuilderLevel.updateLevel = function(level, title, creator, w, h){
         }
     }
 
-}
-LevelBuilderLevel.prototype.update = function(title, creator, w, h){
 }
