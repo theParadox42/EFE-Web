@@ -68,14 +68,19 @@ levelBuilder.pause = function(){
     fill(0, 0, 0, 200);
     rect(0, 0, width, height);
     pop();
-    this.pausedImg = get();
+    if(isMobile()){
+        this.pausedImg = get();
+    }
 }
 levelBuilder.paused = function(){
     // Display
     push();
     resetMatrix();
-    image(this.pausedImg, 0, 0, width, height);
-
+    if(isMobile()){
+        image(this.pausedImg, 0, 0, width, height);
+    } else {
+         background(80, 80, 80);
+    }
     // Title
     fill(255);
     textFont(fonts.londrina);
