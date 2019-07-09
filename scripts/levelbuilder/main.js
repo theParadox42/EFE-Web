@@ -68,7 +68,7 @@ levelBuilder.pause = function(){
     fill(0, 0, 0, 200);
     rect(0, 0, width, height);
     pop();
-    if(isMobile()){
+    if(!isMobile){
         this.pausedImg = get();
     }
 }
@@ -76,10 +76,10 @@ levelBuilder.paused = function(){
     // Display
     push();
     resetMatrix();
-    if(isMobile()){
-        image(this.pausedImg, 0, 0, width, height);
-    } else {
+    if(isMobile){
          background(80, 80, 80);
+    } else {
+         image(this.pausedImg, 0, 0, width, height);
     }
     // Title
     fill(255);
