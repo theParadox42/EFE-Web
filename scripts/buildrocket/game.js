@@ -80,7 +80,11 @@ let bGame = {
         this.load();
     },
     next: function(){
-        if(this.mode!="story") return game.setScene(this.gobackto);
+        if(this.mode!="story") {
+            game.setScene(this.gobackto);
+            this.rawLevelObject.verified = true;
+            return;
+        }
         this.level ++;
         if(this.maps[this.level]){
             this.load();

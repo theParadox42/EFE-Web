@@ -50,6 +50,7 @@ playLevel.setup = function(level, gobackto){
             loadRun.gobackto = gobackto;
         break;
         case "build":
+            bGame.rawLevelObject = lvl;
             bGame.map = lvl.level;
             bGame.gobackto = gobackto;
         break;

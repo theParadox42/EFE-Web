@@ -76,9 +76,7 @@ function levelBuilderMenu(){
                 }
             }
         }
-        if(scroller.maxY == undefined){
-            scroller.maxY = -my;
-        }
+        scroller.maxY = -my-100;
         pop();
     } else {
         levelBuilderMenu.createDisplays();
@@ -119,6 +117,7 @@ levelBuilderMenu.init = function(){
         createNewLevel.init();
     })
     this.createDisplays();
+    scroller.reset();
 }
 levelBuilderMenu.createDisplays = function(){
     levelBuildDisplays = [];

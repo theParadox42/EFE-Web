@@ -43,9 +43,7 @@ function communityLevels(){
                 }
             }
         }
-        if(scroller.maxY == undefined){
-            scroller.maxY = -my;
-        }
+        scroller.maxY = -my-100;
         pop();
     }
 
@@ -133,9 +131,23 @@ getCommunityLevels();
 setInterval(getCommunityLevels, 10000);
 
 function postLevel(newLevel){
-    $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
-        console.log(data);
+    newLevel.waitingForUpdate = true;
+    // $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
+    $.post("http://localhost:8080/levels/new", newLevel, function(data){
         getCommunityLevels();
+        for(var i = 0; i < levelsBuilt.length; i ++){
+            var l = levelsBuilt[i];
+            if(l.waitingForUpdate){
+                if(l.title == data.title && l.creator == data.creator){
+                    levelsBuilt[i] = data;
+                    var l = levelsBuilt[i];
+                    l.waitingForUpdate = false;
+                    l.uploaded = true;
+                    console.log("Updated level _id")
+                    levelBuilder.save();
+                }
+            }
+        }
     }).catch(function(e, t, n){
         console.log("Error posting new level")
         console.log(t);

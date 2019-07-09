@@ -76,6 +76,7 @@ var loadRun = {
         } else {
             // Go back to homescreen here
             game.setScene(this.gobackto)
+            this.current.verified = true;
         }
     },
     reset: function(){

@@ -4,6 +4,8 @@ function LevelBuilderLevel(title, creator, type, difficulty){
     this.type = type || "";
     this.difficulty = difficulty || 1;
     this.verified = false;
+    this.uploaded = false;
+    this.waitingForUpdate = false;
     switch(this.type){
         case "run":
             this.map = "_______________%";
