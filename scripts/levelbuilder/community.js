@@ -36,14 +36,16 @@ function communityLevels(){
             x+=p+w;
             if(going>=across){
                 x = p;
-                y+=h+p
                 going = 0;
-                if(y+h>height-100){
-                    my = y+h-height+100+p;
+                if(i != communityDisplays.length - 1){
+                    y+=h+p
+                    if(y+h>height-150){
+                        my = y+h-height+150+p;
+                    }
                 }
             }
         }
-        scroller.maxY = -my-100;
+        scroller.maxY = -my;
         pop();
     }
 
@@ -154,32 +156,3 @@ function postLevel(newLevel){
         console.log(n);
     });
 }
-
-/*
-postLevel({
-    title: "Platformer",
-    map: "",
-    creator: "theParadox42",
-    difficulty: 2,
-    type: "space",
-    level: [],
-    objects: {
-        "width": 5000,
-        "asteroids": [
-            [105, 50, 30],
-            [100, 10, 30],
-            [95, 90, 30],
-            [110, 60, 40],
-            [115, 30, 25],
-            [120, 40, 35],
-            [125, 40, 50]
-        ],
-        "ufos": [
-            [200, 50],
-            [300, 0],
-            [400, 150],
-            [500, 30]
-        ]
-    }
-})
-//*/

@@ -107,8 +107,12 @@ BPlayer.prototype.getTransX = function(){
         this.transX = 0;
     } else if(this.x < bGame.w - bGame.sw*2/3){
         this.transX = -this.x + bGame.sw/3;
+    } else if(bGame.sw > bGame.w){
+        this.transX = 0;
     } else {
         this.transX = -bGame.w + bGame.sw;
     }
+    console.log(bGame.w);
+    console.log(bGame.sw);
     return this.transX || 0;
 }

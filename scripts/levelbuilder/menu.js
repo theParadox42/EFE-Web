@@ -69,14 +69,16 @@ function levelBuilderMenu(){
             x+=p+w;
             if(going>=across){
                 x = p;
-                y+=h+p
                 going = 0;
-                if(y+h>height-100){
-                    my = y+h-height+100+p;
+                if(i != communityDisplays.length - 1){
+                    y+=h+p
+                    if(y+h>height-150){
+                        my = y+h-height+150+p;
+                    }
                 }
             }
         }
-        scroller.maxY = -my-100;
+        scroller.maxY = -my;
         pop();
     } else {
         levelBuilderMenu.createDisplays();

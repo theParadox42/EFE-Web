@@ -29,8 +29,8 @@ createNewLevel.init = function(){
     inputs.type.style("width", (width/2)+"px");
     inputs.type.option("Run", "run");
     inputs.type.option("Platformer", "build")//.attribute("disabled");
-    inputs.type.option("Space", "space");
-    inputs.type.option("Mars", "mars");
+    inputs.type.option("Space (Coming Soon!)", "space");
+    inputs.type.option("Mars (Coming Soon!)", "mars");
 
     var disabledOptions = ["space", "mars"];
     for(var i = 0; i < disabledOptions.length; i ++){
