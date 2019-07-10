@@ -7,7 +7,7 @@ var game = {
     sceneOrder: [
         "load",
         // "levelbuilder",
-        // "home",
+        "home",
         "wakeup",
         "run",
         "build",
