@@ -10,6 +10,9 @@
             "button.js",
             "loadsave.js"
         ],
+        "cutscenes": [
+            "wakeup.js"
+        ],
         "runtorocket": [
             "player.js",
             "ground.js",

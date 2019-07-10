@@ -7,7 +7,8 @@ var game = {
     sceneOrder: [
         "load",
         // "levelbuilder",
-        "home",
+        // "home",
+        "wakeup",
         "run",
         "build",
         "fly-moon",
@@ -31,6 +32,7 @@ var game = {
     },
     hasPause: {
         // What scenes need a pause button
+        "wakeup": true,
         "run": true,
         "build": true,
         "fly-moon": true,
@@ -94,6 +96,9 @@ var game = {
             break;
             case "choose":
                 returnFunc = ChooseUseSave;
+            break;
+            case "wakeup":
+                returnFunc = wakeUpScene;
             break;
             case "run":
                 returnFunc = runToRocket;
@@ -225,12 +230,13 @@ var game = {
     },
     alreadyLoaded: false,
     saveCurrentProgress: function(){
+        if(!this.canSave[this.currentScene]) return;
         var progress = this.saveProgress(null, true);
         localStorage.currentSave = JSON.stringify(progress);
     },
     saveProgress: function(scene, returnObj){
 
-        if(!this.hasPause[this.currentScene]) return console.log("Not a valid scene to save from");
+        if(!this.canSave[this.currentScene]) return console.log("Not a valid scene to save from");
         var saveObject = {};
         saveObject.scene = scene || this.currentScene;
         var data = 0;
