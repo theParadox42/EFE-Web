@@ -173,12 +173,12 @@ wakeUpScene.textBox = {
     }
 }
 wakeUpScene.textBox.conversation = [
-    "Clint Stinkwood: Good afternoon ladies and gentlemen, I’m Clint Stinkwood and I’m here in Los Angeles, at The News Show studio, a few miles away from the launch site of the Savior space shuttle.",
-    "Clint Stinkwood: We’re just minutes away from the “All aboard” time, at which point the Savior will close all it’s doors and prepare for launch.",
-    "Clint Stinkwood: It’s been a long and hard journey to get to this point, the human race is no longer capable of remaining here on earth with all of the toxic waste that has filled our streets and cities.",
+    "Clint Stinkwood: Good afternoon ladies and gentlemen, I'm Clint Stinkwood and I'm here in Los Angeles, at The News Show studio, a few miles away from the launch site of the Savior space shuttle.",
+    "Clint Stinkwood: We're just minutes away from the “All aboard” time, at which point the Savior will close all it's doors and prepare for launch.",
+    "Clint Stinkwood: It's been a long and hard journey to get to this point, the human race is no longer capable of remaining here on earth with all of the toxic waste that has filled our streets and cities.",
     "Clint Stinkwood: After many years of trying to study and inventions, we are finally ready for the human race to make the epic journey to Mars on the Savior, where we will rebuild our civilization.",
-    "Clint Stinkwood: It’s time to say goodbye to our once beautiful and colorful planet earth, and make way for a new era of cleanliness and save living once again!",
-    "Clint Stinkwood: I’m Clint Stinkwood on channel 953.673B, The News Show, and I’ll see you next time on the planet Mars.",
+    "Clint Stinkwood: It's time to say goodbye to our once beautiful and colorful planet earth, and make way for a new era of cleanliness and save living once again!",
+    "Clint Stinkwood: I'm Clint Stinkwood on channel 953.673B, The News Show, and I'll see you next time on the planet Mars.",
     "PLEASE NOTE THAT ANYONE NOT ON THE SAVIOR BY THE ALL ABOARD TIME WILL BE LEFT BEHIND. IF YOU HAVE NOT YET ENTERED THE SHUTTLE, PLEASE GET YOU AND YOUR FAMILY MEMBERS ONTO IT AS SOON AS POSSIBLE.",
     "Tom: Oh @!%#!"
 ]
