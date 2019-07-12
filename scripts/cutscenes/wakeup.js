@@ -46,7 +46,7 @@ wakeUpScene.update = function(){
         this.mouthDelay += random(30, 80);
     }
 
-    if(this.time > 100){
+    if(this.time > 30 && this.stage == "sleep"){
         this.stage = "zoom";
     }
 
@@ -54,10 +54,16 @@ wakeUpScene.update = function(){
     switch(this.stage){
         case "zoom":
             var cameraSpeed = 0.05;
-            this.c.tx = lerp(this.c.tx, this.tv.x-this.rw * 0.2, cameraSpeed);
-            this.c.ty = lerp(this.c.ty, this.tv.y-this.rw * 0.1, cameraSpeed);
-            this.c.s = lerp(this.c.s, 1.5, cameraSpeed);
+            this.c.tx = lerp(this.c.tx, this.tv.x+this.rw * 0.1, cameraSpeed);
+            this.c.ty = lerp(this.c.ty, this.tv.y+this.rw * 0.05, cameraSpeed);
+            this.c.s = lerp(this.c.s, 2, cameraSpeed);
             this.textBox.show = true;
+        break;
+        case "zoomout":
+            var cameraSpeed = 0.05;
+            this.c.tx = lerp(this.c.tx, 0, cameraSpeed);
+            this.c.ty = lerp(this.c.ty, 0, cameraSpeed);
+            this.c.s = lerp(this.c.s, 1, cameraSpeed);
         break;
     }
 }
@@ -128,13 +134,14 @@ wakeUpScene.textBox = {
         if(this.show === true){
             if(this.textShowing>=this.text.length&&(keysReleased[" "]||keysReleased[32]||clicked)){
                 this.line ++;
-                if(this.line === 7){
+                if(this.line == 7){
                     wakeUpScene.player.isSleeping = false;
+                    wakeUpScene.stage = "zoomout"
                 }
-                if(this.line<8){
+                if(this.line < 8){
                     this.text = this.conversation[this.line];
                     this.textShowing = 0;
-                } else{
+                } else {
                     this.show = false;
                     this.text = "";
                     wakeUpScene.player.runAway = true;
@@ -142,8 +149,14 @@ wakeUpScene.textBox = {
             } else if(keysReleased[" "]||keysReleased[32]||clicked){
                 this.textShowing = this.text.length;
             }
+            // this.adjust();
             this.display();
             this.textShowing += 0.5;
+        }
+    },
+    adjust: function(){
+        if(this.line < 8){
+
         }
     },
     display: function(){
@@ -168,7 +181,9 @@ wakeUpScene.textBox = {
     init: function(){
         this.x = width/2-this.w/2;
         this.y = height-this.h-20;
-        this.text = this.conversation[this.line];
+        this.text = "";
+        this.line = 0;
+        this.show = false;
         this.textShowing = 0;
     }
 }
