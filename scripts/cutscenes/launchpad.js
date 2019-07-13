@@ -35,7 +35,7 @@ AtLaunchPad.update = function(){
         this.rocket.y -= 10;
     }
 
-    if(this.stage = )
+    // if(this.stage = )
 }
 AtLaunchPad.init = function(){
     this.stage = "run"
