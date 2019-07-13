@@ -43,6 +43,7 @@ ufoBossFight.level = {
     boss: [[1500, window.innerHeight/2]], //x, y
 }
 ufoBossFight.init = function(){
+    lasers = [];
     flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
     loadLevel(this.level);

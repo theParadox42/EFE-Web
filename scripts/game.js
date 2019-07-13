@@ -10,6 +10,7 @@ var game = {
         "home",
         "wakeup",
         "run",
+        "launchpad",
         "build",
         "fly-moon",
         "moon",
@@ -86,66 +87,31 @@ var game = {
         }
     },
     getFunc: function(){
-        var returnFunc;
-        switch(this.currentScene){
-            case "load":
-                returnFunc = loadFiles;
-            break;
-            case "home":
-                returnFunc = Home;
-            break;
-            case "choose":
-                returnFunc = ChooseUseSave;
-            break;
-            case "wakeup":
-                returnFunc = wakeUpScene;
-            break;
-            case "run":
-                returnFunc = runToRocket;
-            break;
-            case "build":
-                returnFunc = buildRocket;
-            break;
-            case "fly-moon":
-                returnFunc = flyToMoon;
-            break;
-            case "moon":
-                returnFunc = moon;
-            break;
-            case "fly-mars":
-                returnFunc = flyToMars;
-            break;
-            case "fight":
-                returnFunc = fightMartians;
-            break;
-            case "fly-venus":
-                returnFunc = flyToVenus;
-            break;
-            case "ufo":
-                returnFunc = ufoBossFight;
-            break;
-            case "won":
-                returnFunc = Won;
-            break;
-            case "loadsaves":
-                returnFunc = LoadSaves;
-            break;
-            case "levelbuilder":
-                returnFunc = levelBuilder;
-            break;
-            case "communitylevels":
-                returnFunc = communityLevels;
-            break;
-            case "playlevel":
-                returnFunc = playLevel;
-            break;
-            default:
-                this.setScene("home", "error");
-                returnFunc = function(){}
-                console.log("Unknown scene, switching to home...");
-            break;
+        let sceneFunctions = {
+            "load": loadFiles,
+            "home": Home,
+            "choose": ChooseUseSave,
+            "wakeup": wakeUpScene,
+            "run": runToRocket,
+            "build": buildRocket,
+            "fly-moon": flyToMoon,
+            "moon": moon,
+            "fly-mars": flyToMars,
+            "fight": fightMartians,
+            "fly-venus": flyToVenus,
+            "ufo": ufoBossFight,
+            "won": Won,
+            "loadsaves": LoadSaves,
+            "levelbuilder": levelBuilder,
+            "communitylevels": communityLevels,
+            "playlevel": playLevel
         }
-        return returnFunc;
+        if(sceneFunctions[this.currentScene]){
+            return sceneFunctions[this.currentScene];
+        } else {
+            this.setScene("home", true);
+            return this.getFunc();
+        }
     },
     pause: function(){
         push();

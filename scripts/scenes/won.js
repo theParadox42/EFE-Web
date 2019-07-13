@@ -60,4 +60,5 @@ Won.init = function(){
     localStorage.hasWon = "true";
     hasWon = localStorage.hasWon;
     game.loadFirstOnPlay = false;
+    localStorage.currentSave = "";
 }
