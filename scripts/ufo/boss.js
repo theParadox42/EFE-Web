@@ -2,22 +2,27 @@ function UfoBoss(x, y){
     this.x = x;
     this.y = y;
     this.img = imgs.ufoboss;
-    this.w = imgs.ufoboss.width*0.5;
-    this.h = imgs.ufoboss.height*0.5;
+    this.w = imgs.ufoboss.width*0.45;
+    this.h = imgs.ufoboss.height*0.45;
     this.health = 100;
     this.radius = this.w/2;
     this.frame = 0;
+    this.shootWait = 120;
 }
 UfoBoss.prototype.run = function(p){
     this.display();
     this.collide(p);
-    this.update();
+    this.update(p);
 }
-UfoBoss.prototype.update = function(){
+UfoBoss.prototype.update = function(p){
     if(this.health < 1){
         this.dead = true;
         this.img = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
         this.frame ++;
+    }
+    if(frameCount%this.shootWait === 0){
+        lasers.push(new Laser(this.x, this.y, -atan2(this.x-p.x, this.y-p.y), 4, "boss"));
+        this.shootWait = round(random(80, 140)); 
     }
 }
 UfoBoss.prototype.collide = function(p){
@@ -27,17 +32,19 @@ UfoBoss.prototype.collide = function(p){
         p.x -= p.vx;
         p.y -= p.vy;
         p.thrustCooldown = 0;
-        p.vx *= -3;
-        p.vy *= -3;
+        p.vx *= -2.5;
+        p.vy *= -2.5;
         p.health --;
     }
     for(var i in lasers){
         let l = lasers[i];
-        distance = dist(this.x, this.y, l.x, l.y);
-        r = l.radius + this.radius;
-        if (distance < r) {
-            l.dead = true;
-            this.health --;
+        if(l.belongsTo !== "boss"){
+            distance = dist(this.x, this.y, l.x, l.y);
+            r = l.radius + this.radius;
+            if (distance < r) {
+                l.dead = true;
+                this.health --;
+            }
         }
     }
 }

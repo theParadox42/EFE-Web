@@ -1,10 +1,11 @@
-function Laser(x, y, r, speed){
+function Laser(x, y, r, speed, belongsTo){
   this.x = x + sin(r) * 50;
   this.y = y - cos(r) * 50;
   this.r = r;
   this.radius = 10;
   this.speed = speed;
   this.dead = false;
+  this.belongsTo = belongsTo || "player";
 }
 Laser.prototype.run = function(){
   this.display();

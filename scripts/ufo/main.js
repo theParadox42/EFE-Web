@@ -40,7 +40,7 @@ function ufoBossFight(){
     }
 }
 ufoBossFight.level = {
-    boss: [[2000, window.innerHeight/2]], //x, y
+    boss: [[1500, window.innerHeight/2]], //x, y
 }
 ufoBossFight.init = function(){
     flyPlayer = new FlyPlayer(50, height/2);

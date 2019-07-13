@@ -26,6 +26,7 @@ FlyPlayer.prototype.run = function(){
     this.display();
     this.control();
     this.update();
+    this.collide();
     if(this.health < 1){
         game.getFunc().init();
     }
@@ -61,6 +62,19 @@ FlyPlayer.prototype.update = function(){
         this.y -= height + this.h / 1.8 + this.h / 1.7;
     } else if(this.y + this.h / 1.7 < 0){
         this.y += height + this.h / 1.8 + this.h / 1.7;
+    }
+}
+FlyPlayer.prototype.collide = function(){
+    for(var i in lasers){
+        var l = lasers[i];
+        if(l.belongsTo !== "player"){
+            let distance = dist(this.x, this.y, l.x, l.y);
+            let r = l.radius + (this.w + this.h) / 4;
+            if (distance < r) {
+                l.dead = true;
+                this.health --;
+            }
+        }
     }
 }
 FlyPlayer.prototype.control = function(){
