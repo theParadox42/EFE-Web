@@ -6,7 +6,6 @@ var game = {
     sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
         "load",
-        // "levelbuilder",
         "home",
         "wakeup",
         "run",
@@ -93,6 +92,7 @@ var game = {
             "choose": ChooseUseSave,
             "wakeup": wakeUpScene,
             "run": runToRocket,
+            "launchpad": AtLaunchPad,
             "build": buildRocket,
             "fly-moon": flyToMoon,
             "moon": moon,
@@ -109,6 +109,7 @@ var game = {
         if(sceneFunctions[this.currentScene]){
             return sceneFunctions[this.currentScene];
         } else {
+            console.warn("Unknown scene: " + this.currentScene);
             this.setScene("home", true);
             return this.getFunc();
         }

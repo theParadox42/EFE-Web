@@ -11,7 +11,8 @@
             "loadsave.js"
         ],
         "cutscenes": [
-            "wakeup.js"
+            "wakeup.js",
+            "launchpad.js"
         ],
         "runtorocket": [
             "player.js",
@@ -45,7 +46,7 @@
         "fly/moon": [
             "main.js"
         ],
-        "moon": [
+        "cutscenes/moon": [
             "main.js",
             "manonthemoon.js",
             "ship.js",

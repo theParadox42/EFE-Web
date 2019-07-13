@@ -52,7 +52,7 @@ ChooseUseSave.init = function(){
         game.setScene(2);
     });
     this.alwaysRestart = new Button("Delete Save & Play", width/2+10, 440, 290, 100, function(){
-        currentSave = {};
+        localStorage.currentSave = "";
         game.setScene("home");
         game.continue();
     });
