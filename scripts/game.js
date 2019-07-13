@@ -9,7 +9,7 @@ var game = {
         "home",
         "wakeup",
         "run",
-        "launchpad",
+        // "launchpad",
         "build",
         "fly-moon",
         "moon",
