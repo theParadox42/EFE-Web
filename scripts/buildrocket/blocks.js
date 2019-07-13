@@ -73,7 +73,7 @@ function BSpike(x, y, w, h){
 }
 BSpike.prototype = Object.create(BBlock.prototype);
 BSpike.prototype.collide = function(p){
-    if(p.x + p.w - 1 > this.x && p.x - 1 < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y + this.h){
+    if(p.x + p.w - 1 > this.x && p.x + 1 < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y + this.h){
         if(p.x + p.w < this.x + this.w / 2){
             if(p.y + p.h > map(p.x+p.w, this.x, this.m, this.y+this.h, this.y)){
                 p.kill();
