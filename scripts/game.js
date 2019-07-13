@@ -80,9 +80,9 @@ var game = {
             this.sceneIndex = newScene;
         } else {
             var newIndex = this.sceneOrder.findIndex(function(a){
-                return a == this.currentScene;
+                return a == game.currentScene;
             })
-            this.sceneIndex = newIndex >= 1 ? newIndex : 1;
+            this.sceneIndex = newIndex >= 1 ? newIndex : 0;
         }
     },
     getFunc: function(){

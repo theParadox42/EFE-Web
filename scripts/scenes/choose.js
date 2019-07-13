@@ -51,9 +51,10 @@ ChooseUseSave.init = function(){
     this.restart = new Button("Restart", width/2+10, 320, 290, 100, function(){
         game.setScene(2);
     });
-    this.alwaysRestart = new Button("Always Restart", width/2+10, 440, 290, 100, function(){
-        game.loadFirstOnPlay = "never";
-        game.setScene(2);
+    this.alwaysRestart = new Button("Delete Save & Play", width/2+10, 440, 290, 100, function(){
+        currentSave = {};
+        game.setScene("home");
+        game.continue();
     });
     this.back = new Button("Back", width/2-100, 560, 200, 80, function(){
         game.setScene("home");
