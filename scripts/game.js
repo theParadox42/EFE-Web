@@ -9,7 +9,7 @@ var game = {
         "home",
         "wakeup",
         "run",
-        // "launchpad",
+        "launchpad",
         "build",
         "fly-moon",
         "moon",
@@ -148,7 +148,9 @@ var game = {
         imageMode(CENTER);
         image(imgs.playbtn, width/2, height/2 - this.minSide * 0.3, this.minSide, this.minSide);
         pop();
-        this.pausedImage = get();
+        if(!isMobile){
+            this.pausedImage = get();
+        }
     },
     displayPaused: function(){
         if(this.paused&&this.pausedImage){

@@ -17,9 +17,10 @@ AtLaunchPad.draw = function(){
     rect(-width/2-1, height-gh, width+2, gh+1);
     fill(0, 50);
     //shadow radius
-    var sr = this.rocket.w*((this.rocket.y+2000)/(this.rocket.oy+2000));
+    var sr = this.rocket.w*((this.rocket.y+700)/(this.rocket.oy+700));
     sr = max(sr, 0);
     ellipse(this.rocket.x, this.rocket.oy-this.rocket.h/50, sr, sr/5)
+    ellipse(this.player.x+this.player.w/2, this.player.y+this.player.h, this.player.w, this.player.w/5);
     pop();
 
     if(this.rocket.on){
@@ -28,6 +29,22 @@ AtLaunchPad.draw = function(){
     }
     image(imgs.largerocket, this.rocket.x-this.rocket.w/2, this.rocket.y-this.rocket.h, this.rocket.w, this.rocket.h)
 
+    push();
+    translate(this.player.x, this.player.y)
+    scale(-1, 1);
+    image(imgs.player, -this.player.w, 0, this.player.w, this.player.h);
+    pop();
+
+    if(this.player.talking){
+        push();
+        fill(255);
+        stroke(230);
+        strokeWeight(5);
+        var tw = 100, th = tw / 2
+        rect(this.player.x + this.player.w / 2 - tw / 2, this.player.y-th-15, tw, th)
+        pop();
+    }
+
     pop();
 }
 AtLaunchPad.update = function(){
@@ -35,10 +52,40 @@ AtLaunchPad.update = function(){
         this.rocket.y -= 10;
     }
 
-    // if(this.stage = )
+    switch(this.stage){
+        case "runin":
+            if(this.player.x < -width/6){
+                this.player.x += 5;
+                this.timedelay = 0;
+            } else if(this.timedelay < 50){
+                this.timedelay ++;
+                this.rocket.x = noise(frameCount/22)*50-25
+            } else {
+                this.timedelay = 0;
+                this.stage = "takeoff";
+                this.rocket.on = true;
+            }
+        break;
+        case "takeoff":
+            this.rocket.x = noise(frameCount/22)*50-25
+            if(this.rocket.y < - 1000){
+                this.stage = "idea";
+                this.rocket.on = false;
+                this.player.talking = true;
+            }
+        break;
+        case "idea":
+            if(mouseIsPressed){
+                game.continue();
+            }
+        break;
+        case "runout":
+
+        break;
+    }
 }
 AtLaunchPad.init = function(){
-    this.stage = "run"
+    this.stage = "runin"
 
     this.rocket = {
         x: 0,
@@ -49,4 +96,11 @@ AtLaunchPad.init = function(){
     }
     this.rocket.oy = this.rocket.y;
     this.rocket.w = this.rocket.h * imgs.largerocket.width / imgs.largerocket.height
+
+    this.player = {
+        x: -width/2-100,
+        y: height-150,
+        h: 100
+    }
+    this.player.w = this.player.h * imgs.player.width / imgs.player.height;
 }
