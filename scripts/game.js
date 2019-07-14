@@ -22,6 +22,7 @@ var game = {
     ],
     canSave: {
         "run": true,
+        "launchpad": true,
         "build": true,
         "fly-moon": true,
         "moon": true,
@@ -34,6 +35,7 @@ var game = {
         // What scenes need a pause button
         "wakeup": true,
         "run": true,
+        "launchpad": true,
         "build": true,
         "fly-moon": true,
         "moon": true,
