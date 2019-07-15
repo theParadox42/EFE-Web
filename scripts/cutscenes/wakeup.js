@@ -28,6 +28,9 @@ wakeUpScene.draw = function(){
         scale(-1, 1);
         var w = this.rw/5;
         image(imgs.player, this.player.x, 0, this.player.w, this.player.h);
+        fill(0, 50);
+        noStroke();
+        ellipse(this.player.x+this.player.w * 0.45, this.player.h*0.99, this.player.w, this.player.w / 4)
         pop();
     }
     this.textBox.run();
@@ -85,10 +88,12 @@ wakeUpScene.update = function(){
             } else {
                 this.stage = "###";
                 this.textBox.show = true;
+                this.player.isSleeping = false;
+                this.player.y = this.rh * 0.52
+                this.player.x -= this.player.w;
             }
         break;
         case "###":
-            this.player.isSleeping = false;
             if(!this.textBox.show){
                 this.stage = "player";
             }
@@ -202,7 +207,7 @@ wakeUpScene.textBox = {
         } else if(parent.stage == "###"){
             this.w = 300;
             this.h = 50;
-            this.x = parent.player.tx + parent.player.x - this.w/2 - parent.player.w/2;
+            this.x = parent.player.tx - parent.player.x - this.w/2 - parent.player.w/2;
             this.y = parent.player.y-this.h-this.padding;
             this.ts = 20;
             this.bg = null;

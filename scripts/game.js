@@ -22,6 +22,7 @@ var game = {
     ],
     canSave: {
         "run": true,
+        "launchpad": true,
         "build": true,
         "fly-moon": true,
         "moon": true,
