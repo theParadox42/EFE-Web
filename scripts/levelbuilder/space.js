@@ -28,27 +28,32 @@ buildSpaceLevel.runDock = function(){
     rect(0, 0, this.dock.w, this.dock.h);
 
     pop();
+
+    if(keys[LEFT_ARROW]||keys.a){
+        this.tx -= 10;
+    } if(keys[RIGHT_ARROW]||keys.d){
+        this.tx += 10;
+    }
 }
 buildSpaceLevel.display = function(){
     push();
     translate(this.dock.w, 0);
 
     FlyFreeplay(true, this.w + this.dock.w, 0);
-    
 
     pop();
 
-    this.runDock();
 }
 buildSpaceLevel.run = function(){
     this.display();
 
+    this.runDock();
     if(clicked){
         this.placeObject();
     }
 
-    this.tx += 15
-    flyPlayer.x = constrain(this.tx + width/2, width/2, FlyFreeplay.level.w);
+    this.tx = constrain(this.tx + width/2, width/2, FlyFreeplay.level.w);
+    flyPlayer.x = this.tx;
 }
 buildSpaceLevel.placeObject = function(){
     if(this.objects[this.carrying] && this.objects[this.carrying] instanceof Array){
