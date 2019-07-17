@@ -6,6 +6,12 @@ AtLaunchPad.draw = function(){
     this.update();
 
     background(200, 225, 255);
+
+    for(var i = 0; i < this.buildings.length; i ++){
+        var b = this.buildings[i]
+        image(b.img, b.x, b.y, b.w, b.h);
+    }
+
     push();
     translate(width/2, 0);
 
@@ -13,8 +19,7 @@ AtLaunchPad.draw = function(){
     noStroke();
     fill(0, 150, 20);
     // this just makes it more responsive
-    var gh = 50+height/5.7; // grass height
-    rect(-width/2-1, height-gh, width+2, gh+1);
+    rect(-width/2-1, height-this.gh, width+2, this.gh+1);
     fill(0, 50);
     //shadow radius
     var sr = this.rocket.w*((this.rocket.y+700)/(this.rocket.oy+700));
@@ -104,8 +109,12 @@ AtLaunchPad.update = function(){
     }
 }
 AtLaunchPad.init = function(){
+    // Basic
     this.stage = "runin"
+    this.timeDelay = 0;
+    this.gh = 50+height/5.7; // grass height
 
+    // Rocket
     this.rocket = {
         x: 0,
         y: height-100,
@@ -116,6 +125,7 @@ AtLaunchPad.init = function(){
     this.rocket.oy = this.rocket.y;
     this.rocket.w = this.rocket.h * imgs.largerocket.width / imgs.largerocket.height
 
+    // Player
     this.player = {
         x: -width/2-100,
         y: height-150,
@@ -133,6 +143,24 @@ AtLaunchPad.init = function(){
         ti: 0
     }
     this.player.w = this.player.h * imgs.player.width / imgs.player.height;
+
+    // Scenery
+    this.buildings = [];
+    for(var i = -100; i < width+100; i += 80){
+        var h = random(height / 2, height * 3 / 4);
+        var img = imgs.buildings[~~random(imgs.buildings.length)]
+        var newBuilding = {
+            img: img,
+            x: i + random(50),
+            y: height - h,
+            h: h,
+            w: h * img.width / img.height
+        }
+        this.buildings.push(newBuilding);
+    }
+    this.buildings.sort(function(a, b){
+        return a.h - b.h;
+    });
 }
 
 
