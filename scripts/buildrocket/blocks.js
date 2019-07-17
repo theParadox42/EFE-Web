@@ -152,7 +152,8 @@ function BToxic(x, y, w, h){
 }
 BToxic.prototype = Object.create(BBlock.prototype);
 BToxic.prototype.collide = function(p){
-    if(p.x + p.w - 1 > this.x && p.x + 1 < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y-this.h){
+    var vx = abs(p.vx), vy = abs(p.vy)
+    if(p.x + p.w - 1 - vx > this.x && p.x + 1 + vx < this.x + this.w && p.y + p.h - 1 - vy > this.y && p.y + 1 + vy < this.y+this.h){
         p.health -= 5;
         p.vx *= 0.5;
         p.vy *= 0.7;
