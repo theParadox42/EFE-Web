@@ -56,7 +56,7 @@ let bGame = {
             rect(width-210, 10, max(this.player.health, 0)*2, 50);
             noFill();
             stroke(0);
-            strokeCap(SQUARE);
+            //strokeCap(SQUARE);
             strokeWeight(10);
             rect(width-210, 10, 200, 50);
             pop();
