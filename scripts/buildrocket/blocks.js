@@ -241,7 +241,7 @@ function BProton(x, y, w, h){
     BToxic.call(this, x, y, w, h);
     this.img = imgs.proton.clone();
     this.field = 300;
-    this.strength = 1.1;
+    this.strength = 1;
 }
 BProton.prototype = Object.create(BToxic.prototype);
 BProton.prototype.collide = function(p){

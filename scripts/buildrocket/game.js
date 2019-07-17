@@ -124,6 +124,7 @@ let bGame = {
     reload: function(){
         this.blocks = [];
         this.player = null;
+        this.canPass = true;
         for(var i = 0; i < this.map.length; i ++){
             for(var j = 0; j < this.map[i].length; j ++){
                 let k = this.map[i][j];
