@@ -34,14 +34,14 @@ let bGame = {
         translate(this.player.getTransX(), 0);
         this.player.update();
         for(var i = this.blocks.length-1; i > -1; i --){
-            var dx = this.blocks[i].x + this.player.transX;
-            // if(dx + this.blocks[i].w > -1 && dx < width + 1){
+            var dx = (this.blocks[i].x + this.player.transX) * this.scaleFactor;
+            if(dx + (this.blocks[i].w * this.scaleFactor) > -1 && dx < width + 1){
                 this.blocks[i].run(this.player);
                 if(this.blocks[i].collected){
                     this.blocks.splice(i, 1);
                     this.canPass = true;
                 }
-            // }
+            }
         }
         this.player.display();
         pop();
