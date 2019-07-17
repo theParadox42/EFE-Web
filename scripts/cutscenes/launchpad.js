@@ -5,12 +5,19 @@ AtLaunchPad.draw = function(){
 
     this.update();
 
-    background(200, 225, 255);
+    background(100, 200, 255);
 
+    push();
+    noStroke();
+    fill(50, 50);
     for(var i = 0; i < this.buildings.length; i ++){
         var b = this.buildings[i]
+        if(i/5 == round(i/5)){
+            rect(0, 0, width, height);
+        }
         image(b.img, b.x, b.y, b.w, b.h);
     }
+    pop();
 
     push();
     translate(width/2, 0);
@@ -102,7 +109,7 @@ AtLaunchPad.update = function(){
         break;
         case "runout":
             this.player.x += 8
-            if(this.player.x > width * 6/5){
+            if(this.player.x > width * 1.1){
                 game.continue();
             }
         break;
@@ -146,13 +153,13 @@ AtLaunchPad.init = function(){
 
     // Scenery
     this.buildings = [];
-    for(var i = -100; i < width+100; i += 80){
+    for(var i = -100; i < width+100; i += 90){
         var h = random(height / 2, height * 3 / 4);
         var img = imgs.buildings[~~random(imgs.buildings.length)]
         var newBuilding = {
             img: img,
             x: i + random(50),
-            y: height - h,
+            y: (height-this.gh) - h,
             h: h,
             w: h * img.width / img.height
         }
