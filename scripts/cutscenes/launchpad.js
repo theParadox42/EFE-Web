@@ -40,8 +40,14 @@ AtLaunchPad.draw = function(){
         fill(255);
         stroke(230);
         strokeWeight(5);
-        var tw = 100, th = tw / 2
+        textSize(30);
+        textFont(fonts.pixel);
+        var tw = textWidth(this.player.text) + 15, th = 50;
         rect(this.player.x + this.player.w / 2 - tw / 2, this.player.y-th-15, tw, th)
+        fill(0);
+        noStroke();
+        textAlign(CENTER, CENTER);
+        text(this.player.text, this.player.x+this.player.w/2, this.player.y-th/2-15)
         pop();
     }
 
@@ -49,7 +55,7 @@ AtLaunchPad.draw = function(){
 }
 AtLaunchPad.update = function(){
     if(this.rocket.on){
-        this.rocket.y -= 10;
+        this.rocket.y -= 20;
     }
 
     switch(this.stage){
@@ -59,7 +65,7 @@ AtLaunchPad.update = function(){
                 this.timedelay = 0;
             } else if(this.timedelay < 50){
                 this.timedelay ++;
-                this.rocket.x = noise(frameCount/22)*50-25
+                this.rocket.x = noise(frameCount/12.7)*50-25
             } else {
                 this.timedelay = 0;
                 this.stage = "takeoff";
@@ -67,20 +73,33 @@ AtLaunchPad.update = function(){
             }
         break;
         case "takeoff":
-            this.rocket.x = noise(frameCount/22)*50-25
+            this.rocket.x = noise(frameCount/12.7)*50-25
             if(this.rocket.y < - 1000){
                 this.stage = "idea";
                 this.rocket.on = false;
                 this.player.talking = true;
+                this.timeDelay = 0;
             }
         break;
         case "idea":
-            if(mouseIsPressed){
-                game.continue();
+            if(this.timeDelay<80){
+                this.timeDelay++;
+            } else {
+                this.player.ti++;
+                this.timeDelay = 0;
+                if(this.player.ti >= this.player.texts.length){
+                    this.stage = "runout";
+                    this.player.talking = false;
+                } else {
+                    this.player.text = this.player.texts[this.player.ti];
+                }
             }
         break;
         case "runout":
-
+            this.player.x += 8
+            if(this.player.x > width * 6/5){
+                game.continue();
+            }
         break;
     }
 }
@@ -100,7 +119,24 @@ AtLaunchPad.init = function(){
     this.player = {
         x: -width/2-100,
         y: height-150,
-        h: 100
+        h: 100,
+        texts: [
+            "Oh NO!",
+            "They just left!",
+            "But wait...",
+            "I bet they left enough stuff to build...",
+            "I bet they left enough stuff to build...",// So it lasts longer
+            "My own rocket!",
+            "I must go collect the parts"
+        ],
+        text: "Oh No!",
+        ti: 0
     }
     this.player.w = this.player.h * imgs.player.width / imgs.player.height;
 }
+
+
+
+
+
+//
