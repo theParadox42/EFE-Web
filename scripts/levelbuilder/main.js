@@ -188,7 +188,7 @@ levelBuilder.editStats = function(){
             minWidth = 15;
             currentWidth = currentBuildingLevel.level[0].length;
             doHeight = true;
-            minHeight = 8;
+            minHeight = 6;
             currentHeight = currentBuildingLevel.level.length;
         break;
         case "space":
@@ -266,6 +266,7 @@ levelBuilder.editingStats = function(){
             LevelBuilderLevel.updateLevel(currentBuildingLevel,ei.title.value(), ei.creator.value(), ei.width?ei.width.value():null, ei.height?ei.height.value():null);
             this.isEditingStats = false;
             ei.destroyInputs();
+            this.save();
             if(typeof this.getFunc().init == "function") this.getFunc().init();
         } else if(ei.waitFor.cancel){
             this.isEditingStats = false;

@@ -77,6 +77,11 @@
             "/art/earth/blocks/proton/03.png"
         ],
         [
+            7,
+            "/art/earth/blocks/blackhole/00.png",
+            "/art/earth/blocks/blackhole/02.png"
+        ],
+        [
             5,
             "/art/rocket/rocketon/00.png",
             "/art/rocket/rocketon/05.png"
@@ -165,6 +170,7 @@
             "toxic",
             "smoke",
             "proton",
+            "blackhole",
             "rocketOn",
             "rocketOff",
             "rocketengine",

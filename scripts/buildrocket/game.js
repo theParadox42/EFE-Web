@@ -18,7 +18,7 @@ let bGame = {
     mode: "story",
     run: function(){
 
-        if(!this.player || !(this.player instanceof BPlayer)) return;
+        var noPlayer = !this.player || !(this.player instanceof BPlayer)
 
         for(var i = 0; i < this.buildings.length; i ++){
             this.buildings[i].run(this.player);
@@ -31,10 +31,12 @@ let bGame = {
 
         push();
         scale(this.scaleFactor);
-        translate(this.player.getTransX(), 0);
-        this.player.update();
+        if(!noPlayer){
+            translate(this.player.getTransX(), 0);
+            this.player.update();
+        }
         for(var i = this.blocks.length-1; i > -1; i --){
-            var dx = (this.blocks[i].x + this.player.transX) * this.scaleFactor;
+            var dx = noPlayer ? 0 : (this.blocks[i].x + this.player.transX) * this.scaleFactor;
             if(dx + (this.blocks[i].w * this.scaleFactor) > -1 && dx < width + 1){
                 this.blocks[i].run(this.player);
                 if(this.blocks[i].collected){
@@ -43,20 +45,22 @@ let bGame = {
                 }
             }
         }
-        this.player.display();
+        if(!noPlayer) this.player.display();
         pop();
 
         // Health Bar
-        push();
-        noStroke();
-        fill(lerpColor(color(255, 0, 0), color(0, 255, 0), constrain(this.player.health/100, 0, 1)));
-        rect(width-210, 10, max(this.player.health, 0)*2, 50);
-        noFill();
-        stroke(0);
-        strokeCap(SQUARE);
-        strokeWeight(10);
-        rect(width-210, 10, 200, 50);
-        pop();
+        if(!noPlayer){
+            push();
+            noStroke();
+            fill(lerpColor(color(255, 0, 0), color(0, 255, 0), constrain(this.player.health/100, 0, 1)));
+            rect(width-210, 10, max(this.player.health, 0)*2, 50);
+            noFill();
+            stroke(0);
+            strokeCap(SQUARE);
+            strokeWeight(10);
+            rect(width-210, 10, 200, 50);
+            pop();
+        }
     },
     getConst: function(char){
         switch(char){
@@ -66,9 +70,11 @@ let bGame = {
             case "-": return BPlatform; break;
             case "'": return BSmoke; break;
             case "^": return BSpike; break;
+            case "v": return BDSpike; break;
             case "~": return BWater; break;
             case "x": return BToxic; break;
             case "o": return BProton; break;
+            case "0": return BBlackHole; break;
             case "f": return BFire; break;
             case "%": return BPortal; break;
             case "*0": return BPart[0]; break;
@@ -117,6 +123,7 @@ let bGame = {
     },
     reload: function(){
         this.blocks = [];
+        this.player = null;
         for(var i = 0; i < this.map.length; i ++){
             for(var j = 0; j < this.map[i].length; j ++){
                 let k = this.map[i][j];

@@ -4,7 +4,7 @@
 // Collision Blocks
 {
 
-// BBlock
+// Block
 {
 function BBlock(x, y, w, h){
     this.x = x;
@@ -50,7 +50,7 @@ BBlock.prototype.display = function(){
     image(this.img, this.x, this.y, this.w, this.h);
 };
 BBlock.prototype.run = function(p){
-    this.collide(p);
+    if(p) this.collide(p);
     this.display();
 }
 }
@@ -64,8 +64,9 @@ function BAsphalt(x, y, w, h){
 BAsphalt.prototype = Object.create(BBlock.prototype);
 }
 
-// BSpike
+// Spikes
 {
+// Up Spike
 function BSpike(x, y, w, h){
     BBlock.call(this, x, y, w, h);
     this.img = imgs.spike;
@@ -73,7 +74,8 @@ function BSpike(x, y, w, h){
 }
 BSpike.prototype = Object.create(BBlock.prototype);
 BSpike.prototype.collide = function(p){
-    if(p.x + p.w - 1 > this.x && p.x + 1 < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y + this.h){
+    var vx = abs(p.vx), vy = abs(p.vy)
+    if(p.x + p.w - 1 - vx > this.x && p.x + 1 + vx < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y + this.h){
         if(p.x + p.w < this.x + this.w / 2){
             if(p.y + p.h > map(p.x+p.w, this.x, this.m, this.y+this.h, this.y)){
                 p.kill();
@@ -86,6 +88,34 @@ BSpike.prototype.collide = function(p){
             p.kill();
         }
     }
+}
+// Down Spike
+function BDSpike(x, y, w, h){
+    BSpike.call(this, x, y, w, h);
+}
+BDSpike.prototype = Object.create(BSpike.prototype);
+BDSpike.prototype.collide = function(p){
+    var vx = abs(p.vx), vy = abs(p.vy)
+    if(p.x + p.w - 1 - vx > this.x && p.x + 1 + vx < this.x + this.w && p.y + p.h - 1 > this.y && p.y + 1 < this.y + this.h){
+        if(p.x + p.w < this.x + this.w / 2){
+            if(p.y < map(p.x+p.w, this.x, this.m, this.y, this.y+this.h)){
+                p.kill();
+            }
+        } else if(p.x > this.x + this.w / 2){
+            if(p.y + p.h < map(p.x, this.m, this.x+this.w, this.y+this.h, this.y)){
+                p.kill();
+            }
+        } else {
+            p.kill();
+        }
+    }
+}
+BDSpike.prototype.display = function(){
+    push();
+    translate(this.x, this.y+this.h/2);
+    scale(1, -1);
+    image(this.img, 0, -this.h/2, this.w, this.h);
+    pop();
 }
 }
 
@@ -210,22 +240,44 @@ function BProton(x, y, w, h){
     BToxic.call(this, x, y, w, h);
     this.img = imgs.proton.clone();
     this.field = 300;
+    this.strength = 1.1;
 }
 BProton.prototype = Object.create(BToxic.prototype);
 BProton.prototype.collide = function(p){
     let d = dist(p.x+p.w/2, p.y+p.h/2, this.x+this.w/2, this.y+this.h/2);
     if(d<this.field){
         let force = map(d, 0, this.field, 2, 0);
-        let dx = p.x-this.x;
-        let dy = p.y-this.y;
+        let dx = (p.x+p.w/2)-(this.x+this.w/2);
+        let dy = (p.y+p.h/2)-(this.y+this.h/2);
         let m = mag(dx, dy);
         dx*=force/m;
         dy*=force/m;
         if(dx){
-            p.vx+=dx;
+            p.vx += dx * this.strength;
         }
         if(dy){
-            p.vy+=dy;
+            p.vy += dy * this.strength;
+        }
+        if(typeof this.collide2 == "function") this.collide2(p, d);
+    }
+}
+}
+
+// Black Hole
+{
+function BBlackHole(x, y, w, h){
+    BProton.call(this, x, y, w, h);
+    this.img = imgs.blackhole.clone();
+    this.field = 300;
+    this.strength = -2;
+}
+BBlackHole.prototype = Object.create(BProton.prototype);
+BBlackHole.prototype.collide2 = function(p, d){
+    if(d < this.w/2+p.w/2){
+        for(var i in p.tint){
+            p.tint[i] -= 20;
+            p.health -= 1;
+            p.w *= 0.99, p.h *= 0.99;
         }
     }
 }

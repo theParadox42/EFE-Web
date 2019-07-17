@@ -21,7 +21,7 @@ RunBuilding.prototype.display = function(){
     pop();
 }
 RunBuilding.prototype.run = function(p){
-    this.update(p);
+    if(p) this.update(p);
     this.display();
 }
 

@@ -140,7 +140,7 @@ function postLevel(newLevel){
         for(var i = 0; i < levelsBuilt.length; i ++){
             var l = levelsBuilt[i];
             if(l.waitingForUpdate){
-                if(l.title == data.title && l.creator == data.creator){
+                if((l.title == data.title && l.creator == data.creator) || l._id == data._id){
                     levelsBuilt[i] = data;
                     var l = levelsBuilt[i];
                     l.waitingForUpdate = false;

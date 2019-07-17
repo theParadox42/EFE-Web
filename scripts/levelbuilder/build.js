@@ -13,7 +13,7 @@ function buildPlatformer(){
     if(mouseY>buildPlatformer.itemBarHeight){
         buildPlatformer.displayItem();
     }
-    if(clicked&&buildPlatformer.placing){
+    if(mouseIsPressed&&buildPlatformer.placing){
         buildPlatformer.placeItem();
         buildPlatformer.reload();
     }
@@ -21,7 +21,7 @@ function buildPlatformer(){
 buildPlatformer.init = function(){
     this.bw = 100;
     this.bh = 100;
-    this.itemsKey = ["_", "a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit", "left", "right"];
+    this.itemsKey = ["_", "a", "#", "r", "-", "'", "^", "v", "~", "x", "o", "0", "f", "%", "player","pause", "edit", "left", "right"];
     this.items = Array(this.itemsKey.length);
     this.itemPadding = width/100;//padding
     this.iw = width/this.items.length - this.itemPadding*2;
@@ -71,7 +71,7 @@ buildPlatformer.reload = function(){
 buildPlatformer.placeItem = function(){
     var map = currentBuildingLevel.level;
     var my = (mouseY-this.itemBarHeight)/this.scaleFactor;
-    var mx = mouseX/this.scaleFactor;
+    var mx = mouseX/this.scaleFactor-this.player.transX;
     if(mouseY<this.itemBarHeight) return;
     var x = floor(mx/this.bw);
     var y = floor(my/this.bh);
@@ -127,11 +127,18 @@ buildPlatformer.itemBar = function(){
                         this.player.x += 10;
                     }
                 }
-                this.player.x = constrain(this.player.x, 0, this.w-this.sw);
             }
         }
     }
     pop();
+
+    if(keys[LEFT_ARROW] || keys.a){
+        this.player.x -= 10;
+    } else if(keys[RIGHT_ARROW] || keys.d){
+        this.player.x += 10;
+    }
+    this.player.x = constrain(this.player.x, 0, this.w-this.sw);
+
 }
 buildPlatformer.displayGrid = function(){
     var map = currentBuildingLevel.level;
@@ -162,7 +169,7 @@ buildPlatformer.displayItem = function(){
             h: o.h
         }
 
-        var d = 100/o.h;
+        var d = this.bh*1.2/o.h;
         o.w *= d;
         o.h *= d;
         o.x = mouseX - o.w / 2;
