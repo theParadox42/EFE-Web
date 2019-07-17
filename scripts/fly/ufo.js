@@ -9,8 +9,10 @@ function Ufo(x, y, rm){
 Ufo.prototype.run = function(p){
     this.display();
     if(!this.dead){
-        this.collide(p);
-        if(dist(this.x, this.y, p.x, p.y)<1000) this.update(p);
+        if(p) {
+            this.collide(p);
+            if(dist(this.x, this.y, p.x, p.y)<1000) this.update(p);
+        }
     }
     if(this.health<1){
         this.dead = true;

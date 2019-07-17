@@ -1,4 +1,4 @@
-function FlyFreeplay(){
+function FlyFreeplay(buildOnly){
     push();
     background(0, 0, 0);
     if(flyPlayer.x>width/2&&flyPlayer.x<FlyFreeplay.level.w){
@@ -12,7 +12,7 @@ function FlyFreeplay(){
     displayStars();
 
     for(var i = ufos.length-1; i>-1; i--){
-        ufos[i].run(flyPlayer);
+        ufos[i].run(buildOnly?null:flyPlayer);
         if(ufos[i].dead&&ufos[i].frame>20){
             ufos.splice(i, 1);
         }
@@ -23,15 +23,15 @@ function FlyFreeplay(){
           lasers.splice(i, 1);
       }
     }
-    flyPlayer.run();
+    if(!buildOnly) Player.run();
     for(var i in asteroids){
-        asteroids[i].run(flyPlayer);
+        asteroids[i].run(buildOnly?null:flyPlayer);
         if(asteroids[i].dead&&asteroids[i].frame>20){
             asteroids.splice(i, 1);
         }
     }
     pop();
-    flyPlayer.displayHealth();
+    if(!buildOnly) flyPlayer.displayHealth();
 }
 FlyFreeplay.set = function(level, gobackto){
     this.level = level;

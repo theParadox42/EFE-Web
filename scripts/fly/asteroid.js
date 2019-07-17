@@ -9,10 +9,10 @@ function Asteroid(x, y, r){
 Asteroid.prototype.run = function(p){
     this.display();
     if(!this.dead){
-        this.collide(p);
+        if(p) this.collide(p);
     }
     if(this.health < 1){
-        this.dead = true; 
+        this.dead = true;
     }
 }
 Asteroid.prototype.collide = function(p){
