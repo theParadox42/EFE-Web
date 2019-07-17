@@ -138,7 +138,7 @@ AtLaunchPad.init = function(){
         y: height-150,
         h: 100,
         texts: [
-            "Oh NO!",
+            "Oh @!%#!",
             "They just left!",
             "But wait...",
             "I bet they left enough stuff to build...",
@@ -146,7 +146,7 @@ AtLaunchPad.init = function(){
             "My own rocket!",
             "I must go collect the parts"
         ],
-        text: "Oh No!",
+        text: "Oh @!%#!",
         ti: 0
     }
     this.player.w = this.player.h * imgs.player.width / imgs.player.height;
