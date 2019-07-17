@@ -43,10 +43,12 @@
         "/art/thumbnails/space-thumb.png",
         "/art/thumbnails/mars-thumb.png",
         "/art/thumbnails/x.png",
-        "/art/misc/pausebtn.png",
-        "/art/misc/playbtn.png",
-        "/art/misc/editicon.png",
-        "/art/misc/uploadicon.png"
+        "/art/ui/pausebtn.png",
+        "/art/ui/playbtn.png",
+        "/art/ui/editicon.png",
+        "/art/ui/uploadicon.png",
+        "/art/ui/left-arrow.png",
+        "/art/ui/right-arrow.png"
     ],
     "animations": [
         [

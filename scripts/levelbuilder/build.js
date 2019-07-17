@@ -21,7 +21,7 @@ function buildPlatformer(){
 buildPlatformer.init = function(){
     this.bw = 100;
     this.bh = 100;
-    this.itemsKey = ["_", "a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit"];
+    this.itemsKey = ["_", "a", "#", "r", "-", "'", "^", "~", "x", "o", "f", "%", "player","pause", "edit", "left", "right"];
     this.items = Array(this.itemsKey.length);
     this.itemPadding = width/100;//padding
     this.iw = width/this.items.length - this.itemPadding*2;
