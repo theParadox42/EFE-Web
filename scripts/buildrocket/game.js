@@ -91,7 +91,10 @@ let bGame = {
     next: function(){
         if(this.mode!="story") {
             game.setScene(this.gobackto);
-            this.rawLevelObject.verified = true;
+            if(this.rawLevelObject.levelBuilderLevel){
+                this.rawLevelObject.verified = true;
+                levelBuilder.save();
+            }
             return;
         }
         this.level ++;

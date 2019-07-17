@@ -8,6 +8,10 @@ function FlyFreeplay(buildOnly){
     }
     if(flyPlayer.x>FlyFreeplay.level.w+width/2){
         game.setScene(FlyFreeplay.gobackto);
+        if(FlyFreeplay.levelObject.levelBuilderLevel){
+            FlyFreeplay.levelObject.verified = true;
+            levelBuilder.save();
+        }
     }
     displayStars();
 
@@ -23,7 +27,7 @@ function FlyFreeplay(buildOnly){
           lasers.splice(i, 1);
       }
     }
-    if(!buildOnly) Player.run();
+    if(!buildOnly) flyPlayer.run();
     for(var i in asteroids){
         asteroids[i].run(buildOnly?null:flyPlayer);
         if(asteroids[i].dead&&asteroids[i].frame>20){
@@ -34,7 +38,8 @@ function FlyFreeplay(buildOnly){
     if(!buildOnly) flyPlayer.displayHealth();
 }
 FlyFreeplay.set = function(level, gobackto){
-    this.level = level;
+    this.levelObject = level;
+    this.level = this.levelObject.objects;
     this.gobackto = gobackto;
 }
 FlyFreeplay.init = function(){

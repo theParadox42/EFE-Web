@@ -4,33 +4,36 @@ function buildSpaceLevel(){
 buildSpaceLevel.init = function(){
     this.objects = currentBuildingLevel.objects;
     this.dock = {
-        w: 100,
+        w: 200,
         h: height,
         p: 10
     }
+    this.nm = height / 100
+
+    this.loadObjects();
+}
+buildSpaceLevel.loadObjects = function(){
+    FlyFreeplay.set(currentBuildingLevel, game.currentScene)
+    FlyFreeplay.init();
 }
 buildSpaceLevel.runDock = function(){
-
-}
-buildSpaceLevel.display = function(){
-    background(0);
-
     push();
-    this.runDock();
-    translate(this.dock.w, 0);
+    fill(50);
+    rect(0, 0, this.dock.w, this.dock.h);
 
-    for(var i = 0; i < this.objects.asteroids.length; i ++){
-        var a = this.objects.asteroids[i];
-        ellipse(a[0] / 100)
-    }
-    for(var i = 0; i < this.objects.ufos.length; i ++){
-        var u = this.objects.ufos[i];
-    }
-    for(var i = 0; i < this.objects.boss.length; i ++){
-        var b = this.objects.boss[i];
-    }
+
 
     pop();
+}
+buildSpaceLevel.display = function(){
+    push();
+    translate(this.dock.w, 0);
+
+    FlyFreeplay(true);
+
+    pop();
+
+    this.runDock();
 }
 buildSpaceLevel.run = function(){
     this.display();

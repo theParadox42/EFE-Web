@@ -55,7 +55,7 @@ playLevel.setup = function(level, gobackto){
             bGame.gobackto = gobackto;
         break;
         case "space":
-            FlyFreeplay.set(lvl.objects, gobackto);
+            FlyFreeplay.set(lvl, gobackto);
         break;
         case "mars":
             // Unneeded

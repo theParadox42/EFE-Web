@@ -6,6 +6,7 @@ function LevelBuilderLevel(title, creator, type, difficulty){
     this.verified = false;
     this.uploaded = false;
     this.waitingForUpdate = false;
+    this.levelBuilderLevel = true;
     switch(this.type){
         case "run":
             this.map = "_______________%";
@@ -27,14 +28,15 @@ function LevelBuilderLevel(title, creator, type, difficulty){
                 asteroids: [
                     [
                         50,
-                        50
+                        50,
+                        10
                     ]
                 ],
                 ufos: [
 
                 ],
                 boss: [
-                    
+
                 ]
             }
         break;

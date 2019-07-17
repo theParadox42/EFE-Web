@@ -76,7 +76,10 @@ var loadRun = {
         } else {
             // Go back to homescreen here
             game.setScene(this.gobackto)
-            this.current.verified = true;
+            if(this.current.levelBuilderLevel){
+                this.current.verified = true;
+                levelBuilder.save();
+            }
         }
     },
     reset: function(){

@@ -6,6 +6,7 @@ var game = {
     sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
         "load",
+        "levelbuilder",
         "home",
         "wakeup",
         "run",
