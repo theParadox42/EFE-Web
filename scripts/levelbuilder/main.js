@@ -51,7 +51,6 @@ levelBuilder.removeLevel = function(i){
 levelBuilder.openLevel = function(i){
     currentBuildingLevel = levelsBuilt[i];
     this.setType(currentBuildingLevel.type);
-    currentBuildingLevel.verified = false;
 }
 levelBuilder.save = function(){
     for(var i = 0; i < levelsBuilt.length; i ++){
