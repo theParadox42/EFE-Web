@@ -25,10 +25,16 @@ function LevelBuilderLevel(title, creator, type, difficulty){
             this.objects = {
                 width: 200,
                 asteroids: [
-
+                    [
+                        50,
+                        50
+                    ]
                 ],
                 ufos: [
 
+                ],
+                boss: [
+                    
                 ]
             }
         break;

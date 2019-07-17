@@ -307,17 +307,28 @@ BPortal.prototype.display = function(){
     pop();
 }
 BPortal.prototype.collide = function(p){
-    if(!bGame.canPass) return;
     if(p.x>this.x && p.x+p.w < this.x+this.w&&p.y + p.h / 2 > this.y && p.y< this.y+this.h){
-        let speed = 0.05;
-        p.hasControl = false;
-        p.w = lerp(p.w, 0, speed);
-        p.h = lerp(p.h, 0, speed);
-        p.vx = 0;
-        p.vy = 0;
-        p.x = lerp(p.x, this.x+this.w/2-p.w/2, speed);
-        p.y = lerp(p.y, this.y+this.h/2-p.h/2, speed);
-        p.r += 5;
+        if(bGame.canPass){
+            let speed = 0.05;
+            p.hasControl = false;
+            p.w = lerp(p.w, 0, speed);
+            p.h = lerp(p.h, 0, speed);
+            p.vx = 0;
+            p.vy = 0;
+            p.x = lerp(p.x, this.x+this.w/2-p.w/2, speed);
+            p.y = lerp(p.y, this.y+this.h/2-p.h/2, speed);
+            p.r += 5;
+        } else {
+            push();
+            textAlign(CENTER, BOTTOM);
+            textFont(fonts.pixel);
+            textSize(30);
+            fill(0, 0, 0);
+            text("Collect all the parts!", p.x+p.w/2+2, p.y-3);
+            fill(255, 0, 0);
+            text("Collect all the parts!", p.x+p.w/2, p.y-5);
+            pop();
+        }
     }
 };
 }

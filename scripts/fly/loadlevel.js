@@ -25,15 +25,17 @@ function loadDynamicLevel(level){
     asteroids = [];
     ufos = [];
     bosses = [];
-    for(var i in level.asteroids){
+    for(var i = 0; i < level.asteroids.length; i ++){
         let a = level.asteroids[i];
         asteroids.push(new Asteroid(a[0]/100*height, a[1]/100*height, a[2]/200*height));
     }
-    for(var i in level.ufos){
+    for(var i = 0; i < level.ufos.length; i ++){
         let u = level.ufos[i];
         ufos.push(new Ufo(u[0]/100*height, u[1]/100*height))
     }
-    for(var i in level.boss){
-        bosses.push(new UfoBoss(level.boss[i][0], level.boss[i][1]));
+    if(level.boss){
+        for(var i = 0; i < level.boss.length; i ++){
+            bosses.push(new UfoBoss(level.boss[i][0], level.boss[i][1]));
+        }
     }
 }

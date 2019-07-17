@@ -1,9 +1,9 @@
-function Ufo(x, y){
+function Ufo(x, y, rm){
     this.x = x;
     this.y = y;
     this.health = 2;
     this.frame = 0;
-    this.radius = 1920*0.06;
+    this.radius = 1920*0.06 * (rm||1);
     this.speed = 5;
 }
 Ufo.prototype.run = function(p){

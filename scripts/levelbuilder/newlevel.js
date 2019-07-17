@@ -9,9 +9,9 @@ function createNewLevel(){
     }
 }
 createNewLevel.init = function(){
+
     this.waitForRelease = false;
-}
-createNewLevel.init = function(){
+
     inputs.name = createInput("New Level", "text");
     inputs.name.position(width/4, 50);
     inputs.name.addClass("big-text")
@@ -29,10 +29,10 @@ createNewLevel.init = function(){
     inputs.type.style("width", (width/2)+"px");
     inputs.type.option("Run", "run");
     inputs.type.option("Platformer", "build")//.attribute("disabled");
-    inputs.type.option("Space (Coming Soon!)", "space");
+    inputs.type.option("Space (In Progress!)", "space");
     inputs.type.option("Mars (Coming Soon!)", "mars");
 
-    var disabledOptions = ["space", "mars"];
+    var disabledOptions = ["mars"];
     for(var i = 0; i < disabledOptions.length; i ++){
         for(var j = 0; j < inputs.type.elt.children.length; j ++){
             var o = inputs.type.elt.children[j];
