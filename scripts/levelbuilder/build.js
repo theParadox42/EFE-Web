@@ -85,6 +85,7 @@ buildPlatformer.placeItem = function(){
         }
     }
     currentBuildingLevel.level[y] = currentBuildingLevel.level[y].replaceAt(x, this.placingItem);
+    currentBuildingLevel.verified = false;
 }
 buildPlatformer.itemBar = function(){
     push();

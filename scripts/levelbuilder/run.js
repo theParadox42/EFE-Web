@@ -208,6 +208,7 @@ buildRunMap.menu = {
     },
     handleClick: function(){
         this.placeBlock();
+        this.verified = false;
     },
     placeBlock: function(){
 
