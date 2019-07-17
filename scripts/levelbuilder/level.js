@@ -33,7 +33,7 @@ function LevelBuilderLevel(title, creator, type, difficulty){
                     ]
                 ],
                 ufos: [
-
+                    
                 ],
                 boss: [
 

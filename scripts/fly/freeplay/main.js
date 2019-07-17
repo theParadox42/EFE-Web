@@ -1,18 +1,22 @@
-function FlyFreeplay(buildOnly){
+function FlyFreeplay(buildOnly, replaceW, replaceCV){
     push();
     background(0, 0, 0);
-    if(flyPlayer.x>width/2&&flyPlayer.x<FlyFreeplay.level.w){
-        translate(-flyPlayer.x+width/2, 0);
-    }else if(flyPlayer.x>FlyFreeplay.level.w){
-        translate(-FlyFreeplay.level.w+width/2, 0);
+    FlyFreeplay.transX = 0;
+    var levelW = (buildOnly ? replaceW : null) || FlyFreeplay.level.w;
+    var cameraView = (buildOnly ? replaceCV : null) || width/2;
+    if(flyPlayer.x>cameraView&&flyPlayer.x<levelW){
+        FlyFreeplay.transX = -flyPlayer.x+cameraView;
+    }else if(flyPlayer.x>levelW){
+        FlyFreeplay.transX = -levelW+cameraView
     }
-    if(flyPlayer.x>FlyFreeplay.level.w+width/2){
+    if(flyPlayer.x>levelW+cameraView && !buildOnly){
         game.setScene(FlyFreeplay.gobackto);
         if(FlyFreeplay.levelObject.levelBuilderLevel){
             FlyFreeplay.levelObject.verified = true;
             levelBuilder.save();
         }
     }
+    translate(FlyFreeplay.transX, 0);
     displayStars();
 
     for(var i = ufos.length-1; i>-1; i--){
@@ -34,6 +38,7 @@ function FlyFreeplay(buildOnly){
             asteroids.splice(i, 1);
         }
     }
+
     pop();
     if(!buildOnly) flyPlayer.displayHealth();
 }
