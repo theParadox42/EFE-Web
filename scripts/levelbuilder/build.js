@@ -3,7 +3,7 @@ function buildPlatformer(){
     push();
     translate(0, buildPlatformer.itemBarHeight);
     scale(buildPlatformer.scaleFactor);
-    if(buildPlatformer.player) translate(buildPlatformer.player.getTransX());
+    if(buildPlatformer.player) translate(buildPlatformer.player.getTransX(true, buildPlatformer.w), 0);
     buildPlatformer.displayGrid();
     for(var i in buildPlatformer.blocks){
         buildPlatformer.blocks[i].display();
@@ -39,6 +39,8 @@ buildPlatformer.init = function(){
     this.itemSpace = (this.items.length*100);
     this.itemBarHeight = width/this.items.length;
     this.load();
+
+    this.player = new BPlayer(0, 0);
 }
 buildPlatformer.load = function(){
     var map = currentBuildingLevel.level;
@@ -117,6 +119,15 @@ buildPlatformer.itemBar = function(){
                     this.placingItem = this.itemsKey[i];
                 }
                 clicked = false;
+            } else if(mouseIsPressed){
+                if(o.notBlock){
+                    if(o.type == "left"){
+                        this.player.x -= 10;
+                    } else if(o.type == "right"){
+                        this.player.x += 10;
+                    }
+                }
+                this.player.x = constrain(this.player.x, 0, this.w-this.sw);
             }
         }
     }
@@ -156,20 +167,6 @@ buildPlatformer.displayItem = function(){
         o.h *= d;
         o.x = mouseX - o.w / 2;
         o.y = mouseY - o.h / 2;
-        // Something that didn't work
-        /*
-        if(typeof o.img.changeFrame == "function") {
-             // var f = o.img.getFrame();
-             // if(f == 0){
-             //     f = o.img.getLastFrame();
-             // } else {
-             //     f --;
-             // }
-             // o.img.changeFrame(f);
-             // o.img.play();
-             o.img.stop();
-        }
-        */
         o.display(true);
 
         for(var i in old){
@@ -203,6 +200,12 @@ function BuildMenuButton(type, x, y, w, bw){
         case "@":
             this.img = imgs.player;
         break;
+        case "left":
+            this.img = imgs.leftarrow;
+        break;
+        case "right":
+            this.img = imgs.rightarrow;
+        break;
         default:
             this.img = imgs.x;
         break;
@@ -220,7 +223,7 @@ BuildMenuButton.prototype.display = function(){
     push();
     var tx = this.x+(this.w||this.bw)/2;
     translate(tx, 0);
-    scale(-1, 1);
+    if(this.type == "@" || this.type == "player") scale(-1, 1);
     translate(-tx, 0);
     imageMode(CORNER);
     let img = this.img;

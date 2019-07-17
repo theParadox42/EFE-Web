@@ -101,16 +101,19 @@ BPlayer.prototype.display = function(){
 BPlayer.prototype.kill = function(){
     bGame.reload();
 };
-BPlayer.prototype.getTransX = function(){
+BPlayer.prototype.getTransX = function(buildOnly, replaceW, replaceSW){
     this.ptransX = this.transX;
-    if(this.x < bGame.sw/3){
+    var viewSpace = buildOnly ? 0 : bGame.sw/3;
+    var fw = (buildOnly ? replaceW : 0) || bGame.w;
+    var fsw = (buildOnly ? replaceSW : 0) || bGame.sw;
+    if(this.x < viewSpace){
         this.transX = 0;
-    } else if(this.x < bGame.w - bGame.sw*2/3){
-        this.transX = -this.x + bGame.sw/3;
-    } else if(bGame.sw > bGame.w){
+    } else if(this.x < fw - viewSpace * 2){
+        this.transX = -this.x + viewSpace;
+    } else if(fsw > fw){
         this.transX = 0;
     } else {
-        this.transX = -bGame.w + bGame.sw;
+        this.transX = -fw + fsw;
     }
     return this.transX || 0;
 }

@@ -155,7 +155,9 @@
             "pausebtn",
             "playbtn",
             "editicon",
-            "uploadicon"
+            "uploadicon",
+            "leftarrow",
+            "rightarrow"
         ],
         "animations": [
             "cloud",
