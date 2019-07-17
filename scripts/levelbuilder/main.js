@@ -240,6 +240,21 @@ levelBuilder.editingStats = function(){
     background(245);
     var ei = this.ei;
 
+    if(ei.width){
+        if(ei.width.value() < ei.minWidth){
+            ei.width.style("color", "#ff0000")
+        } else {
+            ei.width.style("color", "#000000")
+        }
+    }
+    if(ei.height){
+        if(ei.height.value() < ei.minHeight){
+            ei.height.style("color", "#ff0000");
+        } else {
+            ei.height.style("color", "#000000");
+        }
+    }
+
     if(clicked){
         if(ei.waitFor.submit){
             if(ei.width){
