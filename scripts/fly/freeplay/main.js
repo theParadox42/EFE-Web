@@ -1,15 +1,15 @@
-function FlyFreeplay(buildOnly, replaceW, replaceCV){
+function FlyFreeplay(){
     push();
     background(0, 0, 0);
     FlyFreeplay.transX = 0;
-    var levelW = (buildOnly ? replaceW : null) || FlyFreeplay.level.w;
-    var cameraView = (buildOnly ? replaceCV : null) || width/2;
+    var levelW = FlyFreeplay.level.w;
+    var cameraView = width/2;
     if(flyPlayer.x>cameraView&&flyPlayer.x<levelW){
         FlyFreeplay.transX = -flyPlayer.x+cameraView;
     }else if(flyPlayer.x>levelW){
         FlyFreeplay.transX = -levelW+cameraView
     }
-    if(flyPlayer.x>levelW+cameraView && !buildOnly){
+    if(flyPlayer.x>levelW+cameraView){
         game.setScene(FlyFreeplay.gobackto);
         if(FlyFreeplay.levelObject.levelBuilderLevel){
             FlyFreeplay.levelObject.verified = true;
@@ -20,7 +20,7 @@ function FlyFreeplay(buildOnly, replaceW, replaceCV){
     displayStars();
 
     for(var i = ufos.length-1; i>-1; i--){
-        ufos[i].run(buildOnly?null:flyPlayer);
+        ufos[i].run(flyPlayer);
         if(ufos[i].dead&&ufos[i].frame>20){
             ufos.splice(i, 1);
         }
@@ -31,16 +31,16 @@ function FlyFreeplay(buildOnly, replaceW, replaceCV){
           lasers.splice(i, 1);
       }
     }
-    if(!buildOnly) flyPlayer.run();
+    flyPlayer.run();
     for(var i in asteroids){
-        asteroids[i].run(buildOnly?null:flyPlayer);
+        asteroids[i].run(flyPlayer);
         if(asteroids[i].dead&&asteroids[i].frame>20){
             asteroids.splice(i, 1);
         }
     }
 
     pop();
-    if(!buildOnly) flyPlayer.displayHealth();
+    flyPlayer.displayHealth();
 }
 FlyFreeplay.set = function(level, gobackto){
     this.levelObject = level;
