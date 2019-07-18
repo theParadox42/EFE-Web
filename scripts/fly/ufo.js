@@ -1,10 +1,14 @@
-function Ufo(x, y, rm){
+function Ufo(x, y, r){
     this.x = x;
     this.y = y;
+    this.radius = r || 100;
+    this.img = imgs.ufo.clone();
+    this.w = this.radius * 2;
+    this.h = this.w * this.img.height / this.img.width;
+    this.radius = (this.w+this.h) / 4
+    this.speed = 5;
     this.health = 2;
     this.frame = 0;
-    this.radius = 1920*0.06 * (rm||1);
-    this.speed = 5;
 }
 Ufo.prototype.run = function(p){
     this.display();
@@ -42,16 +46,15 @@ Ufo.prototype.collide = function(p){
     }
 }
 Ufo.prototype.display = function(){
-    this.img = imgs.ufo.clone();
     push();
     translate(this.x, this.y);
-    scale(0.10)
     if(this.dead){
-        this.img = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
+        let explosionImg = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
         this.frame ++;
-        image(this.img, -imgs.explosion[0].width/2, -imgs.explosion[1].height/2);
+        imageMode(CENTER);
+        image(explosionImg, 0, 0, this.radius*2, this.radius*2);
     } else{
-        drawAnimation(this.img, 0, 0);
+        drawAnimation(this.img, 0, 0, this.w, this.h);
     }
     pop();
 }

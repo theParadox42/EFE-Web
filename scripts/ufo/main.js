@@ -35,9 +35,7 @@ function ufoBossFight(){
     }
     pop();
     flyPlayer.displayHealth();
-    for(var i in bosses){
-        bosses[i].displayHealth(); //now that I'm thinking about making an array was a stupid idea
-    }
+    
 }
 ufoBossFight.level = {
     boss: [[1500, window.innerHeight/2]], //x, y

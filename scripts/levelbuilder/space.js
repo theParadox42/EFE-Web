@@ -158,9 +158,6 @@ buildSpaceLevel.displayObjects = function(){
         bosses[i].display();
     }
 
-    fill(255, 0, 0);
-    ellipse(this.w, height/2, 50, 50);
-
     pop();
 
 }

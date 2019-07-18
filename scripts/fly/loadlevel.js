@@ -34,13 +34,13 @@ function loadDynamicLevel(level){
     if(level.ufos){
         for(var i = 0; i < level.ufos.length; i ++){
             let u = level.ufos[i];
-            ufos.push(new Ufo(u[0]/100*height, u[1]/100*height))
+            ufos.push(new Ufo(u[0]/100*height, u[1]/100*height, u[2]/200*height))
         }
     }
     if(level.boss){
         for(var i = 0; i < level.boss.length; i ++){
-            console.log("new boss");
-            bosses.push(new UfoBoss(level.boss[i][0]/100*height, level.boss[i][1]/100*height));
+            var b = level.boss[i];
+            bosses.push(new UfoBoss(b[0]/100*height, b[1]/100*height, b[2]/200*height));
         }
     }
 }

@@ -1,9 +1,11 @@
-function UfoBoss(x, y){
+function UfoBoss(x, y, r){
     this.x = x;
     this.y = y;
     this.img = imgs.ufoboss;
-    this.w = imgs.ufoboss.width*0.45;
-    this.h = imgs.ufoboss.height*0.45;
+    this.r = r || 300;
+    this.w = this.r*2;
+    this.h = this.w * this.img.height / this.img.width;
+    this.r = (this.w+this.h) / 4
     this.health = 100;
     this.radius = this.w/2;
     this.frame = 0;
@@ -22,19 +24,26 @@ UfoBoss.prototype.update = function(p){
     }
     if(frameCount%this.shootWait === 0){
         lasers.push(new Laser(this.x, this.y, -atan2(this.x-p.x, this.y-p.y), 4, "boss"));
-        this.shootWait = round(random(80, 140)); 
+        this.shootWait = round(random(80, 140));
     }
 }
 UfoBoss.prototype.collide = function(p){
     let distance = dist(this.x, this.y, p.x, p.y)
-    let r = this.radius + (p.w + p.h) / 4;
+    let r = this.r + (p.w + p.h) / 4;
     if (distance < r) {
         p.x -= p.vx;
         p.y -= p.vy;
         p.thrustCooldown = 0;
-        p.vx *= -2.5;
-        p.vy *= -2.5;
-        p.health --;
+        var pm = mag(p.vx, p.vy) * 2;
+        var dx = p.x-this.x;
+        var dy = p.y-this.y;
+        var dm = mag(dx, dy);
+        var mm = pm / dm
+        dx *= mm;
+        dy *= mm;
+        p.vx += dx;
+        p.vy += dy;
+        // p.health --;
     }
     for(var i in lasers){
         let l = lasers[i];
@@ -54,15 +63,16 @@ UfoBoss.prototype.display = function(){
     imageMode(CENTER);
     image(this.img, 0, 0, this.w, this.h);
     pop();
+    this.displayHealth();
 }
 UfoBoss.prototype.displayHealth = function(){
     push();
-    stroke(94, 94, 94);
-    strokeWeight(10);
-    fill(0, 0, 0, 0);
-    rect(width/2-100, 50, 200, 100);
     noStroke();
     fill(204, 14, 14);
-    rect(width/2-95, 55, map(this.health, 0, 100, 0, 190), 90)
+    rect(this.x-this.w/3, this.y-this.h*0.8, this.w*2/3*this.health/100, this.h*0.2);
+    stroke(94, 94, 94);
+    strokeWeight(10);
+    noFill();
+    rect(this.x-this.w/3, this.y-this.h*0.8, this.w*2/3, this.h*0.2);
     pop();
 }
