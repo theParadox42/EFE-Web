@@ -80,6 +80,14 @@ communityLevels.init = function(){
         game.setScene("home");
     })
     if(cLevels.length <= 0 || communityDisplays.length > 0) return;
+    
+    var arr1 = cLevels.filter(function(a){
+        return a.featured;
+    });
+    var arr2 = cLevels.filter(function(a){
+        return !a.featured;
+    })
+    cLevels = arr1.concat(arr2);
     communityLevels.hasLoaded = true;
     for(var i = 0; i < cLevels.length; i ++){
         communityDisplays.push(new LevelDisplay(cLevels[i], 200, 250));

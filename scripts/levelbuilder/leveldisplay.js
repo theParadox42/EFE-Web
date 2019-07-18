@@ -67,7 +67,7 @@ LevelDisplay.prototype.display = function(){
     }
     image(img, this.x, this.y, this.w, this.w);
 
-    fill(0);
+    fill(this.level.featured ? color(200, 150, 0):0);
     textAlign(LEFT, TOP);
     textFont(fonts.londrina);
     textSize(15);

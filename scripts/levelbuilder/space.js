@@ -259,4 +259,5 @@ buildSpaceLevel.placeObject = function(){
         }
     }
     this.loadObjects();
+    currentBuildingLevel.verified = false;
 }
