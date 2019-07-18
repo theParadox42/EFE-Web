@@ -4,7 +4,7 @@ function buildSpaceLevel(){
 buildSpaceLevel.init = function(){
     this.objects = currentBuildingLevel.objects;
     this.dock = {
-        w: 200,
+        w: 150,
         h: height,
         p: 10,
         items: [
@@ -15,7 +15,9 @@ buildSpaceLevel.init = function(){
             "pause",
             "edit",
             "left",
-            "right"
+            "right",
+            "+",
+            "-"
         ]
     }
     this.nm = height / 100
@@ -51,7 +53,7 @@ buildSpaceLevel.runDock = function(){
                 img = imgs.asteroid;
             break;
             case "ufos":
-                img = imgs.ufo.getFrameImage(0);
+                img = imgs.ufo.images[0];
             break;
             case "boss":
                 img = imgs.ufoboss;
@@ -70,6 +72,12 @@ buildSpaceLevel.runDock = function(){
             break;
             case "right":
                 img = imgs.rightarrow;
+            break;
+            case "+":
+                img = imgs.plussign;
+            break;
+            case "-":
+                img = imgs.minussign;
             break;
         }
 
@@ -110,10 +118,17 @@ buildSpaceLevel.runDock = function(){
                     case "left":
                         this.tx -= 30;
                     break;
-                    case "rigth":
+                    case "right":
                         this.tx += 30;
                     break;
+                    case "+":
+                        this.carryingsize ++;
+                    break;
+                    case "-":
+                        this.carryingsize --;
+                    break;
                 }
+                this.carryingsize = constrain(this.carryingsize, 5, 80);
             }
         }
 
@@ -173,25 +188,26 @@ buildSpaceLevel.display = function(){
 
 }
 buildSpaceLevel.displayHoldingObject = function(){
+
+    var w = this.carryingsize * this.nm, i = null;
+    switch(this.carrying){
+        case "asteroids":
+            i = imgs.asteroid
+        break;
+        case "ufos":
+            i = imgs.ufo.images[0];
+        break;
+        case "boss":
+            i = imgs.ufoboss;
+        break;
+        case "x":
+            i = imgs.x;
+        break;
+    }
+
     if(mouseX>this.dock.w){
         if(clicked){
             this.placeObject();
-        }
-        var w = this.carryingsize * this.nm
-        var i;
-        switch(this.carrying){
-            case "asteroids":
-                i = imgs.asteroid
-            break;
-            case "ufos":
-                i = imgs.ufo.getFrameImage(0);
-            break;
-            case "boss":
-                i = imgs.ufoboss;
-            break;
-            case "x":
-                i = imgs.x;
-            break;
         }
         if(i){
             push();
@@ -199,6 +215,13 @@ buildSpaceLevel.displayHoldingObject = function(){
             image(i, mouseX, mouseY, w, w * i.height / i.width)
             pop();
         }
+    }
+    if(i){
+        push();
+        tint(255, 255, 255, 100)
+        // imageMode(CENTER);
+        image(i, width-w, 0, w, w * i.height / i.width)
+        pop();
     }
 
 }
@@ -211,9 +234,9 @@ buildSpaceLevel.run = function(){
     flyPlayer.x = this.tx;
 }
 buildSpaceLevel.placeObject = function(){
+    var mx = mouseX - this.dock.w - this.transX;
+    var my = mouseY;
     if(this.objects[this.carrying] && this.objects[this.carrying] instanceof Array){
-        var mx = mouseX - this.dock.w - this.transX;
-        var my = mouseY;
         var xv = mx / height * 100;
         var yv = my / height * 100;
         this.objects[this.carrying].push([
@@ -228,7 +251,7 @@ buildSpaceLevel.placeObject = function(){
                     var x = o[0] * this.nm;
                     var y = o[1] * this.nm;
                     var r = o[2] * this.nm || 100;
-                    if(dist(mouseX, mouseY, x+this.dock.w, y) < r){
+                    if(dist(mx, my, x, y) < r){
                         this.objects[i].splice(j, 1);
                     }
                 }

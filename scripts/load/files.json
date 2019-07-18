@@ -48,7 +48,9 @@
         "/art/ui/editicon.png",
         "/art/ui/uploadicon.png",
         "/art/ui/left-arrow.png",
-        "/art/ui/right-arrow.png"
+        "/art/ui/right-arrow.png",
+        "/art/ui/plus-sign.png",
+        "/art/ui/minus-sign.png"
     ],
     "animations": [
         [
@@ -162,7 +164,9 @@
             "editicon",
             "uploadicon",
             "leftarrow",
-            "rightarrow"
+            "rightarrow",
+            "plussign",
+            "minussign"
         ],
         "animations": [
             "cloud",

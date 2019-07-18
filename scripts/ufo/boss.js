@@ -43,7 +43,7 @@ UfoBoss.prototype.collide = function(p){
         dy *= mm;
         p.vx += dx;
         p.vy += dy;
-        // p.health --;
+        p.health --;
     }
     for(var i in lasers){
         let l = lasers[i];

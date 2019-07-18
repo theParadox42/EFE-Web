@@ -4,7 +4,7 @@ function Ufo(x, y, r){
     this.radius = r || 100;
     this.img = imgs.ufo.clone();
     this.w = this.radius * 2;
-    this.h = this.w * this.img.height / this.img.width;
+    this.h = this.w * this.img.getHeight() / this.img.getWidth();
     this.radius = (this.w+this.h) / 4
     this.speed = 5;
     this.health = 2;
@@ -34,6 +34,8 @@ Ufo.prototype.collide = function(p){
     if (distance < r) {
         this.dead = true;
         p.health --;
+    } else {
+        console.log(this.radius);
     }
     for(var i in lasers){
         let l = lasers[i];
@@ -49,7 +51,7 @@ Ufo.prototype.display = function(){
     push();
     translate(this.x, this.y);
     if(this.dead){
-        let explosionImg = imgs.explosion[round(this.frame/2)]; //image only switches every other frame
+        let explosionImg = imgs.explosion[~~(this.frame/2)]; //image only switches every other frame
         this.frame ++;
         imageMode(CENTER);
         image(explosionImg, 0, 0, this.radius*2, this.radius*2);
