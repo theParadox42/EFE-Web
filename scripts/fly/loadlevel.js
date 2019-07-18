@@ -39,7 +39,8 @@ function loadDynamicLevel(level){
     }
     if(level.boss){
         for(var i = 0; i < level.boss.length; i ++){
-            bosses.push(new UfoBoss(level.boss[i][0], level.boss[i][1]));
+            console.log("new boss");
+            bosses.push(new UfoBoss(level.boss[i][0]/100*height, level.boss[i][1]/100*height));
         }
     }
 }

@@ -19,25 +19,31 @@ function FlyFreeplay(){
     translate(FlyFreeplay.transX, 0);
     displayStars();
 
-    for(var i = ufos.length-1; i>-1; i--){
-        ufos[i].run(flyPlayer);
-        if(ufos[i].dead&&ufos[i].frame>20){
-            ufos.splice(i, 1);
-        }
-    }
-    for(var i in lasers){
+    for(var i = lasers.length - 1; i > -1; i --) {
       lasers[i].run();
       if(lasers[i].dead){
           lasers.splice(i, 1);
       }
     }
-    flyPlayer.run();
-    for(var i in asteroids){
+    for(var i = ufos.length - 1; i > -1; i --) {
+        ufos[i].run(flyPlayer);
+        if(ufos[i].dead&&ufos[i].frame>20){
+            ufos.splice(i, 1);
+        }
+    }
+    for(var i = asteroids.length - 1; i > -1; i --) {
         asteroids[i].run(flyPlayer);
         if(asteroids[i].dead&&asteroids[i].frame>20){
             asteroids.splice(i, 1);
         }
     }
+    for(var i = bosses.length - 1; i > -1; i --){
+        bosses[i].run(flyPlayer);
+        if(bosses[i].dead&&bosses[i].frame>20){
+            bosses.splice(i, 1);
+        }
+    }
+    flyPlayer.run();
 
     pop();
     flyPlayer.displayHealth();

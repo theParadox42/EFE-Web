@@ -11,6 +11,7 @@ buildSpaceLevel.init = function(){
             "asteroids",
             "ufos",
             "boss",
+            "x",
             "pause",
             "edit",
             "left",
@@ -40,18 +41,23 @@ buildSpaceLevel.runDock = function(){
 
     var y = this.dock.p;
     var ih = height/this.dock.items.length - this.dock.p * 2;
+    var iw = this.dock.w - this.dock.p * 2
+    var ia = iw / ih;
+    noStroke();
     for(var i = 0; i < this.dock.items.length; i ++){
-        rect(this.dock.p, y, this.dock.w - this.dock.p * 2, ih)
         var img = null;
         switch(this.dock.items[i]){
             case "asteroids":
                 img = imgs.asteroid;
             break;
             case "ufos":
-                img = imgs.ufo.getFrame(0);
+                img = imgs.ufo.getFrameImage(0);
             break;
             case "boss":
                 img = imgs.ufoboss;
+            break;
+            case "x":
+                img = imgs.x;
             break;
             case "pause":
                 img = imgs.pausebtn;
@@ -68,8 +74,49 @@ buildSpaceLevel.runDock = function(){
         }
 
         if(img){
-            image(img, this.dock.p, y, this.dock.w-this.dock.p * 2, ih);
+            var imw = img.width;
+            var imh = img.height;
+            var ima = img.width / img.height;
+            if(ima < ia){
+                imw *= ih / imh;
+                imh = ih;
+                image(img, this.dock.p + iw/2-imw/2, y, imw, imh);
+            } else {
+                imh *= iw / imw;
+                imw = iw;
+                image(img, this.dock.p + iw/2-imw/2, y, imw, imh);
+            }
         }
+
+        if(mouseX > this.dock.p && mouseX < this.dock.p + iw && mouseY > y && mouseY < y + ih){
+            cursor(HAND);
+            if(clicked){
+                clicked = false;
+                var di = this.dock.items[i];
+                if(di == "asteroids" || di == "ufos" || di == "boss" || di == "x"){
+                    this.carrying = di;
+                } else {
+                    switch(di){
+                        case "pause":
+                            levelBuilder.pause();
+                        break;
+                        case "edit":
+                            levelBuilder.editStats();
+                        break;
+                    }
+                }
+            } else if(mouseIsPressed){
+                switch(this.dock.items[i]){
+                    case "left":
+                        this.tx -= 30;
+                    break;
+                    case "rigth":
+                        this.tx += 30;
+                    break;
+                }
+            }
+        }
+
         y += ih+this.dock.p * 2;
     }
 
@@ -101,23 +148,14 @@ buildSpaceLevel.displayObjects = function(){
     translate(this.transX, 0);
     displayStars();
 
-    for(var i = ufos.length-1; i>-1; i--){
-        ufos[i].run();
-        if(ufos[i].dead&&ufos[i].frame>20){
-            ufos.splice(i, 1);
-        }
+    for(var i = 0; i < asteroids.length; i ++){
+        asteroids[i].display();
     }
-    for(var i in lasers){
-      lasers[i].run();
-      if(lasers[i].dead){
-          lasers.splice(i, 1);
-      }
+    for(var i = 0; i < ufos.length; i ++){
+        ufos[i].display();
     }
-    for(var i in asteroids){
-        asteroids[i].run();
-        if(asteroids[i].dead&&asteroids[i].frame>20){
-            asteroids.splice(i, 1);
-        }
+    for(var i = 0; i < bosses.length; i ++){
+        bosses[i].display();
     }
 
     fill(255, 0, 0);
@@ -134,11 +172,10 @@ buildSpaceLevel.display = function(){
 
     pop();
 
-}
-buildSpaceLevel.run = function(){
-    this.display();
+    this.displayHoldingObject();
 
-    this.runDock();
+}
+buildSpaceLevel.displayHoldingObject = function(){
     if(mouseX>this.dock.w){
         if(clicked){
             this.placeObject();
@@ -150,20 +187,28 @@ buildSpaceLevel.run = function(){
                 i = imgs.asteroid
             break;
             case "ufos":
-                i = imgs.ufo.getFrame(0);
+                i = imgs.ufo.getFrameImage(0);
             break;
             case "boss":
                 i = imgs.ufoboss;
+            break;
+            case "x":
+                i = imgs.x;
             break;
         }
         if(i){
             push();
             imageMode(CENTER);
-            console.log(w);
             image(i, mouseX, mouseY, w, w * i.height / i.width)
             pop();
         }
     }
+
+}
+buildSpaceLevel.run = function(){
+    this.display();
+
+    this.runDock();
 
     this.tx = constrain(this.tx, 0, this.w-width+this.dock.w)
     flyPlayer.x = this.tx;
@@ -174,13 +219,24 @@ buildSpaceLevel.placeObject = function(){
         var my = mouseY;
         var xv = mx / height * 100;
         var yv = my / height * 100;
-        console.log()
         this.objects[this.carrying].push([
             xv, yv,
             this.carryingsize
         ])
-    } else {
-        console.log(this.objects[this.carrying] +", "+this.carrying)
+    } else if(this.carrying == "x"){
+        for(var i in this.objects){
+            if(typeof this.objects[i] == "object" && this.objects[i] instanceof Array){
+                for(var j = this.objects[i].length - 1; j > -1; j --){
+                    var o = this.objects[i][j];
+                    var x = o[0] * this.nm;
+                    var y = o[1] * this.nm;
+                    var r = o[2] * this.nm || 100;
+                    if(dist(mouseX, mouseY, x+this.dock.w, y) < r){
+                        this.objects[i].splice(j, 1);
+                    }
+                }
+            }
+        }
     }
     this.loadObjects();
 }

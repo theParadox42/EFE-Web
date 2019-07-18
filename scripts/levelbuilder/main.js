@@ -278,11 +278,9 @@ levelBuilder.init = function(){
     this.isPaused = false;
     this.isEditingStats = false;
 
-    levelBuilder.building = levelBuilder.building || "none";
-    // levelBuilder.building = "new";
+    this.setType(levelBuilder.building || "none");
 
     levelBuilderMenu.init();
-    // createNewLevel.init();
 }
 levelBuilder.createNew = function(){
     levelBuilder.building = "new";
