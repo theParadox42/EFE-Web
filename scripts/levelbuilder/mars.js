@@ -41,6 +41,12 @@ buildArena.init = function(){
     // Block size
     buildArena.updateBlocks();
     this.bw = mGame.bw
+    var sb = new mRock(0, 0, this.bw);
+    this.bh = sb.h;
+
+    // Multiplyers (big/small)
+    this.bm = this.ground.w / mGame.ground.w;
+    this.sm = 1/this.bm;
 }
 buildArena.updateBlocks = function(){
     mGame.init(currentBuildingLevel.objects.blocks);
@@ -59,7 +65,12 @@ buildArena.run = function(){
 buildArena.placeObject = function(){
     currentBuildingLevel.verified = false;
 
-    // var x = map(mouseX, this.ground.x - this.ground.w/2,)
+    var x = map(mouseX, this.ground.x - this.ground.w/2, this.ground.x + this.ground.w/2, -100, 100);
+    var y = map(mouseY, this.ground.y, this.ground.y - this.bh * this.sm, 0, 1);
+    currentBuildingLevel.objects.rocks.push({
+        x: x,
+        y: y
+    });
 
     this.updateBlocks();
 }
