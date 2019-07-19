@@ -216,7 +216,7 @@ buildSpaceLevel.displayHoldingObject = function(){
             pop();
         }
     }
-    if(i){
+    if(i && !isMobile){
         push();
         tint(255, 255, 255, 100)
         // imageMode(CENTER);
