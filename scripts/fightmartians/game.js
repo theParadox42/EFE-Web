@@ -52,6 +52,16 @@ let mGame = {
         // Everything else
         this.reload();
     },
+    finish: function(){
+        if(game.currentScene == "playlevel"){
+            if(this.freeplayLevel){
+                this.freeplayLevel.verified = true;
+            }
+            game.setScene(this.gobackto);
+        } else {
+            game.continue();
+        }
+    },
     init: function(rocks){
         // Player
         this.player = new MPlayer(-30, -200, 60);
@@ -84,6 +94,7 @@ let mGame = {
         }
         // Everything else
         this.reload();
+        this.freeplayLevel = null;
     },
     run: function(){
         this.timePassed++;

@@ -84,7 +84,7 @@ MPlayer.prototype.update = function(){
     this.grounded = false;
 
     if(this.fuel >= this.neededFuel){
-        game.continue();
+        mGame.finish();
     }
 
     this.dfuel = lerp(this.dfuel, this.fuel, 0.1);

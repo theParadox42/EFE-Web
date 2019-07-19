@@ -42,9 +42,21 @@ buildArena.run = function(){
     this.display();
 
     this.runDock();
+
+    if(clicked){
+        this.placeObject();
+    }
+}
+buildArena.placeObject = function(){
+    // currentBuildingLevel.verified = false;
 }
 buildArena.display = function(){
     image(imgs.marsbackground, 0, 0, this.background.w, this.background.h);
+}
+buildArena.displayObjects = function(){
+    for(var i = 0; i < this.rocks.length; i ++){
+
+    }
 }
 buildArena.runDock = function(){
     push();

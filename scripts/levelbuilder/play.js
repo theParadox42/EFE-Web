@@ -32,6 +32,8 @@ playLevel.init = function(){
         break;
         case "mars":
             fightMartians.init(lvl.objects.blocks);
+            mGame.freeplayLevel = lvl;
+            console.log("wow");
         break;
         default:
             game.setScene("home");
@@ -58,7 +60,7 @@ playLevel.setup = function(level, gobackto){
             FlyFreeplay.set(lvl, gobackto);
         break;
         case "mars":
-            // Unneeded
+            mGame.gobackto = gobackto;
         break;
         default:
             game.setScene("communitylevels");
