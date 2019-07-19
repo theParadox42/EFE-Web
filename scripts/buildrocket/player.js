@@ -93,7 +93,7 @@ BPlayer.prototype.display = function(){
     translate(this.x+this.w/2, this.y+this.h/2);
     rotate(this.r);
     if(this.vx >= 0) scale(-1, 1);
-    tint(this.tint.r, this.tint.g, this.tint.b);
+    if(!isMobile) tint(this.tint.r, this.tint.g, this.tint.b);
     image(this.img, -this.w/2, -this.h/2, this.w, this.h);
     noTint();
     pop();
