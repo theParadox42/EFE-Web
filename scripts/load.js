@@ -17,6 +17,8 @@ $.getJSON("/scripts/scripts.json", function(jsonData){
                 load.amount ++;
                 if(load.amount >= load.needed){
                     new p5();
+                    var loadingElement = document.getElementById("loading-text");
+                    loadingElement.parentNode.removeChild(loadingElement);
                 }
             });
         }

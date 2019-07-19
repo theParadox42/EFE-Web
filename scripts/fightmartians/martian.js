@@ -70,6 +70,10 @@ Martian.prototype.update = function(p) {
         this.dead = true;
     }
     this.dhealth = lerp(this.dhealth, this.health, 0.1);
+
+    if(this.y > height * 3){
+        this.dead = true;
+    }
 };
 Martian.prototype.display = function() {
     push()

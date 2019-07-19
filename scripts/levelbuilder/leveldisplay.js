@@ -71,7 +71,9 @@ LevelDisplay.prototype.display = function(){
     textAlign(LEFT, TOP);
     textFont(fonts.londrina);
     textSize(15);
-    text(this.level.title+"\n"+this.level.creator, this.x+5, this.y+this.w+5, this.w-10, this.h-this.w-10);
+    var ty = textAscent()+textDescent()
+    text(this.level.title, this.x+5, this.y+this.w+5, this.w-10, ty);
+    text(this.level.creator, this.x+5, this.y+this.w+5+ty, this.w-10, ty);
 
     if(this.editable){
         push();

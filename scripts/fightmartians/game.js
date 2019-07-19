@@ -45,21 +45,42 @@ let mGame = {
         this.fuels = [];
         this.timePassed = 0;
     },
+    reset: function(){
+        // Player
+        this.player = new MPlayer(-30, -200, 60);
+
+        // Everything else
+        this.reload();
+    },
     init: function(rocks){
         // Player
         this.player = new MPlayer(-30, -200, 60);
         // Ground
         this.ground.img = imgs.marsarena;
         this.ground.h = this.ground.w * this.ground.img.height / this.ground.img.width;
-        // Background
-        this.background.img = imgs.marsbackground;
-        this.background.w = width + 220;
-        this.background.h = this.background.w * this.background.img.height / this.background.img.width;
+        // Arranging the background
+        this.background = {
+            img: imgs.marsbackground,
+            x: 0,
+            y: 0,
+        }
+        this.background.aspect = this.background.img.width / this.background.img.height
+        let canvasAspect = width / height;
+        if(this.background.aspect > canvasAspect){
+            this.background.h = height+200*(1/this.background.aspect);
+            this.background.w = this.background.h * this.background.aspect;
+        } else {
+            this.background.w = width+200*this.background.aspect;
+            this.background.h = this.background.w * (1/this.background.aspect);
+        }
         // Blocks
-        for(var i = 0; i < rocks.length; i ++){
-            let d = rocks[i];
-            let bw = this.ground.w/2/20;
-            this.rocks.push(new MRock(d.x/200*this.ground.w-(d.x>0?bw:0),d.y, bw))
+        this.bw = this.ground.w/40;
+        if(typeof rocks == "object"){
+            this.rocks = [];
+            for(var i = 0; i < rocks.length; i ++){
+                let d = rocks[i];
+                this.rocks.push(new MRock(map(d.x, -100, 100, -this.ground.w/2, this.ground.w/2-this.bw),d.y, this.bw))
+            }
         }
         // Everything else
         this.reload();

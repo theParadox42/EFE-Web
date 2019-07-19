@@ -34,8 +34,6 @@ Ufo.prototype.collide = function(p){
     if (distance < r) {
         this.dead = true;
         p.health --;
-    } else {
-        console.log(this.radius);
     }
     for(var i in lasers){
         let l = lasers[i];

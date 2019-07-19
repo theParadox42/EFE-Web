@@ -33,7 +33,7 @@ function LevelBuilderLevel(title, creator, type, difficulty){
                     ]
                 ],
                 ufos: [
-                    
+
                 ],
                 boss: [
 
@@ -41,7 +41,11 @@ function LevelBuilderLevel(title, creator, type, difficulty){
             }
         break;
         case "mars":
-
+            this.objects = {
+                blocks: [
+                    
+                ]
+            }
         break;
     }
 }

@@ -75,7 +75,7 @@ MPlayer.prototype.update = function(){
     if(this.health <= 0){
         this.lifes--;
         if(this.lifes<=0){
-            mGame.init();
+            mGame.reset();
         } else {
             mGame.reload();
         }
