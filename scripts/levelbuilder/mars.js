@@ -41,7 +41,7 @@ buildArena.init = function(){
     // Block size
     buildArena.updateBlocks();
     this.bw = mGame.bw
-    var sb = new mRock(0, 0, this.bw);
+    var sb = new MRock(0, 0, this.bw);
     this.bh = sb.h;
 
     // Multiplyers (big/small)
