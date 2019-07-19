@@ -48,7 +48,6 @@ MRock.prototype.display = function(){
     push();
     image(this.img, this.x, this.y, this.w, this.h);
     pop();
-    // console.log(this.w);
 }
 MRock.prototype.run = function(ents){
     for(var i = 0; i < ents.length; i ++){

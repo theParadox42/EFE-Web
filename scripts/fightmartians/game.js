@@ -34,34 +34,6 @@ let mGame = {
     transX: 0,
     transY: 0,
     timePassed: 0,
-    reload: function(){
-        // Player
-        this.player.reset();
-        // Martian
-        this.martians = [];
-        this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
-        // Reset stuff
-        this.bullets = [];
-        this.fuels = [];
-        this.timePassed = 0;
-    },
-    reset: function(){
-        // Player
-        this.player = new MPlayer(-30, -200, 60);
-
-        // Everything else
-        this.reload();
-    },
-    finish: function(){
-        if(game.currentScene == "playlevel"){
-            if(this.freeplayLevel){
-                this.freeplayLevel.verified = true;
-            }
-            game.setScene(this.gobackto);
-        } else {
-            game.continue();
-        }
-    },
     init: function(rocks){
         // Player
         this.player = new MPlayer(-30, -200, 60);
@@ -95,6 +67,34 @@ let mGame = {
         // Everything else
         this.reload();
         this.freeplayLevel = null;
+    },
+    reload: function(){
+        // Player
+        this.player.reset();
+        // Martian
+        this.martians = [];
+        this.martians.push(new Martian(-this.ground.w/2+50, -200, 100));
+        // Reset stuff
+        this.bullets = [];
+        this.fuels = [];
+        this.timePassed = 0;
+    },
+    reset: function(){
+        // Player
+        this.player = new MPlayer(-30, -200, 60);
+
+        // Everything else
+        this.reload();
+    },
+    finish: function(){
+        if(game.currentScene == "playlevel"){
+            if(this.freeplayLevel){
+                this.freeplayLevel.verified = true;
+            }
+            game.setScene(this.gobackto);
+        } else {
+            game.continue();
+        }
     },
     run: function(){
         this.timePassed++;

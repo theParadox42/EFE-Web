@@ -25,25 +25,18 @@ function LevelBuilderLevel(title, creator, type, difficulty){
         case "space":
             this.objects = {
                 width: 200,
-                asteroids: [
-                    [
-                        50,
-                        50,
-                        10
-                    ]
-                ],
-                ufos: [
-
-                ],
-                boss: [
-
-                ]
+                asteroids: [],
+                ufos: [],
+                boss: []
             }
         break;
         case "mars":
             this.objects = {
                 blocks: [
-                    
+                    {
+                        x: 0,
+                        y: 2,
+                    }
                 ]
             }
         break;

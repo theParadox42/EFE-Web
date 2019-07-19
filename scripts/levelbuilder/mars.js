@@ -30,6 +30,14 @@ buildArena.init = function(){
         this.background.h = this.background.w * (1/this.background.aspect);
     }
 
+    // Ground
+    this.ground = {
+        img: imgs.marsarena,
+        x: width/2,
+        y: height * 3/4,
+        w: width * 7/8
+    }
+
     // Block size
     buildArena.updateBlocks();
     this.bw = mGame.bw
@@ -40,6 +48,7 @@ buildArena.updateBlocks = function(){
 }
 buildArena.run = function(){
     this.display();
+    this.displayObjects();
 
     this.runDock();
 
@@ -48,15 +57,24 @@ buildArena.run = function(){
     }
 }
 buildArena.placeObject = function(){
-    // currentBuildingLevel.verified = false;
+    currentBuildingLevel.verified = false;
+
+    // var x = map(mouseX, this.ground.x - this.ground.w/2,)
+
+    this.updateBlocks();
 }
 buildArena.display = function(){
-    image(imgs.marsbackground, 0, 0, this.background.w, this.background.h);
+    image(this.background.img, 0, 0, this.background.w, this.background.h);
+    image(this.ground.img, this.ground.x-this.ground.w/2, this.ground.y, this.ground.w, this.ground.w * this.ground.img.height / this.ground.img.width)
 }
 buildArena.displayObjects = function(){
+    push();
+    translate(this.ground.x, this.ground.y);
+    scale(this.ground.w / mGame.ground.w);
     for(var i = 0; i < this.rocks.length; i ++){
-
+        this.rocks[i].display();
     }
+    pop();
 }
 buildArena.runDock = function(){
     push();
