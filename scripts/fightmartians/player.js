@@ -68,8 +68,9 @@ MPlayer.prototype.update = function(){
     this.x+=this.vx + this.kvx;
     this.y+=this.vy;
 
-    mGame.transX = constrain(-this.x, -mGame.ground.w, mGame.ground.w);
-    mGame.transY = constrain(-this.y, -height, this.h);
+    var cameraSpeed = 0.2;
+    mGame.transX = lerp(mGame.transX, constrain(-this.x, -mGame.ground.w, mGame.ground.w), cameraSpeed);
+    mGame.transY = lerp(mGame.transY, max(-this.y-this.h/2, -height), cameraSpeed);
 
     if(this.y > height*1.5) this.health -= 0.2;
     if(this.health <= 0){

@@ -51,6 +51,18 @@ buildArena.init = function(){
 
     // Placing
     this.mode = "rock";
+
+    // Constrants
+    this.constraints = {
+        x: {
+            min: -100,
+            max: 100
+        },
+        y: {
+            min: 0,
+            max: 15
+        }
+    }
 }
 buildArena.updateBlocks = function(){
     mGame.init(currentBuildingLevel.objects.blocks);
@@ -70,8 +82,11 @@ buildArena.placeObject = function(){
     currentBuildingLevel.verified = false;
 
     if(this.mode == "rock"){
-        var x = constrain(map(mouseX, this.ground.x - this.ground.w/2, this.ground.x + this.ground.w/2, -100, 100), -100, 100);
-        var y = max(0, map(mouseY, this.ground.y, this.ground.y - this.bh * this.bm, 0, 15));
+        var x = constrain(map(mouseX,
+            this.ground.x - this.ground.w/2+this.bw*this.bm/2,
+            this.ground.x + this.ground.w/2-this.bw*this.bm/2,
+            -100, 100), this.constraints.x.min, this.constraints.x.max);
+        var y = constrain(map(mouseY+this.bh*this.bm/2, this.ground.y, this.ground.y - this.bh * this.bm, 0, 1), this.constraints.y.min, this.constraints.y.max);
         currentBuildingLevel.objects.blocks.push({
             x: x,
             y: y
@@ -101,6 +116,24 @@ buildArena.placeObject = function(){
 buildArena.display = function(){
     image(this.background.img, 0, 0, this.background.w, this.background.h);
     image(this.ground.img, this.ground.x-this.ground.w/2, this.ground.y, this.ground.w, this.ground.w * this.ground.img.height / this.ground.img.width)
+
+    var my = map(this.constraints.y.max+1, 0, 1, this.ground.y, this.ground.y - this.bh * this.bm);
+    push();
+    fill(0, 100);
+    noStroke();
+    beginShape();
+    vertex(0, 0);
+    vertex(width, 0);
+    vertex(width, height);
+    vertex(0, height);
+    vertex(0, 0);
+    vertex(this.ground.x-this.ground.w/2, my);
+    vertex(this.ground.x-this.ground.w/2, this.ground.y);
+    vertex(this.ground.x+this.ground.w/2, this.ground.y);
+    vertex(this.ground.x+this.ground.w/2, my);
+    vertex(this.ground.x-this.ground.w/2, my);
+    endShape();
+    pop();
 }
 buildArena.displayObjects = function(){
     push();

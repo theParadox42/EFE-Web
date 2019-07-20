@@ -61,6 +61,11 @@ let mGame = {
             this.rocks = [];
             for(var i = 0; i < rocks.length; i ++){
                 let d = rocks[i];
+                if(typeof d.x == "string"){
+                    d.x = parseFloat(d.x);
+                } if(typeof d.y == "string") {
+                    d.y = parseFloat(d.y);
+                }
                 this.rocks.push(new MRock(map(d.x, -100, 100, -this.ground.w/2, this.ground.w/2-this.bw),d.y, this.bw))
             }
         }
@@ -88,8 +93,9 @@ let mGame = {
     },
     finish: function(){
         if(game.currentScene == "playlevel"){
-            if(this.freeplayLevel){
+            if(this.freeplayLevel && this.freeplayLevel.levelBuilderLevel){
                 this.freeplayLevel.verified = true;
+                levelBuilder.save();
             }
             game.setScene(this.gobackto);
         } else {

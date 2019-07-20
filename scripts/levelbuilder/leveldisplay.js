@@ -8,6 +8,7 @@ function LevelDisplay(level, w, h, editable){
 }
 LevelDisplay.prototype.go = function(){
     playLevel.setup(this.level, game.currentScene)
+    console.log(this.level);
     game.setScene("playlevel");
 }
 LevelDisplay.prototype.check = function(){

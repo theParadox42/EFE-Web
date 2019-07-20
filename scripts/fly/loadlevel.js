@@ -28,18 +28,33 @@ function loadDynamicLevel(level){
     if(level.asteroids){
         for(var i = 0; i < level.asteroids.length; i ++){
             let a = level.asteroids[i];
+            for(var j = 0; j < a.length; j ++){
+                if(typeof a[j] == "string"){
+                    a[j] = parseFloat(a[j]);
+                }
+            }
             asteroids.push(new Asteroid(a[0]/100*height, a[1]/100*height, a[2]/200*height));
         }
     }
     if(level.ufos){
         for(var i = 0; i < level.ufos.length; i ++){
             let u = level.ufos[i];
+            for(var j = 0; j < u.length; j ++){
+                if(typeof u[j] == "string"){
+                    u[j] = parseFloat(u[j]);
+                }
+            }
             ufos.push(new Ufo(u[0]/100*height, u[1]/100*height, u[2]/200*height))
         }
     }
     if(level.boss){
         for(var i = 0; i < level.boss.length; i ++){
             var b = level.boss[i];
+            for(var j = 0; j < b.length; j ++){
+                if(typeof b[j] == "string"){
+                    b[j] = parseFloat(b[j]);
+                }
+            }
             bosses.push(new UfoBoss(b[0]/100*height, b[1]/100*height, b[2]/200*height));
         }
     }
