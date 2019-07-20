@@ -30,7 +30,7 @@ createNewLevel.init = function(){
     inputs.type.option("Run", "run");
     inputs.type.option("Platformer", "build")//.attribute("disabled");
     inputs.type.option("Space", "space");
-    inputs.type.option("Mars (In Progress!)", "mars");
+    inputs.type.option("Mars", "mars");
 
     inputs.submit = createButton("Create!");
     inputs.submit.position(width/4, 320);

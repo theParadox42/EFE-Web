@@ -12,7 +12,8 @@
         ],
         "cutscenes": [
             "wakeup.js",
-            "launchpad.js"
+            "launchpad.js",
+            "rocketbuilt.js"
         ],
         "runtorocket": [
             "player.js",
