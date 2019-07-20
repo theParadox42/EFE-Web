@@ -358,7 +358,7 @@ BPart[0] = function(x, y, w, h){
     this.w = w;
     this.h = h;
     this.collectIndex = 0;
-    if(!this.img || this.img == imgs.garbage){
+    if(!this.img){
         this.img = imgs.rocketfin;
     }
     this.imgw = this.imgw || this.img.width;

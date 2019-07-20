@@ -9,7 +9,7 @@ AtLaunchPad.draw = function(){
 
     push();
     noStroke();
-    fill(50, 50);
+    fill(100, 120, 120, 100);
     for(var i = 0; i < this.buildings.length; i ++){
         var b = this.buildings[i]
         if(i/5 == round(i/5)){
