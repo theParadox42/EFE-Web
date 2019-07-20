@@ -33,7 +33,6 @@ playLevel.init = function(){
         case "mars":
             fightMartians.init(lvl.objects.blocks);
             mGame.freeplayLevel = lvl;
-            console.log("wow");
         break;
         default:
             game.setScene("home");

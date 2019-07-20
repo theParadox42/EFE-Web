@@ -31,14 +31,7 @@ function LevelBuilderLevel(title, creator, type, difficulty){
             }
         break;
         case "mars":
-            this.objects = {
-                blocks: [
-                    {
-                        x: 0,
-                        y: 2,
-                    }
-                ]
-            }
+            this.objects = { blocks: [] }
         break;
     }
 }

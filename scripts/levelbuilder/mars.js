@@ -9,7 +9,8 @@ buildArena.init = function(){
         p: 10,
         items: [
             "pause",
-            "edit"
+            "edit",
+            "switch"
         ]
     }
     this.dock.w *= this.dock.items.length;
@@ -47,6 +48,9 @@ buildArena.init = function(){
     // Multiplyers (big/small)
     this.bm = this.ground.w / mGame.ground.w;
     this.sm = 1/this.bm;
+
+    // Placing
+    this.mode = "rock";
 }
 buildArena.updateBlocks = function(){
     mGame.init(currentBuildingLevel.objects.blocks);
@@ -65,12 +69,32 @@ buildArena.run = function(){
 buildArena.placeObject = function(){
     currentBuildingLevel.verified = false;
 
-    var x = map(mouseX, this.ground.x - this.ground.w/2, this.ground.x + this.ground.w/2, -100, 100);
-    var y = map(mouseY, this.ground.y, this.ground.y - this.bh * this.sm, 0, 1);
-    currentBuildingLevel.objects.rocks.push({
-        x: x,
-        y: y
-    });
+    if(this.mode == "rock"){
+        var x = constrain(map(mouseX, this.ground.x - this.ground.w/2, this.ground.x + this.ground.w/2, -100, 100), -100, 100);
+        var y = max(0, map(mouseY, this.ground.y, this.ground.y - this.bh * this.bm, 0, 15));
+        currentBuildingLevel.objects.blocks.push({
+            x: x,
+            y: y
+        });
+    } else {
+        for(var i = this.rocks.length - 1; i > -1; i --){
+            var rx = this.rocks[i].x;
+            var ry = this.rocks[i].y;
+            var rx2 = rx + this.rocks[i].w;
+            var ry2 = ry + this.rocks[i].h;
+            rx *= this.bm;
+            ry *= this.bm;
+            rx2 *= this.bm;
+            ry2 *= this.bm;
+            rx += this.ground.x;
+            ry += this.ground.y;
+            rx2 += this.ground.x;
+            ry2 += this.ground.y;
+            if(mouseX > rx && mouseX < rx2 && mouseY > ry && mouseY < ry2){
+                currentBuildingLevel.objects.blocks.splice(i, 1);
+            }
+        }
+    }
 
     this.updateBlocks();
 }
@@ -81,7 +105,7 @@ buildArena.display = function(){
 buildArena.displayObjects = function(){
     push();
     translate(this.ground.x, this.ground.y);
-    scale(this.ground.w / mGame.ground.w);
+    scale(this.bm);
     for(var i = 0; i < this.rocks.length; i ++){
         this.rocks[i].display();
     }
@@ -99,7 +123,8 @@ buildArena.runDock = function(){
         var di = this.dock.items[i];
         var imgKey = {
             "pause": "pausebtn",
-            "edit": "editicon"
+            "edit": "editicon",
+            "switch": this.mode == "rock" ? "marsrock" : "x"
         }
         if(typeof imgs[imgKey[di]] == "object"){
             image(imgs[imgKey[di]], ix, iy, iw, ih);
@@ -107,12 +132,16 @@ buildArena.runDock = function(){
         if(mouseX > ix && mouseX < ix + iw && mouseY > iy && mouseY < iy + ih){
             cursor(HAND);
             if(clicked){
-                var funcKey = {
-                    "pause": "pause",
-                    "edit": "editStats"
-                }
-                if(typeof levelBuilder[funcKey[di]] == "function"){
-                    levelBuilder[funcKey[di]]();
+                if(di == "switch"){
+                    this.mode = this.mode == "rock" ? "x" : "rock";
+                } else {
+                    var funcKey = {
+                        "pause": "pause",
+                        "edit": "editStats"
+                    }
+                    if(typeof levelBuilder[funcKey[di]] == "function"){
+                        levelBuilder[funcKey[di]]();
+                    }
                 }
             }
         }
