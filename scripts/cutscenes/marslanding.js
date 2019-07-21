@@ -30,12 +30,21 @@ marsLanding.init = function(){
 
     // letter
     this.letter = {
+        img: imgs.letter,
         x: width/2,
-        y: 
+        y: this.ground.y-20,
+        w: 20,
+        h: 20
     }
     this.rock = {
-
+        img: imgs.marsrock,
+        x: this.letter.x-15,
+        y: this.ground.y,
+        w: this.letter.w + 20,
+        h: 1
     }
+    this.rock.h = this.rock.w * this.rock.img.height / this.rock.img.width;
+    this.rock.y -= this.rock.h;
 }
 marsLanding.draw = function(){
     this.update();
@@ -44,7 +53,12 @@ marsLanding.draw = function(){
 marsLanding.update = function(){
     this.stage = "landing"
 }
+marsLanding.displayObject = function(obj){
+    image(obj.img, obj.x, obj.y, obj.w, obj.h);
+}
 marsLanding.display = function(){
-    image(this.background.img, this.background.x, this.background.y, this.background.w, this.background.h);
-    image(this.ground.img, this.ground.x, this.ground.y, this.ground.w, this.ground.h);
+    this.displayObject(this.background);
+    this.displayObject(this.ground);
+    this.displayObject(this.rock);
+    this.displayObject(this.letter);
 }
