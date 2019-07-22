@@ -17,6 +17,7 @@ var game = {
         "fly-mars",
         "marslanding",
         "fight",
+        "leavemars",
         "fly-venus",
         "ufo",
         "won"
@@ -32,6 +33,7 @@ var game = {
         "fly-mars": true,
         "marslanding": true,
         "fight": true,
+        "leavemars": true,
         "fly-venus": true,
         "ufo": true
     },
@@ -47,6 +49,7 @@ var game = {
         "fly-mars": true,
         "marslanding": true,
         "fight": true,
+        "leavemars": true,
         "fly-venus": true,
         "ufo": true,
         "playlevel": true
@@ -108,6 +111,7 @@ var game = {
             "fly-mars": flyToMars,
             "marslanding": marsLanding,
             "fight": fightMartians,
+            "leavemars": leaveMars,
             "fly-venus": flyToVenus,
             "ufo": ufoBossFight,
             "won": Won,

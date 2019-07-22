@@ -112,7 +112,7 @@ marsLanding.init = function(){
         "I better go find some..."
     ]
     this.textIndex = 0;
-    this.textTime = 90;
+    this.textTime = 100;
     this.textTimer = this.textTime;
     this.playertext = this.text[0];
     this.displaytext = false;

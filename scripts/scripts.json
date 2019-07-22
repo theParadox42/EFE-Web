@@ -14,7 +14,8 @@
             "wakeup.js",
             "launchpad.js",
             "rocketbuilt.js",
-            "marslanding.js"
+            "marslanding.js",
+            "leavemars.js"
         ],
         "runtorocket": [
             "player.js",
