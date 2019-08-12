@@ -59,7 +59,7 @@ leaveMars.init = function(){
         h: 1
     }
     this.rocket.h = this.rocket.w * this.rocket.img.getHeight() / this.rocket.img.getWidth()
-    this.rocket.ch = this.rocket.h * 23/24;
+    this.rocket.ch = this.rocket.h * 23 / 24;
     this.rocket.y -= this.rocket.ch
 
     // Player
@@ -75,23 +75,73 @@ leaveMars.init = function(){
     this.player.h = this.player.w * this.player.img.height / this.player.img.width;
     this.player.y -= this.player.h;
 
-    // Text
-    // this.text = [
-    //     "Oh &@#$!",
-    //     "I'm out of fuel!",
-    //     "I better go find some..."
-    // ]
-    // this.textIndex = 0;
-    // this.textTime = 90;
-    // this.textTimer = this.textTime;
-    // this.playertext = this.text[0];
-    // this.displaytext = false;
+    // Fuel
+    this.fuels = [];
 
     // stage
-    this.stage = "landing"
+    this.stage = "walkin"
 }
 leaveMars.draw = function(){
+    this.update();
     this.display();
+}
+leaveMars.update = function(){
+    switch(this.stage){
+        case "walkin":
+            this.player.x -= 5;
+            var goToX = this.rocket.x + this.rocket.w*2;
+            if(this.player.x <= goToX){
+                this.player.x = goToX;
+                this.stage = "throwfuel";
+                this.fuelThrown = 0;
+            }
+        break;
+        case "throwfuel":
+            if(frameCount%20 == 0 && this.fuelThrown < 10){
+                // Create a fuel
+                var newFuel = {
+                    img: imgs.fueltank,
+                    x: this.player.x+this.player.w/2,
+                    y: this.player.y+this.player.h/2,
+                    w: this.player.w * 0.8,
+                    vy: -this.player.h/20,
+                    vx: -this.player.w/20
+                }
+                newFuel.h = newFuel.w * newFuel.img.height / newFuel.img.width;
+                newFuel.y -= newFuel.h/2;
+                newFuel.x -= newFuel.w/2;
+                this.fuels.push(newFuel);
+                this.fuelThrown ++;
+            } else if(this.fuelThrown == 10 && this.fuels.length == 0){
+                // Change scene
+                this.stage = "goinrocket";
+            }
+            // Update fuel
+            for(var i = this.fuels.length - 1; i > -1; i --){
+                var fuel = this.fuels[i];
+                fuel.vy += 0.39;
+                fuel.x += fuel.vx;
+                fuel.y += fuel.vy;
+                if(fuel.x + fuel.w / 2 < this.rocket.x + this.rocket.w / 2){
+                    this.fuels.splice(i, 1);
+                }
+            }
+        break;
+        case "goinrocket":
+            this.player.x -= 5;
+            if(this.player.x + this.player.w / 2 < this.rocket.x + this.rocket.w / 2){
+                this.player.display = false;
+                this.stage = "launch";
+                this.rocket.img = imgs.rocketOn
+            }
+        break;
+        case "launch":
+            this.rocket.y -= 20;
+            if(this.rocket.y < -this.rocket.h * 2){
+                game.continue();
+            }
+        break;
+    }
 }
 leaveMars.displayObject = function(obj){
     if(typeof obj.img.getHeight == "function"){
@@ -104,6 +154,19 @@ leaveMars.display = function(){
     this.displayObject(this.background);
     this.displayObject(this.rock);
     this.displayObject(this.letter);
+    for(var i = 0; i < this.fuels.length; i ++){
+        this.displayObject(this.fuels[i]);
+    }
+    if(this.player.display){
+        push();
+        translate(this.player.x + this.player.w / 2, this.player.y);
+
+        scale(this.player.s, 1);
+
+        image(this.player.img, -this.player.w / 2, 0, this.player.w, this.player.h);
+
+        pop();
+    }
     this.displayObject(this.rocket);
     this.displayObject(this.ground);
 }
