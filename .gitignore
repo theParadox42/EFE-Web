@@ -1,3 +1,6 @@
 .DS_Store
 .theia
 .manifest
+MinifyTools
+node_modules
+IgnoreMe
