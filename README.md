@@ -33,7 +33,7 @@ npm i terser
 ```
 #### Minify Command
 ```
-npx terser --output ../production/escapefromearth.min.js -c -m -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+npx terser -c -m -o ../production/escapefromearth.min.js -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
 ```
 #### Beutify Command
 ```

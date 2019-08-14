@@ -1,3 +1,15 @@
+
+/*
+ -=o= ESCAPE FROM EARTH =o=-
+    Creators:
+        theParadox42
+        tannerderp
+    All code is licenced under the GNU, see https://github.com/theParadox42/escape-from-earth/blob/master/LICENSE
+    Or go to https://escapefromearth.tk/LICENSE for a download
+*/
+
+
+
 var game = {
      /** Keep this this **/
     currentScene: "wait", // Current scene, should stay on "load"
