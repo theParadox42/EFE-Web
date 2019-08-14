@@ -1,4 +1,3 @@
-
 var game = {
      /** Keep this this **/
     currentScene: "load", // Current scene, should stay on "load"

@@ -23,3 +23,15 @@ The end
 ## Credits
 Created by theParadox42, tannerderp, and Hayden  
 Contact theParadox42 for any issues at paradox42.programming@gmail.com
+
+### Minifying
+#### Commands to install terser (start in escape from earth directory)
+```
+mkdir MinifyTools
+cd MinifyTools
+npm i terser
+```
+#### Minify Command
+```
+npx terser --output ../production.js --mangle reserved=['$','draw','setup','document','game'] --  ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+```
