@@ -1,9 +1,10 @@
 var game = {
      /** Keep this this **/
-    currentScene: "load", // Current scene, should stay on "load"
+    currentScene: "wait", // Current scene, should stay on "load"
     previousScene: "home",
     sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
+        "wait",
         "load",
         "home",
         "wakeup",
@@ -18,6 +19,7 @@ var game = {
         "fight",
         "leavemars",
         "fly-venus",
+        // "seeufo",
         "ufo",
         "won"
         // Other scenes not in the scene order include "communitylevels" and "playlevel"
@@ -34,6 +36,7 @@ var game = {
         "fight": true,
         "leavemars": true,
         "fly-venus": true,
+        "seeufo": true,
         "ufo": true
     },
     hasPause: {
@@ -50,6 +53,7 @@ var game = {
         "fight": true,
         "leavemars": true,
         "fly-venus": true,
+        "seeufo": true,
         "ufo": true,
         "playlevel": true
     },
@@ -61,6 +65,7 @@ var game = {
         "fly-mars": true,
         "fight": true,
         "fly-venus": true,
+        "seeufo": true,
         "ufo": true,
         "playlevel": true
     },
@@ -97,6 +102,7 @@ var game = {
     },
     getFunc: function(){
         let sceneFunctions = {
+            "wait": waitingForFileCount,
             "load": loadFiles,
             "home": Home,
             "choose": ChooseUseSave,
@@ -112,6 +118,7 @@ var game = {
             "fight": fightMartians,
             "leavemars": leaveMars,
             "fly-venus": flyToVenus,
+            "seeufo": UfoCutscene,
             "ufo": ufoBossFight,
             "won": Won,
             "loadsaves": LoadSaves,

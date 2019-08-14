@@ -33,5 +33,13 @@ npm i terser
 ```
 #### Minify Command
 ```
-npx terser --output ../production.js --mangle reserved=['$','draw','setup','document','game'] --  ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+npx terser --output ../production/escapefromearth.min.js -c -m -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+```
+#### Beutify Command
+```
+npx terser -b -o ../production/escapefromearth.js -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+```
+#### Combine libraries command
+```
+npx terser -b -c -m -o ../production/libraries.min.js -- ../libs/jquery.js ../libs/p5.min.js ../libs/p5.dom.min.js ../libs/p5.play.js
 ```

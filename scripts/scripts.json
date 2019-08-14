@@ -1,7 +1,8 @@
 {
     "scripts": {
         "load": [
-            "loadspecial.js"
+            "main.js",
+            "special.js"
         ],
         "scenes": [
             "home.js",

@@ -1,16 +1,16 @@
-function UfoCutScene(){
+function UfoCutscene(){
     UfoCutScene.draw();
 }
-UfoCutScene.init = function(){
+UfoCutscene.init = function(){
 
 }
-UfoCutScene.update = function(){
+UfoCutscene.update = function(){
 
 }
-UfoCutScene.display = function(){
+UfoCutscene.display = function(){
 
 }
-UfoCutScene.draw = function(){
+UfoCutscene.draw = function(){
     this.update();
     this.display();
 }

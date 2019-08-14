@@ -7,12 +7,12 @@ function loadSpecial(){
         if(i > 9){
             addedZero = "";
         }
-        imgs.explosion[i] = loadImage("/art/space/explosion/"+addedZero+i+".png");
+        imgs.explosion[i] = loadImage("/imgs/space/explosion/"+addedZero+i+".png");
     }
     //buildings
     imgs.buildings = Array(7);
     for(var i = 0; i < imgs.buildings.length; i ++){
-        imgs.buildings[i] = loadImage("/art/earth/buildings/0" + i + ".png");
+        imgs.buildings[i] = loadImage("/imgs/earth/buildings/0" + i + ".png");
     }
     // Player walking animation
     imgs.players = Array(5);
@@ -21,9 +21,9 @@ function loadSpecial(){
         if(i == 0){
             n = "";
         }
-        imgs.players[i] = loadImage("/art/earth/player/player"+n+".png");
+        imgs.players[i] = loadImage("/imgs/earth/player/player"+n+".png");
     }
-    // imgs.spacesign = loadAnimation("/art/space/sign/00.png", "/art/space/sign/01.png")
+    // imgs.spacesign = loadAnimation("/imgs/space/sign/00.png", "/imgs/space/sign/01.png")
 }
 
 

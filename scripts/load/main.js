@@ -1,5 +1,19 @@
 let imgs = {}, fonts = {};
 
+function waitingForFileCount(){
+    background(0);
+    push();
+    textAlign(CENTER);
+    fill(255);
+    textSize(50);
+    text("Locating Images to Load...", width/2, height/2);
+    pop();
+
+    if(!waitingForFileCount.isWaiting){
+        game.continue();
+    }
+}
+waitingForFileCount.isWaiting = true;
 function loadFiles(){
     fileLoader.run();
 }
@@ -70,7 +84,7 @@ let fileLoader = {
     loadAll: function(){
         frameRate(30);
         loadSpecial();
-        while(!this.loadOne()){}
+        do{}while(!this.loadOne())
     },
     update: function(){
         this.loadProgress = min(this.loadProgress+0.01, this.loaded/this.needed);
@@ -110,7 +124,7 @@ let fileLoader = {
         this.display();
     }
 }
-$.getJSON("/scripts/load/files.json", function(data){
+$.getJSON("/scripts/files.json", function(data){
     fileLoader.paths = data;
     for(var i in data){
         if(i != "names"){
@@ -122,4 +136,5 @@ $.getJSON("/scripts/load/files.json", function(data){
     for(var i in data.names){
         fileLoader.neededTypes ++;
     }
+    waitingForFileCount.isWaiting = false;
 });
