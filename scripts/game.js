@@ -1,5 +1,5 @@
 
-/*
+/**
  -=o= ESCAPE FROM EARTH =o=-
     Creators:
         theParadox42
@@ -9,14 +9,12 @@
 */
 
 
-
 var game = {
      /** Keep this this **/
-    currentScene: "wait", // Current scene, should stay on "load"
+    currentScene: "load", // Current scene, should stay on "load"
     previousScene: "home",
     sceneIndex: 0, // Scene index, should start on 0
     sceneOrder: [
-        "wait",
         "load",
         "home",
         "wakeup",
@@ -31,7 +29,7 @@ var game = {
         "fight",
         "leavemars",
         "fly-venus",
-        // "seeufo",
+        "seeufo",
         "ufo",
         "won"
         // Other scenes not in the scene order include "communitylevels" and "playlevel"

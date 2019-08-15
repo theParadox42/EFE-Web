@@ -1,8 +1,19 @@
+/**
+ -=o= ESCAPE FROM EARTH =o=-
+    Creators:
+        theParadox42
+        tannerderp
+    All code is licenced under the GNU, see https://github.com/theParadox42/escape-from-earth/blob/master/LICENSE
+    Or go to https://escapefromearth.tk/LICENSE for a download
+*/
 var game = {
-    currentScene: "wait",
+    /** Keep this this **/
+    currentScene: "load",
+    // Current scene, should stay on "load"
     previousScene: "home",
     sceneIndex: 0,
-    sceneOrder: [ "wait", "load", "home", "wakeup", "run", "launchpad", "build", "rocketbuilt", "fly-moon", "moon", "fly-mars", "marslanding", "fight", "leavemars", "fly-venus", "ufo", "won" ],
+    // Scene index, should start on 0
+    sceneOrder: [ "load", "home", "wakeup", "run", "launchpad", "build", "rocketbuilt", "fly-moon", "moon", "fly-mars", "marslanding", "fight", "leavemars", "fly-venus", "seeufo", "ufo", "won" ],
     canSave: {
         run: true,
         launchpad: true,
@@ -19,6 +30,7 @@ var game = {
         ufo: true
     },
     hasPause: {
+        // What scenes need a pause button
         wakeup: true,
         run: true,
         launchpad: true,
@@ -36,6 +48,7 @@ var game = {
         playlevel: true
     },
     reqControls: {
+        // What scenes require key controls
         run: true,
         build: true,
         "fly-moon": true,
@@ -268,19 +281,28 @@ var game = {
         this.setScene(savedObject.scene);
     },
     run: function() {
+        // Pause stuff
         if (this.hasPause[this.currentScene]) {
+            // Update pause status
             this.updatePaused();
             if (this.paused) {
+                // Display stuff
                 this.displayPaused();
-                resetInput();
+                // Reset if paused
+                                resetInput();
                 return;
             }
         } else this.paused = false;
-        if (isMobile && this.reqControls[this.currentScene]) updateMobile();
-        this.getFunc()();
-        if (isMobile && this.reqControls[this.currentScene]) displayMobile();
-        resetInput();
-        if (this.hasPause[this.currentScene]) this.displayPaused();
+        // Mobile here
+                if (isMobile && this.reqControls[this.currentScene]) updateMobile();
+        // Main program
+                this.getFunc()();
+        // And here
+                if (isMobile && this.reqControls[this.currentScene]) displayMobile();
+        // Reset controls
+                resetInput();
+        // Display pause Button
+                if (this.hasPause[this.currentScene]) this.displayPaused();
     },
     init: function() {
         let currentIndex = this.sceneOrder.indexOf(function(a) {
@@ -347,7 +369,10 @@ function draw() {
     game.run();
 }
 
-function windowResized() {}
+function windowResized() {
+    // resizeCanvas(windowWidth, windowHeight);
+    // game.resize();
+}
 
 function mobileControl(x, y, w, h, keysKey, txt) {
     this.x = x;
@@ -437,7 +462,10 @@ var isMobile = function() {
     return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i);
 }();
 
+// I had to put all of these in the same file, because they couldn't use inheritance if they loaded at different times
+// Collision Blocks
 {
+    // Block
     {
         function BBlock(x, y, w, h) {
             this.x = x;
@@ -459,8 +487,10 @@ var isMobile = function() {
                         p.y = min(p.y, this.y - p.h);
                         if (p.y + p.h >= this.y) {
                             p.vy = min(p.vy, 0);
-                            p.grounded = true;
-                        }
+                            // if(p.vy >= 0){
+                                                        p.grounded = true;
+                            // }
+                                                }
                     }
                 } else if (p.y + p.h - vy - 1 > this.y && p.y + vy + 1 < this.y + this.h) {
                     if (p.x + p.w / 2 > this.x + this.w / 2) {
@@ -485,14 +515,17 @@ var isMobile = function() {
             this.display();
         };
     }
-    {
+    // Asphalt
+        {
         function BAsphalt(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.asphalt;
         }
         BAsphalt.prototype = Object.create(BBlock.prototype);
     }
-    {
+    // Spikes
+        {
+        // Up Spike
         function BSpike(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.spike;
@@ -514,7 +547,9 @@ var isMobile = function() {
                     p.kill();
                 }
             }
-        };
+        }
+        // Down Spike
+        ;
         function BDSpike(x, y, w, h) {
             BSpike.call(this, x, y, w, h);
         }
@@ -543,7 +578,8 @@ var isMobile = function() {
             pop();
         };
     }
-    {
+    // Platform
+        {
         function BPlatform(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.platform;
@@ -566,7 +602,8 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // Toxic Waste
+        {
         function BToxic(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.toxic.clone();
@@ -589,7 +626,8 @@ var isMobile = function() {
             pop();
         };
     }
-    {
+    // Fire
+        {
         function BFire(x, y, w, h) {
             BToxic.call(this, x, y, w, h);
             this.img = imgs.fire.clone();
@@ -603,14 +641,16 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // Refinery
+        {
         function BRefinery(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.refinery;
         }
         BRefinery.prototype = Object.create(BBlock.prototype);
     }
-    {
+    // Smoke
+        {
         function BSmoke(x, y, w, h) {
             BToxic.call(this, x, y, w, h);
             this.img = imgs.smoke.clone();
@@ -624,7 +664,8 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // Water
+        {
         function BWater(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
             this.img = imgs.water;
@@ -647,7 +688,8 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // Proton
+        {
         function BProton(x, y, w, h) {
             BToxic.call(this, x, y, w, h);
             this.img = imgs.proton.clone();
@@ -674,7 +716,8 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // Black Hole
+        {
         function BBlackHole(x, y, w, h) {
             BProton.call(this, x, y, w, h);
             this.img = imgs.blackhole.clone();
@@ -694,7 +737,9 @@ var isMobile = function() {
     }
 }
 
+// Event Blocks
 {
+    // BPortal
     {
         function BPortal(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
@@ -737,17 +782,23 @@ var isMobile = function() {
             }
         };
     }
-    {
+    // BSpawn
+        {
         function BSpawn(x, y, w, h) {
             BBlock.call(this, x, y, w, h);
-        }
+            // this.img = imgs.spawn
+                }
         BSpawn.prototype = Object.create(BBlock.prototype);
-        BSpawn.prototype.collide = function() {};
+        BSpawn.prototype.collide = function() {
+            // This doesn't need a collide function
+        };
         BSpawn.prototype.display = function() {
             ellipse(this.x + this.w / 2, this.y + this.h / 2, this.w, this.h);
-        };
+            // image(this.img, this.x, this.y, this.w, this.h);
+                };
     }
-    {
+    // BParts
+        {
         var BPart = [];
         BPart[0] = function(x, y, w, h) {
             this.x = x;
@@ -814,6 +865,7 @@ var isMobile = function() {
     }
 }
 
+// Level Builder Only
 {
     function BAir(x, y, w, h) {
         BBlock.call(this, x, y, w, h);
@@ -872,14 +924,16 @@ let bGame = {
         }
         if (!noPlayer) this.player.display();
         pop();
-        if (!noPlayer) {
+        // Health Bar
+                if (!noPlayer) {
             push();
             noStroke();
             fill(lerpColor(color(255, 0, 0), color(0, 255, 0), constrain(this.player.health / 100, 0, 1)));
             rect(width - 210, 10, max(this.player.health, 0) * 2, 50);
             noFill();
             stroke(0);
-            strokeWeight(10);
+            //strokeCap(SQUARE);
+                        strokeWeight(10);
             rect(width - 210, 10, 200, 50);
             pop();
         }
@@ -1047,6 +1101,7 @@ buildRocket.reset = function() {
 };
 
 function BPlayer(x, by, w) {
+    // Basic x, y, speed, width, height
     this.vx = 0;
     this.vy = 0;
     this.img = imgs.player;
@@ -1054,7 +1109,8 @@ function BPlayer(x, by, w) {
     this.h = this.w * this.img.height / this.img.width;
     this.x = x;
     this.y = by - this.h;
-    this.grounded = false;
+    // Status
+        this.grounded = false;
     this.hasControl = true;
     this.r = 0;
     this.health = 100;
@@ -1065,9 +1121,11 @@ function BPlayer(x, by, w) {
         g: 255,
         b: 255
     };
-    this.transX = 0;
+    // Translate
+        this.transX = 0;
     this.ptransX = this.transX;
-    this.walkingFrame = 0;
+    // Running animation stuff
+        this.walkingFrame = 0;
     this.isRunning = false;
 }
 
@@ -1183,9 +1241,11 @@ AtLaunchPad.draw = function() {
     push();
     noStroke();
     fill(0, 150, 20);
-    rect(-width / 2 - 1, height - this.gh, width + 2, this.gh + 1);
+    // this just makes it more responsive
+        rect(-width / 2 - 1, height - this.gh, width + 2, this.gh + 1);
     fill(0, 50);
-    var sr = this.rocket.w * ((this.rocket.y + 700) / (this.rocket.oy + 700));
+    //shadow radius
+        var sr = this.rocket.w * ((this.rocket.y + 700) / (this.rocket.oy + 700));
     sr = max(sr, 0);
     ellipse(this.rocket.x, this.rocket.oy - this.rocket.h / 50, sr, sr / 5);
     ellipse(this.player.x + this.player.w / 2, this.player.y + this.player.h, this.player.w, this.player.w / 5);
@@ -1272,10 +1332,13 @@ AtLaunchPad.update = function() {
 };
 
 AtLaunchPad.init = function() {
+    // Basic
     this.stage = "runin";
     this.timeDelay = 0;
     this.gh = 50 + height / 5.7;
-    this.rocket = {
+ // grass height
+    // Rocket
+        this.rocket = {
         x: 0,
         y: height - 100,
         w: height / 4,
@@ -1284,16 +1347,19 @@ AtLaunchPad.init = function() {
     };
     this.rocket.oy = this.rocket.y;
     this.rocket.w = this.rocket.h * imgs.largerocket.width / imgs.largerocket.height;
-    this.player = {
+    // Player
+        this.player = {
         x: -width / 2 - 100,
         y: height - 150,
         h: 100,
-        texts: [ "Oh @!%#!", "They just left!", "But wait...", "I bet they left enough stuff to build...", "I bet they left enough stuff to build...", "My own rocket!", "I must go collect the parts" ],
+        texts: [ "Oh @!%#!", "They just left!", "But wait...", "I bet they left enough stuff to build...", "I bet they left enough stuff to build...", // So it lasts longer
+        "My own rocket!", "I must go collect the parts" ],
         text: "Oh @!%#!",
         ti: 0
     };
     this.player.w = this.player.h * imgs.player.width / imgs.player.height;
-    this.buildings = [];
+    // Scenery
+        this.buildings = [];
     for (var i = -100; i < width + 100; i += 90) {
         var h = random(height / 2, height * 3 / 4);
         var img = imgs.buildings[~~random(imgs.buildings.length)];
@@ -1309,13 +1375,16 @@ AtLaunchPad.init = function() {
     this.buildings.sort(function(a, b) {
         return a.h - b.h;
     });
-};
+}
+//
+;
 
 function leaveMars() {
     leaveMars.draw();
 }
 
 leaveMars.init = function() {
+    // Arranging the background
     this.background = {
         img: imgs.marsbackground,
         x: 0,
@@ -1330,7 +1399,8 @@ leaveMars.init = function() {
         this.background.w = width;
         this.background.h = this.background.w * (1 / this.background.aspect);
     }
-    this.ground = {
+    // Ground
+        this.ground = {
         img: imgs.marsarena,
         x: width / 4,
         y: height * 2 / 3,
@@ -1338,7 +1408,8 @@ leaveMars.init = function() {
         h: 10
     };
     this.ground.h = this.ground.w * this.ground.img.height / this.ground.img.width;
-    this.letter = {
+    // Letter
+        this.letter = {
         img: imgs.letter,
         x: this.ground.x + this.ground.w / 2,
         y: this.ground.y - 5,
@@ -1347,7 +1418,8 @@ leaveMars.init = function() {
     };
     this.letter.h = this.letter.w;
     this.letter.y -= this.letter.h;
-    this.rock = {
+    // Rock
+        this.rock = {
         img: imgs.marsrock,
         x: this.letter.x - 20,
         y: this.ground.y,
@@ -1356,7 +1428,8 @@ leaveMars.init = function() {
     };
     this.rock.h = this.rock.w * this.rock.img.height / this.rock.img.width;
     this.rock.y -= this.rock.h;
-    this.rocket = {
+    // Rocket
+        this.rocket = {
         img: imgs.rocketOff,
         x: this.ground.x + 30,
         y: this.ground.y,
@@ -1366,7 +1439,8 @@ leaveMars.init = function() {
     this.rocket.h = this.rocket.w * this.rocket.img.getHeight() / this.rocket.img.getWidth();
     this.rocket.ch = this.rocket.h * 23 / 24;
     this.rocket.y -= this.rocket.ch;
-    this.player = {
+    // Player
+        this.player = {
         img: imgs.player,
         x: width * 1.1,
         y: this.ground.y,
@@ -1377,8 +1451,10 @@ leaveMars.init = function() {
     };
     this.player.h = this.player.w * this.player.img.height / this.player.img.width;
     this.player.y -= this.player.h;
-    this.fuels = [];
-    this.stage = "walkin";
+    // Fuel
+        this.fuels = [];
+    // stage
+        this.stage = "walkin";
 };
 
 leaveMars.draw = function() {
@@ -1400,6 +1476,7 @@ leaveMars.update = function() {
 
       case "throwfuel":
         if (frameCount % 20 == 0 && this.fuelThrown < 10) {
+            // Create a fuel
             var newFuel = {
                 img: imgs.fueltank,
                 x: this.player.x + this.player.w / 2,
@@ -1414,9 +1491,11 @@ leaveMars.update = function() {
             this.fuels.push(newFuel);
             this.fuelThrown++;
         } else if (this.fuelThrown == 10 && this.fuels.length == 0) {
+            // Change scene
             this.stage = "goinrocket";
         }
-        for (var i = this.fuels.length - 1; i > -1; i--) {
+        // Update fuel
+                for (var i = this.fuels.length - 1; i > -1; i--) {
             var fuel = this.fuels[i];
             fuel.vy += .39;
             fuel.x += fuel.vx;
@@ -1476,6 +1555,7 @@ function marsLanding() {
 }
 
 marsLanding.init = function() {
+    // Arranging the background
     this.background = {
         img: imgs.marsbackground,
         x: 0,
@@ -1490,7 +1570,8 @@ marsLanding.init = function() {
         this.background.w = width;
         this.background.h = this.background.w * (1 / this.background.aspect);
     }
-    this.ground = {
+    // Ground
+        this.ground = {
         img: imgs.marsarena,
         x: width / 4,
         y: height * 2 / 3,
@@ -1498,7 +1579,8 @@ marsLanding.init = function() {
         h: 10
     };
     this.ground.h = this.ground.w * this.ground.img.height / this.ground.img.width;
-    this.letter = {
+    // Letter
+        this.letter = {
         img: imgs.letter,
         x: this.ground.x + this.ground.w / 2,
         y: this.ground.y - 5,
@@ -1507,7 +1589,8 @@ marsLanding.init = function() {
     };
     this.letter.h = this.letter.w;
     this.letter.y -= this.letter.h;
-    this.largeletter = {
+    // Large letter
+        this.largeletter = {
         img: imgs.largeletter,
         x: 0,
         y: 0,
@@ -1518,7 +1601,8 @@ marsLanding.init = function() {
     this.largeletter.h = this.largeletter.w;
     this.largeletter.x = width / 2 - this.largeletter.w / 2;
     this.largeletter.y = height / 2 - this.largeletter.h / 2;
-    this.rock = {
+    // Rock
+        this.rock = {
         img: imgs.marsrock,
         x: this.letter.x - 20,
         y: this.ground.y,
@@ -1527,7 +1611,8 @@ marsLanding.init = function() {
     };
     this.rock.h = this.rock.w * this.rock.img.height / this.rock.img.width;
     this.rock.y -= this.rock.h;
-    this.rocket = {
+    // Rocket
+        this.rocket = {
         img: imgs.rocketOn,
         x: this.ground.x + 30,
         y: -300,
@@ -1536,11 +1621,13 @@ marsLanding.init = function() {
     };
     this.rocket.h = this.rocket.w * this.rocket.img.getHeight() / this.rocket.img.getWidth();
     this.rocket.collideH = this.rocket.h * 23 / 24;
-    this.working = 1;
+    // rocket stutter
+        this.working = 1;
     this.stutterIndex = 0;
     this.stutterTimer = 5;
     this.stutterPath = [ 1, 1, 1, 1, .3, 1, 1, 1, .3, 1, .3, .3, 1, .3, .3, .3, 0 ];
-    this.player = {
+    // Player
+        this.player = {
         img: imgs.player,
         x: this.rocket.x + this.rocket.w / 4,
         y: this.ground.y,
@@ -1551,7 +1638,8 @@ marsLanding.init = function() {
     };
     this.player.h = this.player.w * this.player.img.height / this.player.img.width;
     this.player.y -= this.player.h;
-    this.martian = {
+    // Martian
+        this.martian = {
         img: imgs.martian,
         x: width / 2,
         y: -5,
@@ -1560,13 +1648,15 @@ marsLanding.init = function() {
     };
     this.martian.h = this.martian.w * this.martian.img.height / this.martian.img.width;
     this.martian.y -= this.martian.h;
-    this.text = [ "Oh &@#$!", "I'm out of fuel!", "I better go find some..." ];
+    // Text
+        this.text = [ "Oh &@#$!", "I'm out of fuel!", "I better go find some..." ];
     this.textIndex = 0;
     this.textTime = 100;
     this.textTimer = this.textTime;
     this.playertext = this.text[0];
     this.displaytext = false;
-    this.stage = "landing";
+    // stage
+        this.stage = "landing";
 };
 
 marsLanding.draw = function() {
@@ -1724,10 +1814,12 @@ function RocketBuilt() {
 }
 
 RocketBuilt.init = function() {
+    // Ground
     this.ground = {
         y: height * 5 / 6
     };
-    this.buildings = [];
+    // Scenery
+        this.buildings = [];
     for (var i = -100; i < width + 100; i += 90) {
         var h = random(height / 2, height * 3 / 4);
         var img = imgs.buildings[~~random(imgs.buildings.length)];
@@ -1743,7 +1835,8 @@ RocketBuilt.init = function() {
     this.buildings.sort(function(a, b) {
         return a.h - b.h;
     });
-    this.player = {
+    // player
+        this.player = {
         x: -100,
         y: this.ground.y + 30,
         w: 80,
@@ -1753,7 +1846,8 @@ RocketBuilt.init = function() {
     };
     this.player.h = this.player.w * this.player.img.height / this.player.img.width;
     this.player.y -= this.player.h;
-    this.pieces = [ {
+    // Pieces
+        this.pieces = [ {
         x: width / 2 - 15,
         y: -100,
         w: 100,
@@ -1779,7 +1873,8 @@ RocketBuilt.init = function() {
         var piece = this.pieces[i];
         piece.h = piece.w * piece.img.height / piece.img.width;
     }
-    this.light = {
+    // light
+        this.light = {
         x: width / 2,
         y: height / 2,
         w: width / 100,
@@ -1787,7 +1882,8 @@ RocketBuilt.init = function() {
         a: 255,
         on: false
     };
-    this.rocket = {
+    // rocket
+        this.rocket = {
         img: imgs.rocketOff,
         built: false,
         x: width / 2,
@@ -1797,7 +1893,8 @@ RocketBuilt.init = function() {
     };
     this.rocket.h = this.rocket.w * this.rocket.img.getHeight() / this.rocket.img.getWidth();
     this.rocket.y -= this.rocket.h;
-    this.stage = "enter";
+    // stage
+        this.stage = "enter";
 };
 
 RocketBuilt.draw = function() {
@@ -1913,16 +2010,127 @@ RocketBuilt.display = function() {
 };
 
 function UfoCutscene() {
-    UfoCutScene.draw();
+    UfoCutscene.draw();
 }
 
-UfoCutscene.init = function() {};
+UfoCutscene.init = function() {
+    // Numbers & crap
+    this.n = width / 1e3;
+    this.t = 0;
+ //t = time
+    // Object imgs & positions
+        this.background = {
+        img: imgs.stars,
+        x: 0,
+        y: 0,
+        w: width,
+        h: height
+    };
+    this.venus = {
+        img: imgs.venus,
+        x: width * 2 / 3,
+        y: height * 2 / 3,
+        w: width / 4,
+        h: width / 4
+    };
+    this.ufo = {
+        img: imgs.ufoboss,
+        x: width / 3 + this.n * 25,
+        y: 0,
+        w: width / 3,
+        init: function() {
+            this.h = this.w * this.img.height / this.img.width;
+            this.y -= this.h;
+            this.x -= this.w / 2;
+        }
+    };
+    this.ufo.init();
+    this.rocket = {
+        img: imgs.rocketOn,
+        r: 120,
+        x: 0,
+        y: 0,
+        w: 100,
+        init: function() {
+            this.h = this.w * this.img.getHeight() / this.img.getWidth();
+            this.y -= this.h / 2;
+            this.x -= this.h * 1.5;
+        }
+    };
+    this.rocket.init();
+    // Stage
+        this.stage = "flyin-rocket";
+};
 
-UfoCutscene.update = function() {};
+UfoCutscene.update = function() {
+    this.t++;
+    var r = this.rocket;
+    var u = this.ufo;
+    var updateRocket = _ => {
+        var vx = sin(r.r) * this.n * 5;
+        var vy = -cos(r.r) * this.n * 5;
+        r.x += vx;
+        r.y += vy;
+    };
+    switch (this.stage) {
+      case "flyin-rocket":
+        updateRocket();
+        if (r.x + r.w / 2 > width / 3) {
+            this.stage = "flyin-ufo";
+        }
+        break;
 
-UfoCutscene.display = function() {};
+      case "flyin-ufo":
+        updateRocket();
+        var gY = height + u.h, gX = width / 2 - this.n * 25;
+        var yT = u.y - gY, xT = u.x - gX;
+        var dT = mag(yT, xT);
+        var vx = xT, vy = yT;
+        yT /= dT, xT /= dT;
+        var mult = this.n * 10 / xT / dT;
+        vx *= mult;
+        vy *= mult;
+        u.x += vx;
+        u.y += vy;
+        if (u.y > height / 3) {
+            r.r = lerp(r.r, -90, .1);
+        }
+        if (u.y > gY) {
+            this.stage = "flyout-rocket";
+        }
+        break;
+
+      case "flyout-rocket":
+        updateRocket();
+        if (r.x < -r.h * 1.5) {
+            game.continue();
+        }
+        console.log("waiting");
+        break;
+    }
+};
+
+UfoCutscene.displayObject = function(obj) {
+    push();
+    translate(obj.x + obj.w / 2, obj.y + obj.h / 2);
+    if (typeof obj.r == "number") rotate(obj.r);
+    if (typeof obj.img.getHeight == "function") {
+        drawAnimation(obj.img, 0, 0, obj.w, obj.h);
+    } else {
+        image(obj.img, -obj.w / 2, -obj.h / 2, obj.w, obj.h);
+    }
+    pop();
+};
+
+UfoCutscene.display = function() {
+    this.displayObject(this.background);
+    this.displayObject(this.venus);
+    this.displayObject(this.ufo);
+    this.displayObject(this.rocket);
+};
 
 UfoCutscene.draw = function() {
+    background(0);
     this.update();
     this.display();
 };
@@ -1935,7 +2143,8 @@ wakeUpScene.draw = function() {
     background(255);
     this.update();
     push();
-    scale(1 / this.c.s);
+    // c is for camera
+        scale(1 / this.c.s);
     translate(-this.c.tx, -this.c.ty);
     image(this.roomimg, 0, 0, this.rw, this.rh);
     image(imgs[this.openMouth ? "newsclosed" : "newsopen"], this.tv.x, this.tv.y, this.tv.w, this.tv.h);
@@ -2037,8 +2246,10 @@ wakeUpScene.init = function() {
     this.roomimg = imgs.homeroom;
     var ri = this.roomimg;
     var ia = ri.width / ri.height;
-    var ca = width / height;
-    if (ia < ca) {
+ // image aspect
+        var ca = width / height;
+ // canvas aspect
+        if (ia < ca) {
         this.rw = width;
         this.rh = width / ia;
     } else {
@@ -2046,6 +2257,7 @@ wakeUpScene.init = function() {
         this.rw = this.rh * ia;
     }
     var rp = {
+        // Room Pixels
         w: 170,
         h: 100,
         tv: {
@@ -2056,7 +2268,8 @@ wakeUpScene.init = function() {
         }
     };
     var ptp = this.rw / rp.w;
-    this.tv = {
+ // pixel to pixel
+        this.tv = {
         x: ptp * rp.tv.x,
         y: ptp * rp.tv.y,
         w: ptp * rp.tv.w,
@@ -2073,6 +2286,7 @@ wakeUpScene.init = function() {
     this.openMouth = false;
     this.mouthDelay = 50;
     this.c = {
+        // camera
         tx: 0,
         ty: 0,
         s: 1
@@ -2276,10 +2490,13 @@ let mGame = {
     transY: 0,
     timePassed: 0,
     init: function(rocks) {
+        // Player
         this.player = new MPlayer(-30, -200, 60);
-        this.ground.img = imgs.marsarena;
+        // Ground
+                this.ground.img = imgs.marsarena;
         this.ground.h = this.ground.w * this.ground.img.height / this.ground.img.width;
-        this.background = {
+        // Arranging the background
+                this.background = {
             img: imgs.marsbackground,
             x: 0,
             y: 0
@@ -2293,7 +2510,8 @@ let mGame = {
             this.background.w = width + 200 * this.background.aspect;
             this.background.h = this.background.w * (1 / this.background.aspect);
         }
-        this.bw = this.ground.w / 40;
+        // Blocks
+                this.bw = this.ground.w / 40;
         if (typeof rocks == "object") {
             this.rocks = [];
             for (var i = 0; i < rocks.length; i++) {
@@ -2307,20 +2525,26 @@ let mGame = {
                 this.rocks.push(new MRock(map(d.x, -100, 100, -this.ground.w / 2, this.ground.w / 2 - this.bw), d.y, this.bw));
             }
         }
-        this.reload();
+        // Everything else
+                this.reload();
         this.freeplayLevel = null;
     },
     reload: function() {
+        // Player
         this.player.reset();
-        this.martians = [];
+        // Martian
+                this.martians = [];
         this.martians.push(new Martian(-this.ground.w / 2 + 50, -200, 100));
-        this.bullets = [];
+        // Reset stuff
+                this.bullets = [];
         this.fuels = [];
         this.timePassed = 0;
     },
     reset: function() {
+        // Player
         this.player = new MPlayer(-30, -200, 60);
-        this.reload();
+        // Everything else
+                this.reload();
     },
     finish: function() {
         if (game.currentScene == "playlevel") {
@@ -2602,19 +2826,23 @@ MPlayer.prototype.displayStatus = function() {
     translate(width, 0);
     push();
     noStroke();
-    for (var i = 0; i < this.lifes; i++) {
+    // Lifes
+        for (var i = 0; i < this.lifes; i++) {
         let hw = 50;
         image(this.heartIcon, -(i + 1) * 200 / 3 + hw / 8 - 30, 10, hw, hw);
     }
-    fill(lerpColor(color(200, 0, 0), color(0, 200, 0), this.dhealth / this.maxHealth));
+    // Health
+        fill(lerpColor(color(200, 0, 0), color(0, 200, 0), this.dhealth / this.maxHealth));
     rect(-230, 70, this.dhealth / this.maxHealth * 200, 50);
-    fill(200, 120, 0);
+    // Fuel
+        fill(200, 120, 0);
     rect(-230, 130, this.dfuel / this.neededFuel * 200, 50);
     imageMode(CENTER);
     image(this.fuelIcon, -130, 155, 40 * this.fuelIcon.width / this.fuelIcon.height, 40);
     pop();
     push();
-    stroke(100);
+    // Outlines
+        stroke(100);
     strokeWeight(5);
     strokeCap(SQUARE);
     noFill();
@@ -2629,7 +2857,8 @@ MPlayer.prototype.reset = function() {
     this.y = this.oy;
     this.vx = 0;
     this.vy = 0;
-    this.health = this.maxHealth;
+    // this.fuel = constrain(this.fuel-~~random(1, 3), 0, this.neededFuel);
+        this.health = this.maxHealth;
 };
 
 function MRock(x, sy, w) {
@@ -2689,7 +2918,9 @@ MRock.prototype.run = function(ents) {
         this.collide(ents[i]);
     }
     this.display();
-};
+}
+// The xs are %s and the ys are how many rock heights up
+;
 
 let mrocks = [ {
     x: -100,
@@ -2790,7 +3021,8 @@ Asteroid.prototype.collide = function(p) {
 Asteroid.prototype.display = function() {
     if (this.dead) {
         this.img = imgs.explosion[round(this.frame / 2)];
-        this.frame++;
+ //image only switches every other frame
+                this.frame++;
     } else {
         this.img = imgs.asteroid;
     }
@@ -2854,6 +3086,9 @@ function loadLevel(level) {
     }
 }
 
+// Takes in an x as a percent, which is multiplied by the height
+// All this does is it doesn't use the height in the data, instead it takes in a percent of the height
+// It also takes in a percent for the radius, which 100% is height/2
 function loadDynamicLevel(level) {
     flySigns = [];
     asteroids = [];
@@ -2897,16 +3132,19 @@ function loadDynamicLevel(level) {
 function FlyPlayer(x, y) {
     this.x = x;
     this.y = y;
-    this.vx = 0;
+    //Having actual x and y velocities make it more realistic
+        this.vx = 0;
     this.vy = 0;
     this.maxv = 14;
     this.r = 90;
-    this.health = 3;
+ //rotation
+        this.health = 3;
     this.w = 100;
     this.h = 40;
     this.speed = 5;
     this.rvel = 0;
-    this.offImg = {};
+    // Same thing until I change them
+        this.offImg = {};
     this.onImg = {};
     this.shootCooldown = 0;
     this.thrustCooldown = 30;
@@ -2918,10 +3156,10 @@ FlyPlayer.prototype.init = function() {
     this.h = this.w * this.onImg.getHeight() / this.onImg.getWidth();
 };
 
-FlyPlayer.prototype.run = function() {
+FlyPlayer.prototype.run = function(cx) {
     this.display();
     this.control();
-    this.update();
+    this.update(cx);
     this.collide();
     if (this.health < 1) {
         game.getFunc().init();
@@ -2940,7 +3178,7 @@ FlyPlayer.prototype.displayHealth = function() {
     pop();
 };
 
-FlyPlayer.prototype.update = function() {
+FlyPlayer.prototype.update = function(cx) {
     this.shootCooldown++;
     this.thrustCooldown++;
     this.r += this.rvel;
@@ -2958,6 +3196,11 @@ FlyPlayer.prototype.update = function() {
         this.y -= height + this.h / 1.8 + this.h / 1.7;
     } else if (this.y + this.h / 1.7 < 0) {
         this.y += height + this.h / 1.8 + this.h / 1.7;
+    }
+    if (typeof cx == "number") {
+        this.x = constrain(this.x, 0, abs(cx));
+    } else {
+        this.x = max(this.x, 0);
     }
 };
 
@@ -3006,9 +3249,11 @@ FlyPlayer.prototype.control = function() {
 FlyPlayer.prototype.display = function() {
     push();
     imageMode(CENTER);
-    translate(this.x, this.y);
+ //rotate from center
+        translate(this.x, this.y);
     rotate(this.r);
-    if (keys[" "] || keys[32]) {
+    // scale(this.w/this.imgT.width, this.h/this.imgT.height)
+        if (keys[" "] || keys[32]) {
         drawAnimation(this.onImg, 0, 0, this.w, this.h);
     } else {
         drawAnimation(this.offImg, 0, 0, this.w, this.h);
@@ -3018,6 +3263,7 @@ FlyPlayer.prototype.display = function() {
 
 let flyPlayer = new FlyPlayer(100, 100);
 
+//general scenery for both flying scenes
 let stars = [];
 
 function displayStars() {
@@ -3120,7 +3366,8 @@ Ufo.prototype.display = function() {
     translate(this.x, this.y);
     if (this.dead) {
         let explosionImg = imgs.explosion[~~(this.frame / 2)];
-        this.frame++;
+ //image only switches every other frame
+                this.frame++;
         imageMode(CENTER);
         image(explosionImg, 0, 0, this.radius * 2, this.radius * 2);
     } else {
@@ -3158,7 +3405,8 @@ buildPlatformer.init = function() {
     this.itemsKey = [ "_", "a", "#", "r", "-", "'", "^", "v", "~", "x", "o", "0", "f", "%", "player", "pause", "edit", "left", "right" ];
     this.items = Array(this.itemsKey.length);
     this.itemPadding = width / 100;
-    this.iw = width / this.items.length - this.itemPadding * 2;
+ //padding
+        this.iw = width / this.items.length - this.itemPadding * 2;
     for (var i in this.itemsKey) {
         var constr = bGame.getConst(this.itemsKey[i]);
         if (constr) {
@@ -3198,6 +3446,7 @@ buildPlatformer.reload = function() {
                 this.blocks.push(new (bGame.getConst(k))(x, y, this.bw, this.bh));
             }
             if (k == "@") {
+                // this.player = new BPlayer(x, y+this.bh, this.bh*0.75);
                 this.blocks.push(new BuildMenuButton("@", x, y, this.bw * .75, this.bw));
             }
         }
@@ -3514,6 +3763,7 @@ let scroller = {
 
 let cLevels = [];
 
+// JSON loading
 function getCommunityLevels() {
     var communityLevelsPath = "https://escape-from-earth.herokuapp.com/levels";
     $.getJSON(communityLevelsPath, function(data) {
@@ -3536,6 +3786,7 @@ setInterval(getCommunityLevels, 1e4);
 function postLevel(newLevel) {
     newLevel.waitingForUpdate = true;
     $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data) {
+        // $.post("http://localhost:8080/levels/new", newLevel, function(data){
         getCommunityLevels();
         for (var i = 0; i < levelsBuilt.length; i++) {
             var l = levelsBuilt[i];
@@ -3763,10 +4014,12 @@ LevelDisplay.prototype.draw = function(x, y) {
 
 var communityDisplays = [], levelBuildDisplays = [];
 
+// Level data
 var levelsBuilt = JSON.parse(localStorage.myLevels || "[]");
 
 var currentBuildingLevel = null;
 
+// Level Builder Function
 function levelBuilder() {
     if (levelBuilder.isPaused) return levelBuilder.paused();
     if (levelBuilder.isEditingStats) return levelBuilder.editingStats();
@@ -3851,6 +4104,7 @@ levelBuilder.pause = function() {
 };
 
 levelBuilder.paused = function() {
+    // Display
     push();
     resetMatrix();
     if (isMobile) {
@@ -3858,12 +4112,14 @@ levelBuilder.paused = function() {
     } else {
         image(this.pausedImg, 0, 0, width, height);
     }
-    fill(255);
+    // Title
+        fill(255);
     textFont(fonts.londrina);
     textSize(80);
     textAlign(CENTER, TOP);
     text(currentBuildingLevel.name, width / 2, 10);
-    fill(245);
+    // Buttons
+        fill(245);
     stroke(10);
     strokeWeight(3);
     rect(width / 4, 100, width / 2, 80, 20);
@@ -3884,7 +4140,8 @@ levelBuilder.paused = function() {
     text("Delete Level", width / 4, 330, width / 4);
     text("Play", width / 2 + 10, 330, width / 4 - 10);
     pop();
-    if (mouseX > width / 4 && mouseX < width * 3 / 4) {
+    // Logic
+        if (mouseX > width / 4 && mouseX < width * 3 / 4) {
         if (mouseY > 100 && mouseY < 180) {
             cursor(HAND);
             if (clicked) {
@@ -3930,7 +4187,8 @@ levelBuilder.editStats = function() {
     this.isEditingStats = true;
     this.isPaused = false;
     this.ei = {};
-    var ei = this.ei;
+ //edit inputs
+        var ei = this.ei;
     ei.title = createInput(currentBuildingLevel.title, "text");
     ei.title.attribute("placeholder", "Title");
     ei.title.position(width / 4, 50);
@@ -4056,6 +4314,7 @@ function buildArena() {
 }
 
 buildArena.init = function() {
+    // Dock
     this.dock = {
         w: 100,
         h: 100,
@@ -4063,7 +4322,8 @@ buildArena.init = function() {
         items: [ "pause", "edit", "switch" ]
     };
     this.dock.w *= this.dock.items.length;
-    this.background = {
+    // Arranging the background
+        this.background = {
         img: imgs.marsbackground,
         x: 0,
         y: 0
@@ -4077,20 +4337,25 @@ buildArena.init = function() {
         this.background.w = width;
         this.background.h = this.background.w * (1 / this.background.aspect);
     }
-    this.ground = {
+    // Ground
+        this.ground = {
         img: imgs.marsarena,
         x: width / 2,
         y: height * 3 / 4,
         w: width * 7 / 8
     };
-    buildArena.updateBlocks();
+    // Block size
+        buildArena.updateBlocks();
     this.bw = mGame.bw;
     var sb = new MRock(0, 0, this.bw);
     this.bh = sb.h;
-    this.bm = this.ground.w / mGame.ground.w;
+    // Multiplyers (big/small)
+        this.bm = this.ground.w / mGame.ground.w;
     this.sm = 1 / this.bm;
-    this.mode = "rock";
-    this.constraints = {
+    // Placing
+        this.mode = "rock";
+    // Constrants
+        this.constraints = {
         x: {
             min: -100,
             max: 100
@@ -4259,7 +4524,8 @@ function levelBuilderMenu() {
                 rect(x, y, w, h, p);
                 push();
                 strokeWeight(10);
-                var lr = min(w, h / 2) / 4;
+                // strokeCap(SQUARE);
+                                var lr = min(w, h / 2) / 4;
                 line(x + w / 2 - lr, y + h / 4, x + w / 2 + lr, y + h / 4);
                 line(x + w / 2, y + h / 4 - lr, x + w / 2, y + h / 4 + lr);
                 pop();
@@ -4367,7 +4633,8 @@ createNewLevel.init = function() {
     inputs.type.style("width", width / 2 + "px");
     inputs.type.option("Run", "run");
     inputs.type.option("Platformer", "build");
-    inputs.type.option("Space", "space");
+ //.attribute("disabled");
+        inputs.type.option("Space", "space");
     inputs.type.option("Mars", "mars");
     inputs.submit = createButton("Create!");
     inputs.submit.position(width / 4, 320);
@@ -4585,7 +4852,8 @@ buildRunMap.menu = {
     },
     runItems: function() {
         var shouldPause, shouldEdit;
-        push();
+        // the Dock/Blocks
+                push();
         fill(255, 200);
         noStroke();
         var d = this.getDockDimensions();
@@ -4611,19 +4879,22 @@ buildRunMap.menu = {
             j++;
         }
         pop();
-        var arrows = {
+        // The left and right arrows
+                var arrows = {
             cy: height / 2,
             w: 175,
             h: 175
         };
         push();
-        rectMode(CENTER);
+        // translate(-runPlayer.transX, 0);
+                rectMode(CENTER);
         fill(255, 200);
         noStroke();
         rect(0, arrows.cy, arrows.w * 2, arrows.h, 20);
         rect(width, arrows.cy, arrows.w * 2, arrows.h, 20);
         pop();
-        var scrollXSpeed = 5;
+        // player.controlTrans = true;
+                var scrollXSpeed = 5;
         if (keys[RIGHT_ARROW] || keys.d) {
             runPlayer.x += scrollXSpeed;
         }
@@ -4646,9 +4917,11 @@ buildRunMap.menu = {
                 }
             }
         }
-        if (shouldPause) return levelBuilder.pause();
+        //Pause
+                if (shouldPause) return levelBuilder.pause();
         if (shouldEdit) return levelBuilder.editStats();
-        if (mouseX > d.x && mouseX < d.x + d.w && mouseY > d.y && mouseY < d.y + d.h) {
+        // Handle clicks outside of buttons & stuff
+                if (mouseX > d.x && mouseX < d.x + d.w && mouseY > d.y && mouseY < d.y + d.h) {
             clicked = false;
         } else {
             cursor("none");
@@ -4692,7 +4965,8 @@ buildRunMap.menu = {
         this.padding = 20;
         this.iconSize = 80;
         this.update();
-        var imgPairs = {
+        // Image stuff
+                var imgPairs = {
             x: "trash",
             "^": "spike",
             l: "streetlight",
@@ -4931,7 +5205,8 @@ buildSpaceLevel.displayHoldingObject = function() {
     if (i && !isMobile) {
         push();
         tint(255, 255, 255, 100);
-        image(i, width - w, 0, w, w * i.height / i.width);
+        // imageMode(CENTER);
+                image(i, width - w, 0, w, w * i.height / i.width);
         pop();
     }
 };
@@ -4980,7 +5255,8 @@ function waitingForFileCount() {
     text("Locating Images to Load...", width / 2, height / 2);
     pop();
     if (!waitingForFileCount.isWaiting) {
-        game.continue();
+        fileLoader.loadAll();
+        fileLoader.isWaiting = false;
     }
 }
 
@@ -4989,10 +5265,6 @@ waitingForFileCount.isWaiting = true;
 function loadFiles() {
     fileLoader.run();
 }
-
-loadFiles.init = function() {
-    fileLoader.loadAll();
-};
 
 let fileLoader = {
     loaded: 0,
@@ -5010,6 +5282,7 @@ let fileLoader = {
         images: [],
         animations: []
     },
+    isWaiting: true,
     onLoad: function(stuff) {
         fileLoader.loaded++;
     },
@@ -5090,8 +5363,12 @@ let fileLoader = {
         pop();
     },
     run: function() {
-        this.update();
-        this.display();
+        if (this.isWaiting) {
+            waitingForFileCount();
+        } else {
+            this.update();
+            this.display();
+        }
     }
 };
 
@@ -5112,7 +5389,8 @@ $.getJSON("/scripts/files.json", function(data) {
 
 function loadSpecial() {
     loadAnimation();
-    imgs.explosion = Array(11);
+    //Explosion
+        imgs.explosion = Array(11);
     let addedZero = "0";
     for (var i = 0; i < imgs.explosion.length; i++) {
         if (i > 9) {
@@ -5120,11 +5398,13 @@ function loadSpecial() {
         }
         imgs.explosion[i] = loadImage("/imgs/space/explosion/" + addedZero + i + ".png");
     }
-    imgs.buildings = Array(7);
+    //buildings
+        imgs.buildings = Array(7);
     for (var i = 0; i < imgs.buildings.length; i++) {
         imgs.buildings[i] = loadImage("/imgs/earth/buildings/0" + i + ".png");
     }
-    imgs.players = Array(5);
+    // Player walking animation
+        imgs.players = Array(5);
     for (var i = 0; i < imgs.players.length; i++) {
         var n = i;
         if (i == 0) {
@@ -5132,6 +5412,7 @@ function loadSpecial() {
         }
         imgs.players[i] = loadImage("/imgs/earth/player/player" + n + ".png");
     }
+    // imgs.spacesign = loadAnimation("/imgs/space/sign/00.png", "/imgs/space/sign/01.png")
 }
 
 function drawAnimation(anim, x, y, w, h) {
@@ -5315,7 +5596,8 @@ function runToRocket() {
     for (var i = 0; i < runObstacles.length; i++) {
         runObstacles[i].run(runPlayer);
     }
-    pop();
+    // console.log(runObstacles.length);
+        pop();
 }
 
 runToRocket.init = function() {
@@ -5423,6 +5705,7 @@ var loadRun = {
             this.level++;
             this.load();
         } else {
+            // Go back to homescreen here
             game.setScene(this.gobackto);
             if (this.current.levelBuilderLevel) {
                 this.current.verified = true;
@@ -5507,27 +5790,37 @@ RunPlayer.prototype.control = function() {
 };
 
 RunPlayer.prototype.update = function() {
+    //Collisions
     this.collide();
     if (this.grounded) {
         this.vy = min(0, this.vy);
     }
-    this.control();
-    if (!this.grounded) {
+    //Input
+        this.control();
+    // Walking animation
+        if (!this.grounded) {
         this.img = imgs.player;
     } else if (frameCount % 10 == 0) {
         this.walkingFrame++;
         this.walkingFrame = this.walkingFrame % imgs.players.length;
         this.img = imgs.players[this.walkingFrame];
     }
-    this.vy += .5;
-    this.vy *= .99;
-    this.vy = constrain(this.vy, -this.mvy, this.mvy);
-    this.vx = lerp(this.vx, this.gvx, .1);
-    this.x += this.vx;
+    // Gravity
+        this.vy += .5;
+    // Friction
+        this.vy *= .99;
+    // Max velocities
+        this.vy = constrain(this.vy, -this.mvy, this.mvy);
+    // Smooth speed changes
+        this.vx = lerp(this.vx, this.gvx, .1);
+    // Position affected by speed
+        this.x += this.vx;
     this.y += this.vy;
     this.y = min(this.y, runGround.y - this.h);
-    this.grounded = false;
-    this.updateTranslate();
+    // Resets grounded
+        this.grounded = false;
+    // Translate
+        this.updateTranslate();
 };
 
 RunPlayer.prototype.updateTranslate = function(off, map) {
@@ -5721,8 +6014,10 @@ Button.prototype.check = function() {
 
 Button.prototype.display = function(textColor, textStroke) {
     push();
-    rect(this.x, this.y, this.w, this.h, 5);
-    if (textStroke) {
+    //Rect
+        rect(this.x, this.y, this.w, this.h, 5);
+    //Text
+        if (textStroke) {
         strokeWeight(2);
         stroke(textStroke);
     } else {
@@ -5744,6 +6039,7 @@ Button.prototype.draw = function(textColor, textStroke) {
 };
 
 function ChooseUseSave() {
+    // Starry background w/ rocket
     background(0);
     image(imgs.stars, 0, 0, width, height);
     push();
@@ -5754,8 +6050,10 @@ function ChooseUseSave() {
     pop();
     fill(0, 0, 0, 100);
     rect(0, 0, width, height);
-    push();
-    noStroke();
+    // Text
+        push();
+    // Escape From
+        noStroke();
     textSize(50);
     fill(255);
     textAlign(CENTER, TOP);
@@ -5787,10 +6085,11 @@ ChooseUseSave.init = function() {
         game.loadProgress();
     });
     this.restart = new Button("Restart", width / 2 + 10, 320, 290, 100, function() {
-        game.setScene(2);
+        game.continue();
+        game.continue();
     });
     this.alwaysRestart = new Button("Delete Save & Play", width / 2 + 10, 440, 290, 100, function() {
-        localStorage.currentSave = "";
+        delete localStorage.currentSave;
         game.setScene("home");
         game.continue();
     });
@@ -5800,6 +6099,7 @@ ChooseUseSave.init = function() {
 };
 
 function Home() {
+    // Starry background w/ rocket
     background(0);
     image(imgs.stars, 0, 0, width, height);
     push();
@@ -5810,14 +6110,17 @@ function Home() {
     pop();
     fill(0, 0, 0, 100);
     rect(0, 0, width, height);
-    push();
-    noStroke();
+    // Text
+        push();
+    // Escape From
+        noStroke();
     textSize(80);
     fill(200);
     textAlign(CENTER, BOTTOM);
     textFont(fonts.bladerunner);
     text("Escape From", width / 2, height / 2 - 150);
-    fill(255);
+    // Earth
+        fill(255);
     strokeWeight(1);
     stroke(255);
     textAlign(CENTER, TOP);
@@ -5825,7 +6128,8 @@ function Home() {
     textFont(fonts.arcade);
     text("EARTH", width / 2, height / 2 - 150);
     pop();
-    push();
+    // Buttons
+        push();
     fill(0, 0, 0, 100);
     stroke(200);
     strokeWeight(5);
@@ -5867,6 +6171,7 @@ Home.init = function() {
 let hasWon = localStorage.hasWon ? true : false;
 
 function LoadSaves() {
+    // Starry background w/ rocket
     background(0);
     image(imgs.stars, 0, 0, width, height);
     push();
@@ -5878,13 +6183,15 @@ function LoadSaves() {
     fill(0, 0, 0, 100);
     rect(0, 0, width, height);
     push();
-    noStroke();
+    // congratulations
+        noStroke();
     textSize(80);
     fill(200);
     textAlign(CENTER, TOP);
     textFont(fonts.arcade);
     text("Load Saves", width / 2, 100);
-    fill(255);
+    // Blah, blah, blah
+        fill(255);
     strokeWeight(1);
     stroke(255);
     textAlign(CENTER, TOP);
@@ -5992,6 +6299,7 @@ LoadSaves.init = function() {
 };
 
 function Won() {
+    // Starry background w/ rocket
     background(0);
     image(imgs.stars, 0, 0, width, height);
     push();
@@ -6002,22 +6310,38 @@ function Won() {
     pop();
     fill(0, 0, 0, 100);
     rect(0, 0, width, height);
-    push();
-    noStroke();
+    // Text
+        push();
+    // congratulations
+        noStroke();
     textSize(80);
     fill(200);
     textAlign(CENTER, BOTTOM);
     textFont(fonts.arcade);
     text("Congratulations!", width / 2, height / 2 - 150);
-    fill(255);
+    // Blah, blah, blah
+        fill(255);
     strokeWeight(1);
     stroke(255);
     textAlign(CENTER, TOP);
     textSize(50);
     textFont(fonts.londrina);
     text("You made your own rocket, defeated martians, destroyed the UFO, and safely landed on Venus", 100, height / 2 - 150, width - 200, 200);
-    pop();
-    fill(0, 0, 0, 200);
+    // New stuff
+    // I decided to not require winning the game
+    /*
+    textFont(fonts.pixel);
+    textSize(40);
+    fill(0, 120, 120);
+    noStroke();
+    let message = "You unlocked Community Levels!"
+    let tw = textWidth(message);
+    rect(width/2-tw/2-30, height-100, tw+50, 70, 10);
+    fill(255);
+    text(message, width/2, height-80);
+    */    pop();
+    // Buttons
+        fill(0, 0, 0, 200);
     textSize(40);
     textFont(fonts.londrina);
     strokeWeight(5);
@@ -6059,7 +6383,8 @@ UfoBoss.prototype.update = function(p) {
     if (this.health < 1) {
         this.dead = true;
         this.img = imgs.explosion[round(this.frame / 2)];
-        this.frame++;
+ //image only switches every other frame
+                this.frame++;
     }
     if (frameCount % this.shootWait === 0) {
         lasers.push(new Laser(this.x, this.y, -atan2(this.x - p.x, this.y - p.y), 4, "boss"));
@@ -6122,7 +6447,9 @@ UfoBoss.prototype.displayHealth = function() {
 function ufoBossFight() {
     background(0, 0, 0);
     push();
-    if (flyPlayer.x > width / 2) {
+    if (flyPlayer.x > 3e3 - width / 2) {
+        translate(-3e3 + width, 0);
+    } else if (flyPlayer.x > width / 2) {
         translate(-flyPlayer.x + width / 2, 0);
     }
     displayStars();
@@ -6147,7 +6474,7 @@ function ufoBossFight() {
             }
         }
     }
-    flyPlayer.run();
+    flyPlayer.run(3e3);
     for (var i = asteroids.length - 1; i > -1; i--) {
         asteroids[i].run(flyPlayer);
         if (asteroids[i].dead && asteroids[i].frame > 20) {
@@ -6245,7 +6572,8 @@ let manOnTheMoon = {
         this.w = max(width / 3, height / 2);
         this.h = this.w * this.img.height / this.img.width;
         this.x = width / 2;
-        this.y = height + this.w * this.img.height / this.img.width - 50;
+        //this.y = height*0.67-this.h/2;
+                this.y = height + this.w * this.img.height / this.img.width - 50;
     }
 };
 
@@ -6328,7 +6656,8 @@ let moonShip = {
     display: function() {
         push();
         imageMode(CENTER);
-        translate(this.x, this.y);
+ //rotate from center
+                translate(this.x, this.y);
         if (this.moving) {
             drawAnimation(this.onImg, 0, 0, this.w, this.h);
         } else {
@@ -6356,7 +6685,8 @@ let moonTextBox = {
                 this.line++;
                 if (this.line === 17) {
                     this.line++;
-                    moonGun.appear = true;
+ //trying to keep the speakers right without having to do other things
+                                        moonGun.appear = true;
                 }
                 if (this.line < 20) {
                     this.text = moonConversation[this.line];
@@ -6469,7 +6799,13 @@ function flyToMars() {
     background(0, 0, 0);
     push();
     if (flyPlayer.x > width / 2) {
-        translate(-flyPlayer.x + width / 2, 0);
+        if (flyPlayer.x < 6750) {
+            translate(-flyPlayer.x + width / 2, 0);
+        } else if (flyPlayer.x > 6750 + width / 2) {
+            game.continue();
+        } else {
+            translate(-6750 + width / 2, 0);
+        }
     }
     displayStars();
     for (var i in lasers) {
@@ -6493,13 +6829,11 @@ function flyToMars() {
     }
     pop();
     flyPlayer.displayHealth();
-    if (flyPlayer.x > 7e3) {
-        game.continue();
-    }
 }
 
 flyToMars.level = {
     asteroids: [ [ 1200, height / 2, 100 ], [ 1800, 150, 95 ], [ 2e3, height - 100, 95 ], [ 2400, height - 125, 80 ], [ 2900, height / 2, 125 ], [ 4500, 100, 100 ], [ 4500, height - 100, 100 ], [ 4700, height / 2 + 150, 100 ], [ 4700, height / 2 - 150, 100 ] ],
+    //x, y, size
     ufos: [ [ 1800, height / 2 ], [ 3400, 200 ], [ 4e3, 100 ], [ 4e3, height - 100 ], [ 6500, height / 2 ], [ 6500, 100 ], [ 6500, height - 100 ] ]
 };
 
@@ -6546,7 +6880,8 @@ flyToMoon.init = function() {
     flyPlayer.init();
     flySigns = [];
     flySigns.push(new FlySign(200, "Press space to accelerate, use the left and right arrow keys or a and d to steer"));
-    asteroids = [];
+ //This is very inefficient It will be a lot more efficient when it's not a tutorial level
+        asteroids = [];
     flySigns.push(new FlySign(2900, "Look out for asteroids!"));
     for (var i = -300; i < height + 300; i += 300) {
         asteroids.push(new Asteroid(5200, i, 150));
@@ -6561,7 +6896,13 @@ function flyToVenus() {
     background(0, 0, 0);
     push();
     if (flyPlayer.x > width / 2) {
-        translate(-flyPlayer.x + width / 2, 0);
+        if (flyPlayer.x < 4e3) {
+            translate(-flyPlayer.x + width / 2, 0);
+        } else if (flyPlayer.x > 4e3 + width / 2) {
+            game.continue();
+        } else {
+            translate(-4e3 + width / 2, 0);
+        }
     }
     displayStars();
     for (var i in lasers) {
@@ -6585,9 +6926,6 @@ function flyToVenus() {
     }
     pop();
     flyPlayer.displayHealth();
-    if (flyPlayer.x > 4e3) {
-        game.continue();
-    }
 }
 
 flyToVenus.level = {

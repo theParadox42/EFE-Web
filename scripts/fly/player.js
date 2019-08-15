@@ -22,10 +22,10 @@ FlyPlayer.prototype.init = function(){
     this.onImg = imgs.rocketOn;
     this.h = this.w * this.onImg.getHeight() / this.onImg.getWidth();
 }
-FlyPlayer.prototype.run = function(){
+FlyPlayer.prototype.run = function(cx){
     this.display();
     this.control();
-    this.update();
+    this.update(cx);
     this.collide();
     if(this.health < 1){
         game.getFunc().init();
@@ -42,7 +42,7 @@ FlyPlayer.prototype.displayHealth = function(){
     rect(width-200+5, 55, map(this.health, 0, 3, 0, 140), 40);
     pop();
 }
-FlyPlayer.prototype.update = function(){
+FlyPlayer.prototype.update = function(cx){
     this.shootCooldown ++;
     this.thrustCooldown ++;
     this.r += this.rvel;
@@ -62,6 +62,12 @@ FlyPlayer.prototype.update = function(){
         this.y -= height + this.h / 1.8 + this.h / 1.7;
     } else if(this.y + this.h / 1.7 < 0){
         this.y += height + this.h / 1.8 + this.h / 1.7;
+    }
+
+    if(typeof cx == "number"){
+        this.x = constrain(this.x, 0, abs(cx));
+    } else {
+        this.x = max(this.x, 0);
     }
 }
 FlyPlayer.prototype.collide = function(){

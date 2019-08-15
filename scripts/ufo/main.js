@@ -1,7 +1,9 @@
 function ufoBossFight(){
     background(0,0,0);
     push();
-    if(flyPlayer.x>width/2){
+    if(flyPlayer.x > 3000 - width/2){
+        translate(-3000 + width, 0);
+    } else if(flyPlayer.x>width/2){
         translate(-flyPlayer.x+width/2, 0);
     }
     displayStars();
@@ -26,7 +28,7 @@ function ufoBossFight(){
             }
         }
     }
-    flyPlayer.run();
+    flyPlayer.run(3000);
     for(var i  = asteroids.length-1; i>-1; i--){
         asteroids[i].run(flyPlayer);
         if(asteroids[i].dead&&asteroids[i].frame>20){
@@ -35,7 +37,7 @@ function ufoBossFight(){
     }
     pop();
     flyPlayer.displayHealth();
-    
+
 }
 ufoBossFight.level = {
     boss: [[1500, window.innerHeight/2]], //x, y

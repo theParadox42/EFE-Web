@@ -9,9 +9,9 @@ npm i terser
 ```
 npx terser -c -m -o ../production/escapefromearth.min.js -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
 ```
-## Beutify Command
+## Beautify Command
 ```
-npx terser -b -o ../production/escapefromearth.js -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
+npx terser --comments=true -b -o ../production/escapefromearth.js -- ../scripts/*.js ../scripts/**/*.js ../scripts/**/**/*.js
 ```
 ## Combine libraries command
 ```

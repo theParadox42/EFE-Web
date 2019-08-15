@@ -3,7 +3,13 @@ function flyToVenus(){
     background(0,0,0);
     push();
     if(flyPlayer.x>width/2){
-        translate(-flyPlayer.x+width/2, 0);
+        if(flyPlayer.x < 4000){
+            translate(-flyPlayer.x+width/2, 0);
+        } else if(flyPlayer.x > 4000 + width/2){
+            game.continue();
+        } else {
+            translate(-4000 + width/2, 0);
+        }
     }
     displayStars();
     for(var i in lasers){
@@ -27,9 +33,6 @@ function flyToVenus(){
     }
     pop();
     flyPlayer.displayHealth();
-    if(flyPlayer.x>4000){
-        game.continue();
-    }
 }
 flyToVenus.level = {
     asteroids: [[1200, height/2, height/2], [3000, height/2, 100], [3000, height/2-200, 100], [3000, height-200, 100]],

@@ -3,7 +3,13 @@ function flyToMars(){
     background(0,0,0);
     push();
     if(flyPlayer.x>width/2){
-        translate(-flyPlayer.x+width/2, 0);
+        if(flyPlayer.x < 6750){
+            translate(-flyPlayer.x+width/2, 0);
+        } else if(flyPlayer.x > 6750 + width/2){
+            game.continue();
+        } else {
+            translate(-6750 + width/2, 0);
+        }
     }
     displayStars();
     for(var i in lasers){
@@ -27,9 +33,6 @@ function flyToMars(){
     }
     pop();
     flyPlayer.displayHealth();
-    if(flyPlayer.x>7000){
-        game.continue();
-    }
 }
 flyToMars.level = {
     asteroids: [[1200, height/2, 100], [1800, 150, 95], [2000, height-100, 95], [2400, height-125, 80], [2900, height/2, 125], [4500, 100, 100], [4500, height-100, 100], [4700, height/2+150, 100], [4700, height/2-150, 100]], //x, y, size

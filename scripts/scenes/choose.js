@@ -49,10 +49,11 @@ ChooseUseSave.init = function(){
         game.loadProgress();
     });
     this.restart = new Button("Restart", width/2+10, 320, 290, 100, function(){
-        game.setScene(2);
+        game.continue();
+        game.continue();
     });
     this.alwaysRestart = new Button("Delete Save & Play", width/2+10, 440, 290, 100, function(){
-        localStorage.currentSave = "";
+        delete localStorage.currentSave;
         game.setScene("home");
         game.continue();
     });

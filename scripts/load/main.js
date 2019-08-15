@@ -10,15 +10,13 @@ function waitingForFileCount(){
     pop();
 
     if(!waitingForFileCount.isWaiting){
-        game.continue();
+        fileLoader.loadAll()
+        fileLoader.isWaiting = false;
     }
 }
 waitingForFileCount.isWaiting = true;
 function loadFiles(){
     fileLoader.run();
-}
-loadFiles.init = function(){
-    fileLoader.loadAll();
 }
 let fileLoader = {
     loaded: 0,
@@ -40,6 +38,7 @@ let fileLoader = {
         images: [],
         animations: [],
     },
+    isWaiting: true,
     onLoad: function(stuff){
         fileLoader.loaded ++;
     },
@@ -120,8 +119,12 @@ let fileLoader = {
         pop();
     },
     run: function(){
-        this.update();
-        this.display();
+        if(this.isWaiting){
+            waitingForFileCount();
+        } else {
+            this.update();
+            this.display();
+        }
     }
 }
 $.getJSON("/scripts/files.json", function(data){
