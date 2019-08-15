@@ -37,6 +37,9 @@ LandOnVenus.update = function(){
     var ns = 0.99;
     this.rocket.w *= ns;
     this.rocket.h *= ns;
+    if(this.rocket.x > width){
+        game.continue();
+    }
 }
 LandOnVenus.displayObject = function(obj){
     push();
