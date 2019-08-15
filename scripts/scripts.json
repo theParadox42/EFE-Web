@@ -17,7 +17,8 @@
             "rocketbuilt.js",
             "marslanding.js",
             "leavemars.js",
-            "ufo.js"
+            "ufo.js",
+            "landonvenus.js"
         ],
         "runtorocket": [
             "player.js",

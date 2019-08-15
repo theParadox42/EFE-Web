@@ -31,6 +31,7 @@ var game = {
         "fly-venus",
         "seeufo",
         "ufo",
+        "landonvenus",
         "won"
         // Other scenes not in the scene order include "communitylevels" and "playlevel"
     ],
@@ -47,7 +48,8 @@ var game = {
         "leavemars": true,
         "fly-venus": true,
         "seeufo": true,
-        "ufo": true
+        "ufo": true,
+        "landonvenus": true
     },
     hasPause: {
         // What scenes need a pause button
@@ -65,7 +67,8 @@ var game = {
         "fly-venus": true,
         "seeufo": true,
         "ufo": true,
-        "playlevel": true
+        "playlevel": true,
+        "landonvenus": true
     },
     reqControls: {
         // What scenes require key controls
@@ -130,6 +133,7 @@ var game = {
             "fly-venus": flyToVenus,
             "seeufo": UfoCutscene,
             "ufo": ufoBossFight,
+            "landonvenus": LandOnVenus,
             "won": Won,
             "loadsaves": LoadSaves,
             "levelbuilder": levelBuilder,
