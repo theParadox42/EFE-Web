@@ -5,7 +5,9 @@ body {
     color: #aaa;
 }
 h1 {
-    text-align: center;
+    color: #eee;
+}
+h2, h3 {
     color: #ccc;
 }
 a {
@@ -15,6 +17,9 @@ a {
 p {
     line-height: 1.5;
     font-size: 1rem;
+}
+.text-center {
+    text-align: center;
 }
 .indent {
     padding: 20px;
