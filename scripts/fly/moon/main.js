@@ -10,6 +10,8 @@ function flyToMoon(){
         game.continue();
     }
     displayStars();
+    // moon
+    image(imgs.moonsphere, 5500+width/2-height/7, height/4, height/5, height/5);
     for(var i in flySigns){
         flySigns[i].display(flyPlayer);
     }

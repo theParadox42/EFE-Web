@@ -21,6 +21,7 @@ let manOnTheMoon = {
         pop();
     },
     init: function(){
+        this.appear = false;
         this.img = imgs.momdefault;
         this.w = max(width/3, height/2);
         this.h = this.w * this.img.height / this.img.width;

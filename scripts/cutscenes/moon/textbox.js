@@ -58,7 +58,9 @@ let moonTextBox = {
     init: function(){
         this.x = width/2-this.w/2;
         this.y = height-this.h-20;
+        this.line = 0;
+        this.show = false;
         this.text = moonConversation[this.line];
         this.textShowing = 0;
     }
-}
+};

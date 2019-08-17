@@ -13,6 +13,7 @@ function flyToMars(){
     }
     displayStars();
     // planets
+    image(imgs.moonsphere, -height/5, height*3/4, height/3, height/3);
     image(imgs.mars, 6750+width/2-height/7, height/4, height/5, height/5);
     for(var i in lasers){
       lasers[i].run();

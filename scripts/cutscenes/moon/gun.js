@@ -22,6 +22,7 @@ let moonGun = {
         pop();
     },
     init: function(){
+        this.appear = false;
         this.x = manOnTheMoon.x;
         this.y = height/2;
     }

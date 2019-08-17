@@ -1,6 +1,6 @@
 let moonPlayer = {
-    x: -500,
-    y: -500,
+    x: 0,
+    y: 0,
     w: 40,
     h: 0,
     direction: "right",
@@ -43,6 +43,9 @@ let moonPlayer = {
         this.appeared = true;
     },
     init: function(){
+        this.direction = "right";
+        this.x = -500;
+        this.y = -500;
         this.img = imgs.player;
         this.h = this.w*this.img.height/this.img.width;
     }
