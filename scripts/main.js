@@ -1,6 +1,6 @@
 var theEpicCanvas;
 function setup(){
-    theEpicCanvas = createCanvas(windowWidth, windowHeight-30);
+    theEpicCanvas = createCanvas(windowWidth, windowHeight - 30);
 
     background(255);
     angleMode(DEGREES);

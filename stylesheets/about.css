@@ -1,0 +1,25 @@
+body {
+    background: black;
+    background-color: black;
+    font-family: sans-serif;
+    color: #aaa;
+}
+h1 {
+    text-align: center;
+    color: #ccc;
+}
+a {
+    color: rgb(50, 220, 255);
+    text-decoration: none;
+}
+p {
+    line-height: 1.5;
+    font-size: 1rem;
+}
+.indent {
+    padding: 20px;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}

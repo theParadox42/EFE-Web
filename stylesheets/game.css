@@ -2,19 +2,29 @@ html, body {
     padding: 0;
     margin: 0;
     height: 100%;
+    width: 100%;
 }
 body {
     background-color: #000000;
+    font-family: sans-serif;
 }
 p {
     color: white;
+    text-align: center;
+    height: 20px;
+    margin: 0;
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
 }
-.float-left {
-    float: left;
-    display: inline;
+span.mr {
+    margin-right: 30%;
 }
-.text-right {
-    margin-left: 90%;
+span.ml {
+    margin-left: 30%;
+}
+a {
+    color: rgb(0, 200, 255);
+    text-decoration: none;
 }
 .loading {
     display: flex;
@@ -51,4 +61,9 @@ input.small-text {
 input.big-text {
     font-size: 30px;
     border-width: thick;
+}
+canvas {
+    position: absolute;
+    top: 30px;
+    left: 0;
 }
