@@ -6,10 +6,15 @@ html, body {
 body {
     background-color: #000000;
 }
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
+p {
+    color: white;
+}
+.float-left {
+    float: left;
+    display: inline;
+}
+.text-right {
+    margin-left: 90%;
 }
 .loading {
     display: flex;

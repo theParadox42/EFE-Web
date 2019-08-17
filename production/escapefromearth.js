@@ -13,7 +13,7 @@ var game = {
     previousScene: "home",
     sceneIndex: 0,
     // Scene index, should start on 0
-    sceneOrder: [ "load", "home", "wakeup", "run", "launchpad", "build", "rocketbuilt", "fly-moon", "moon", "fly-mars", "marslanding", "fight", "leavemars", "fly-venus", "seeufo", "ufo", "won" ],
+    sceneOrder: [ "load", "home", "wakeup", "run", "launchpad", "build", "rocketbuilt", "fly-moon", "moon", "fly-mars", "marslanding", "fight", "leavemars", "fly-venus", "seeufo", "ufo", "landonvenus", "won" ],
     canSave: {
         run: true,
         launchpad: true,
@@ -27,7 +27,8 @@ var game = {
         leavemars: true,
         "fly-venus": true,
         seeufo: true,
-        ufo: true
+        ufo: true,
+        landonvenus: true
     },
     hasPause: {
         // What scenes need a pause button
@@ -45,7 +46,8 @@ var game = {
         "fly-venus": true,
         seeufo: true,
         ufo: true,
-        playlevel: true
+        playlevel: true,
+        landonvenus: true
     },
     reqControls: {
         // What scenes require key controls
@@ -110,6 +112,7 @@ var game = {
             "fly-venus": flyToVenus,
             seeufo: UfoCutscene,
             ufo: ufoBossFight,
+            landonvenus: LandOnVenus,
             won: Won,
             loadsaves: LoadSaves,
             levelbuilder: levelBuilder,
@@ -357,8 +360,10 @@ function resetInput() {
     pressed = false;
 }
 
+var theEpicCanvas;
+
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    theEpicCanvas = createCanvas(windowWidth, windowHeight - 30);
     background(255);
     angleMode(DEGREES);
     game.init();
@@ -1216,6 +1221,76 @@ BPlayer.prototype.getTransX = function(buildOnly, replaceW, replaceSW) {
         this.transX = -fw + fsw;
     }
     return this.transX || 0;
+};
+
+function LandOnVenus() {
+    LandOnVenus.draw();
+}
+
+LandOnVenus.init = function() {
+    this.background = {
+        img: imgs.stars,
+        x: 0,
+        y: 0,
+        w: width,
+        h: height
+    };
+    this.venus = {
+        img: imgs.venus,
+        x: height * 3 / 4,
+        y: height * 3 / 4,
+        w: height / 2,
+        h: height / 2
+    };
+    this.rocket = {
+        img: imgs.rocketOn,
+        x: 0,
+        y: 0,
+        r: 135,
+        w: 150,
+        init: function() {
+            this.h = this.w * this.img.getHeight() / this.img.getWidth();
+            this.x -= this.h * 2;
+            this.y -= this.h * 2;
+        }
+    };
+    this.rocket.init();
+};
+
+LandOnVenus.update = function() {
+    let rs = .01;
+    this.rocket.x = lerp(this.rocket.x, this.venus.x + this.venus.w / 2, rs);
+    this.rocket.y = lerp(this.rocket.y, height + this.venus.h / 4, rs);
+    var ss = .99;
+    this.rocket.w *= ss;
+    this.rocket.h *= ss;
+    if (this.rocket.y > height) {
+        game.continue();
+    }
+};
+
+LandOnVenus.displayObject = function(obj) {
+    push();
+    translate(obj.x + obj.w / 2, obj.y + obj.h / 2);
+    if (typeof obj.r == "number") rotate(obj.r);
+    if (typeof obj.img.getHeight == "function") {
+        drawAnimation(obj.img, 0, 0, obj.w, obj.h);
+    } else {
+        image(obj.img, -obj.w / 2, -obj.h / 2, obj.w, obj.h);
+    }
+    pop();
+};
+
+LandOnVenus.display = function() {
+    this.displayObject(this.background);
+    this.displayObject(this.venus);
+    this.displayObject(this.rocket);
+};
+
+LandOnVenus.draw = function() {
+    background(0);
+    this.update();
+    this.display();
 };
 
 function AtLaunchPad() {
@@ -2105,7 +2180,6 @@ UfoCutscene.update = function() {
         if (r.x < -r.h * 1.5) {
             game.continue();
         }
-        console.log("waiting");
         break;
     }
 };
@@ -6359,6 +6433,412 @@ Won.init = function() {
     localStorage.currentSave = "";
 };
 
+let moonGun = {
+    appear: false,
+    x: 0,
+    y: 0,
+    run: function() {
+        if (this.appear) {
+            this.display();
+            let p = moonPlayer;
+            if (this.x > p.x + p.w / 4) {
+                this.x -= 3;
+            }
+            if (this.y < p.y + p.h / 2) {
+                this.y += 3;
+            }
+        }
+    },
+    display: function() {
+        push();
+        translate(this.x, this.y);
+        scale(.025);
+        image(imgs.moonGun, 0, 0);
+        pop();
+    },
+    init: function() {
+        this.appear = false;
+        this.x = manOnTheMoon.x;
+        this.y = height / 2;
+    }
+};
+
+function moon() {
+    for (var i = 0; i < width; i += height) {
+        image(imgs.stars, i, 0, height, height);
+    }
+    manOnTheMoon.run();
+    image(imgs.moon, 0, 0, width, height);
+    moonShip.run();
+    moonPlayer.run();
+    moonGun.run();
+    moonTextBox.run();
+}
+
+moon.init = function() {
+    manOnTheMoon.init();
+    moonShip.init();
+    moonPlayer.init();
+    moonTextBox.init();
+    moonGun.init();
+};
+
+let manOnTheMoon = {
+    x: 0,
+    y: 0,
+    w: 0,
+    h: 0,
+    img: 0,
+    appear: false,
+    run: function() {
+        this.display();
+        if (this.appear && this.y > height * .67 - this.h / 2) {
+            this.y -= 3;
+        } else if (this.appear && moonTextBox.line < 20) {
+            moonTextBox.show = true;
+        }
+    },
+    display: function() {
+        push();
+        translate(this.x, this.y);
+        imageMode(CENTER);
+        image(this.img, 0, 0, this.w, this.h);
+        pop();
+    },
+    init: function() {
+        this.appear = false;
+        this.img = imgs.momdefault;
+        this.w = max(width / 3, height / 2);
+        this.h = this.w * this.img.height / this.img.width;
+        this.x = width / 2;
+        //this.y = height*0.67-this.h/2;
+                this.y = height + this.w * this.img.height / this.img.width - 50;
+    }
+};
+
+let moonPlayer = {
+    x: 0,
+    y: 0,
+    w: 40,
+    h: 0,
+    direction: "right",
+    wait: 0,
+    runAway: false,
+    run: function() {
+        this.display();
+        if (this.appeared) {
+            this.wait++;
+            if (this.wait > 30) {
+                this.direction = "left";
+            }
+            if (this.wait > 60) {
+                this.direction = "right";
+            }
+            if (this.wait > 65) {
+                manOnTheMoon.appear = true;
+            }
+            if (this.runAway && moonGun.x < this.x + this.w / 2 && moonGun.y > this.y - this.h / 2) {
+                this.direction = "left";
+                this.x -= 3;
+                if (this.x < -this.w / 2) {
+                    game.continue();
+                }
+            }
+        }
+    },
+    display: function() {
+        push();
+        translate(this.x + this.w / 2, this.y);
+        if (this.direction === "right") scale(-1, 1);
+        image(this.img, -this.w / 2, 0, this.w, this.h);
+        pop();
+    },
+    appear: function() {
+        this.x = moonShip.x;
+        this.y = moonShip.y - 30;
+        this.appeared = true;
+    },
+    init: function() {
+        this.direction = "right";
+        this.x = -500;
+        this.y = -500;
+        this.img = imgs.player;
+        this.h = this.w * this.img.height / this.img.width;
+    }
+};
+
+let moonShip = {
+    x: 0,
+    y: 0,
+    w: 100,
+    h: 40,
+    moving: true,
+    offImgs: {},
+    onImg: {},
+    playerWait: 0,
+    run: function() {
+        if (this.y < height / 2 + 150) {
+            this.y += 3;
+        } else {
+            this.moving = false;
+            this.playerWait++;
+            if (this.playerWait > 40 && this.playerWait < 100) {
+                moonPlayer.appear();
+            }
+        }
+        this.display();
+    },
+    init: function() {
+        this.x = width / 2 - 350;
+        this.y = -50;
+        this.offImg = imgs.rocketOff;
+        this.onImg = imgs.rocketOn;
+        this.h = this.w * this.onImg.getHeight() / this.onImg.getWidth();
+    },
+    display: function() {
+        push();
+        imageMode(CENTER);
+ //rotate from center
+                translate(this.x, this.y);
+        if (this.moving) {
+            drawAnimation(this.onImg, 0, 0, this.w, this.h);
+        } else {
+            drawAnimation(this.offImg, 0, 0, this.w, this.h);
+        }
+        pop();
+    }
+};
+
+let moonConversation = [ "Fee fi fo fum! It is I, the man on the moon!", "Wait, your the guy from dream works!", "Yes that was me. However, my looks haven't quite stayed the same since I got space Diabetes.", "Wow, you've aged so much since then.", "How dare you! I'll have you know that I'm at the young age of 4.53 billion years. I'm in my prime! I'm practically fresh out of the womb!", "But your hair is gray!", "Shut up, space diabetes has some unspeakable effects.", "I'm sorry, I shouldn't have mentioned your incredibly miserable space Diabetes.", "You're right, you should have! Listen, why did you come to my neck of the woods?", "There are no trees here.", "Yeah, but there are necks.", "You said 'neck' singular.", "It's a figure of speech!", "Ok sure. In response to your earlier inquiry, I'm here to refuel. The human race abandoned me yesterday and I am heading to Mars. Any advice?", "Yeah, don't let the Martians bite you, if you do the tip of the side of your left ring finger will hurt for two weeks, four days, three hours, fourteen minutes, and seventy two seconds", "There are martians?", "yeah, and I'm warning you, their bites are more painful than you would believe! Don't let them bite you. Here, I want you to have this.", "", "This gun is incredibly important to me. Take care of it. It has been passed down through my family for generations. My father gave it to me shortly before he passed away, along with a very important message, to uphold the family honor. In his last breath, he requested that--", "Ok thanks!" ];
+
+let moonTextBox = {
+    x: 0,
+    y: 0,
+    w: 400,
+    h: 200,
+    padding: 10,
+    text: "",
+    textShowing: 0,
+    line: 0,
+    show: false,
+    run: function() {
+        if (this.show === true) {
+            if (this.textShowing >= this.text.length && (keysReleased[" "] || keysReleased[32] || clicked)) {
+                this.line++;
+                if (this.line === 17) {
+                    this.line++;
+ //trying to keep the speakers right without having to do other things
+                                        moonGun.appear = true;
+                }
+                if (this.line < 20) {
+                    this.text = moonConversation[this.line];
+                    this.textShowing = 0;
+                } else {
+                    this.show = false;
+                    this.text = "";
+                    moonPlayer.runAway = true;
+                }
+            } else if (keysReleased[" "] || keysReleased[32] || clicked) {
+                this.textShowing = this.text.length;
+            }
+            this.display();
+            this.textShowing += .5;
+        }
+    },
+    display: function() {
+        if (this.line % 2 == 0) this.speaker = "Man On The Moon"; else this.speaker = "Tom";
+        push();
+        fill(232);
+        stroke(240);
+        strokeWeight(5);
+        rect(this.x, this.y, this.w, this.h);
+        fill(0, 0, 0);
+        textSize(15);
+        stroke(255);
+        strokeWeight(1);
+        textFont(fonts.pixel);
+        if (this.line < 20) {
+            text(this.speaker + ": " + this.text.substr(0, this.textShowing), this.x + this.padding, this.y + this.padding, this.w - this.padding * 2, this.h - this.padding * 2);
+        }
+        if (this.line === 0 && this.textShowing >= this.text.length) {
+            text("Press space to continue", this.x + this.padding, this.y + this.h - 20 - this.padding * 2);
+        }
+        pop();
+    },
+    init: function() {
+        this.x = width / 2 - this.w / 2;
+        this.y = height - this.h - 20;
+        this.line = 0;
+        this.show = false;
+        this.text = moonConversation[this.line];
+        this.textShowing = 0;
+    }
+};
+
+function FlyFreeplay() {
+    push();
+    background(0, 0, 0);
+    FlyFreeplay.transX = 0;
+    var levelW = FlyFreeplay.level.w;
+    var cameraView = width / 2;
+    if (flyPlayer.x > cameraView && flyPlayer.x < levelW) {
+        FlyFreeplay.transX = -flyPlayer.x + cameraView;
+    } else if (flyPlayer.x > levelW) {
+        FlyFreeplay.transX = -levelW + cameraView;
+    }
+    if (flyPlayer.x > levelW + cameraView) {
+        game.setScene(FlyFreeplay.gobackto);
+        if (FlyFreeplay.levelObject.levelBuilderLevel) {
+            FlyFreeplay.levelObject.verified = true;
+            levelBuilder.save();
+        }
+    }
+    translate(FlyFreeplay.transX, 0);
+    displayStars();
+    for (var i = lasers.length - 1; i > -1; i--) {
+        lasers[i].run();
+        if (lasers[i].dead) {
+            lasers.splice(i, 1);
+        }
+    }
+    for (var i = ufos.length - 1; i > -1; i--) {
+        ufos[i].run(flyPlayer);
+        if (ufos[i].dead && ufos[i].frame > 20) {
+            ufos.splice(i, 1);
+        }
+    }
+    for (var i = asteroids.length - 1; i > -1; i--) {
+        asteroids[i].run(flyPlayer);
+        if (asteroids[i].dead && asteroids[i].frame > 20) {
+            asteroids.splice(i, 1);
+        }
+    }
+    for (var i = bosses.length - 1; i > -1; i--) {
+        bosses[i].run(flyPlayer);
+        if (bosses[i].dead && bosses[i].frame > 20) {
+            bosses.splice(i, 1);
+        }
+    }
+    flyPlayer.run();
+    pop();
+    flyPlayer.displayHealth();
+}
+
+FlyFreeplay.set = function(level, gobackto) {
+    this.levelObject = level;
+    this.level = this.levelObject.objects;
+    this.gobackto = gobackto;
+};
+
+FlyFreeplay.init = function() {
+    flyPlayer = new FlyPlayer(50, height / 2);
+    flyPlayer.init();
+    this.level.w = this.level.width / 100 * height;
+    loadDynamicLevel(this.level);
+};
+
+let height = window.innerHeight;
+
+function flyToMars() {
+    background(0);
+    push();
+    if (flyPlayer.x > width / 2) {
+        if (flyPlayer.x < 6750) {
+            translate(-flyPlayer.x + width / 2, 0);
+        } else if (flyPlayer.x > 6750 + width / 2) {
+            game.continue();
+        } else {
+            translate(-6750 + width / 2, 0);
+        }
+    }
+    displayStars();
+    // planets
+        image(imgs.moonsphere, -height / 5, height * 3 / 4, height / 3, height / 3);
+    image(imgs.mars, 6750 + width / 2 - height / 7, height / 4, height / 5, height / 5);
+    for (var i in lasers) {
+        lasers[i].run();
+        if (lasers[i].dead) {
+            lasers.splice(i, 1);
+        }
+    }
+    for (var i = ufos.length - 1; i > -1; i--) {
+        ufos[i].run(flyPlayer);
+        if (ufos[i].dead && ufos[i].frame > 20) {
+            ufos.splice(i, 1);
+        }
+    }
+    flyPlayer.run();
+    for (var i = asteroids.length - 1; i > -1; i--) {
+        asteroids[i].run(flyPlayer);
+        if (asteroids[i].dead && asteroids[i].frame > 20) {
+            asteroids.splice(i, 1);
+        }
+    }
+    pop();
+    flyPlayer.displayHealth();
+}
+
+flyToMars.level = {
+    asteroids: [ [ 1200, height / 2, 100 ], [ 1800, 150, 95 ], [ 2e3, height - 100, 95 ], [ 2400, height - 125, 80 ], [ 2900, height / 2, 125 ], [ 4500, 100, 100 ], [ 4500, height - 100, 100 ], [ 4700, height / 2 + 150, 100 ], [ 4700, height / 2 - 150, 100 ] ],
+    //x, y, size
+    ufos: [ [ 1800, height / 2 ], [ 3400, 200 ], [ 4e3, 100 ], [ 4e3, height - 100 ], [ 6500, height / 2 ], [ 6500, 100 ], [ 6500, height - 100 ] ]
+};
+
+flyToMars.init = function() {
+    flyPlayer = new FlyPlayer(50, height / 2);
+    flyPlayer.init();
+    loadLevel(this.level);
+};
+
+function flyToMoon() {
+    push();
+    background(0, 0, 0);
+    if (flyPlayer.x > width / 2 && flyPlayer.x < 5500) {
+        translate(-flyPlayer.x + width / 2, 0);
+    } else if (flyPlayer.x > 5500) {
+        translate(-5500 + width / 2, 0);
+    }
+    if (flyPlayer.x > 5500 + width / 2) {
+        game.continue();
+    }
+    displayStars();
+    // moon
+        image(imgs.moonsphere, 5500 + width / 2 - height / 7, height / 4, height / 5, height / 5);
+    for (var i in flySigns) {
+        flySigns[i].display(flyPlayer);
+    }
+    for (var i in lasers) {
+        lasers[i].run();
+        if (lasers[i].dead) {
+            lasers.splice(i, 1);
+        }
+    }
+    flyPlayer.run();
+    for (var i in asteroids) {
+        asteroids[i].run(flyPlayer);
+        if (asteroids[i].dead && asteroids[i].frame > 20) {
+            asteroids.splice(i, 1);
+        }
+    }
+    pop();
+    flyPlayer.displayHealth();
+}
+
+flyToMoon.init = function() {
+    flyPlayer = new FlyPlayer(50, height / 2);
+    flyPlayer.init();
+    flySigns = [];
+    flySigns.push(new FlySign(200, "Press space to accelerate, use the left and right arrow keys or a and d to steer"));
+ //This is very inefficient It will be a lot more efficient when it's not a tutorial level
+        asteroids = [];
+    flySigns.push(new FlySign(2900, "Look out for asteroids!"));
+    for (var i = -300; i < height + 300; i += 300) {
+        asteroids.push(new Asteroid(5200, i, 150));
+    }
+    flySigns.push(new FlySign(4400, "Press Z to shoot, try blowing up an asteroid"));
+    asteroids.push(new Asteroid(3500, height / 2, 125));
+};
+
 function UfoBoss(x, y, r) {
     this.x = x;
     this.y = y;
@@ -6496,400 +6976,6 @@ ufoBossFight.init = function() {
     loadLevel(this.level);
 };
 
-let moonGun = {
-    appear: false,
-    x: 0,
-    y: 0,
-    run: function() {
-        if (this.appear) {
-            this.display();
-            let p = moonPlayer;
-            if (this.x > p.x + p.w / 4) {
-                this.x -= 3;
-            }
-            if (this.y < p.y + p.h / 2) {
-                this.y += 3;
-            }
-        }
-    },
-    display: function() {
-        push();
-        translate(this.x, this.y);
-        scale(.025);
-        image(imgs.moonGun, 0, 0);
-        pop();
-    },
-    init: function() {
-        this.x = manOnTheMoon.x;
-        this.y = height / 2;
-    }
-};
-
-function moon() {
-    for (var i = 0; i < width; i += height) {
-        image(imgs.stars, i, 0, height, height);
-    }
-    manOnTheMoon.run();
-    image(imgs.moon, 0, 0, width, height);
-    moonShip.run();
-    moonPlayer.run();
-    moonGun.run();
-    moonTextBox.run();
-}
-
-moon.init = function() {
-    manOnTheMoon.init();
-    moonShip.init();
-    moonPlayer.init();
-    moonTextBox.init();
-    moonGun.init();
-};
-
-let manOnTheMoon = {
-    x: 0,
-    y: 0,
-    w: 0,
-    h: 0,
-    img: 0,
-    appear: false,
-    run: function() {
-        this.display();
-        if (this.appear && this.y > height * .67 - this.h / 2) {
-            this.y -= 3;
-        } else if (this.appear && moonTextBox.line < 20) {
-            moonTextBox.show = true;
-        }
-    },
-    display: function() {
-        push();
-        translate(this.x, this.y);
-        imageMode(CENTER);
-        image(this.img, 0, 0, this.w, this.h);
-        pop();
-    },
-    init: function() {
-        this.img = imgs.momdefault;
-        this.w = max(width / 3, height / 2);
-        this.h = this.w * this.img.height / this.img.width;
-        this.x = width / 2;
-        //this.y = height*0.67-this.h/2;
-                this.y = height + this.w * this.img.height / this.img.width - 50;
-    }
-};
-
-let moonPlayer = {
-    x: -500,
-    y: -500,
-    w: 40,
-    h: 0,
-    direction: "right",
-    wait: 0,
-    runAway: false,
-    run: function() {
-        this.display();
-        if (this.appeared) {
-            this.wait++;
-            if (this.wait > 30) {
-                this.direction = "left";
-            }
-            if (this.wait > 60) {
-                this.direction = "right";
-            }
-            if (this.wait > 65) {
-                manOnTheMoon.appear = true;
-            }
-            if (this.runAway && moonGun.x < this.x + this.w / 2 && moonGun.y > this.y - this.h / 2) {
-                this.direction = "left";
-                this.x -= 3;
-                if (this.x < -this.w / 2) {
-                    game.continue();
-                }
-            }
-        }
-    },
-    display: function() {
-        push();
-        translate(this.x + this.w / 2, this.y);
-        if (this.direction === "right") scale(-1, 1);
-        image(this.img, -this.w / 2, 0, this.w, this.h);
-        pop();
-    },
-    appear: function() {
-        this.x = moonShip.x;
-        this.y = moonShip.y - 30;
-        this.appeared = true;
-    },
-    init: function() {
-        this.img = imgs.player;
-        this.h = this.w * this.img.height / this.img.width;
-    }
-};
-
-let moonShip = {
-    x: 0,
-    y: 0,
-    w: 100,
-    h: 40,
-    moving: true,
-    offImgs: {},
-    onImg: {},
-    playerWait: 0,
-    run: function() {
-        if (this.y < height / 2 + 150) {
-            this.y += 3;
-        } else {
-            this.moving = false;
-            this.playerWait++;
-            if (this.playerWait > 40 && this.playerWait < 100) {
-                moonPlayer.appear();
-            }
-        }
-        this.display();
-    },
-    init: function() {
-        this.x = width / 2 - 350;
-        this.y = -50;
-        this.offImg = imgs.rocketOff;
-        this.onImg = imgs.rocketOn;
-        this.h = this.w * this.onImg.getHeight() / this.onImg.getWidth();
-    },
-    display: function() {
-        push();
-        imageMode(CENTER);
- //rotate from center
-                translate(this.x, this.y);
-        if (this.moving) {
-            drawAnimation(this.onImg, 0, 0, this.w, this.h);
-        } else {
-            drawAnimation(this.offImg, 0, 0, this.w, this.h);
-        }
-        pop();
-    }
-};
-
-let moonConversation = [ "Fee fi fo fum! It is I, the man on the moon!", "Wait, your the guy from dream works!", "Yes that was me. However, my looks haven't quite stayed the same since I got space Diabetes.", "Wow, you've aged so much since then.", "How dare you! I'll have you know that I'm at the young age of 4.53 billion years. I'm in my prime! I'm practically fresh out of the womb!", "But your hair is gray!", "Shut up, space diabetes has some unspeakable effects.", "I'm sorry, I shouldn't have mentioned your incredibly miserable space Diabetes.", "You're right, you should have! Listen, why did you come to my neck of the woods?", "There are no trees here.", "Yeah, but there are necks.", "You said 'neck' singular.", "It's a figure of speech!", "Ok sure. In response to your earlier inquiry, I'm here to refuel. The human race abandoned me yesterday and I am heading to Mars. Any advice?", "Yeah, don't let the Martians bite you, if you do the tip of the side of your left ring finger will hurt for two weeks, four days, three hours, fourteen minutes, and seventy two seconds", "There are martians?", "yeah, and I'm warning you, their bites are more painful than you would believe! Don't let them bite you. Here, I want you to have this.", "", "This gun is incredibly important to me. Take care of it. It has been passed down through my family for generations. My father gave it to me shortly before he passed away, along with a very important message, to uphold the family honor. In his last breath, he requested that--", "Ok thanks!" ];
-
-let moonTextBox = {
-    x: 0,
-    y: 0,
-    w: 400,
-    h: 200,
-    padding: 10,
-    text: "",
-    textShowing: 0,
-    line: 0,
-    show: false,
-    run: function() {
-        if (this.show === true) {
-            if (this.textShowing >= this.text.length && (keysReleased[" "] || keysReleased[32] || clicked)) {
-                this.line++;
-                if (this.line === 17) {
-                    this.line++;
- //trying to keep the speakers right without having to do other things
-                                        moonGun.appear = true;
-                }
-                if (this.line < 20) {
-                    this.text = moonConversation[this.line];
-                    this.textShowing = 0;
-                } else {
-                    this.show = false;
-                    this.text = "";
-                    moonPlayer.runAway = true;
-                }
-            } else if (keysReleased[" "] || keysReleased[32] || clicked) {
-                this.textShowing = this.text.length;
-            }
-            this.display();
-            this.textShowing += .5;
-        }
-    },
-    display: function() {
-        if (this.line % 2 == 0) this.speaker = "Man On The Moon"; else this.speaker = "Tom";
-        push();
-        fill(232);
-        stroke(240);
-        strokeWeight(5);
-        rect(this.x, this.y, this.w, this.h);
-        fill(0, 0, 0);
-        textSize(15);
-        stroke(255);
-        strokeWeight(1);
-        textFont(fonts.pixel);
-        if (this.line < 20) {
-            text(this.speaker + ": " + this.text.substr(0, this.textShowing), this.x + this.padding, this.y + this.padding, this.w - this.padding * 2, this.h - this.padding * 2);
-        }
-        if (this.line === 0 && this.textShowing >= this.text.length) {
-            text("Press space to continue", this.x + this.padding, this.y + this.h - 20 - this.padding * 2);
-        }
-        pop();
-    },
-    init: function() {
-        this.x = width / 2 - this.w / 2;
-        this.y = height - this.h - 20;
-        this.text = moonConversation[this.line];
-        this.textShowing = 0;
-    }
-};
-
-function FlyFreeplay() {
-    push();
-    background(0, 0, 0);
-    FlyFreeplay.transX = 0;
-    var levelW = FlyFreeplay.level.w;
-    var cameraView = width / 2;
-    if (flyPlayer.x > cameraView && flyPlayer.x < levelW) {
-        FlyFreeplay.transX = -flyPlayer.x + cameraView;
-    } else if (flyPlayer.x > levelW) {
-        FlyFreeplay.transX = -levelW + cameraView;
-    }
-    if (flyPlayer.x > levelW + cameraView) {
-        game.setScene(FlyFreeplay.gobackto);
-        if (FlyFreeplay.levelObject.levelBuilderLevel) {
-            FlyFreeplay.levelObject.verified = true;
-            levelBuilder.save();
-        }
-    }
-    translate(FlyFreeplay.transX, 0);
-    displayStars();
-    for (var i = lasers.length - 1; i > -1; i--) {
-        lasers[i].run();
-        if (lasers[i].dead) {
-            lasers.splice(i, 1);
-        }
-    }
-    for (var i = ufos.length - 1; i > -1; i--) {
-        ufos[i].run(flyPlayer);
-        if (ufos[i].dead && ufos[i].frame > 20) {
-            ufos.splice(i, 1);
-        }
-    }
-    for (var i = asteroids.length - 1; i > -1; i--) {
-        asteroids[i].run(flyPlayer);
-        if (asteroids[i].dead && asteroids[i].frame > 20) {
-            asteroids.splice(i, 1);
-        }
-    }
-    for (var i = bosses.length - 1; i > -1; i--) {
-        bosses[i].run(flyPlayer);
-        if (bosses[i].dead && bosses[i].frame > 20) {
-            bosses.splice(i, 1);
-        }
-    }
-    flyPlayer.run();
-    pop();
-    flyPlayer.displayHealth();
-}
-
-FlyFreeplay.set = function(level, gobackto) {
-    this.levelObject = level;
-    this.level = this.levelObject.objects;
-    this.gobackto = gobackto;
-};
-
-FlyFreeplay.init = function() {
-    flyPlayer = new FlyPlayer(50, height / 2);
-    flyPlayer.init();
-    this.level.w = this.level.width / 100 * height;
-    loadDynamicLevel(this.level);
-};
-
-let height = window.innerHeight;
-
-function flyToMars() {
-    background(0, 0, 0);
-    push();
-    if (flyPlayer.x > width / 2) {
-        if (flyPlayer.x < 6750) {
-            translate(-flyPlayer.x + width / 2, 0);
-        } else if (flyPlayer.x > 6750 + width / 2) {
-            game.continue();
-        } else {
-            translate(-6750 + width / 2, 0);
-        }
-    }
-    displayStars();
-    for (var i in lasers) {
-        lasers[i].run();
-        if (lasers[i].dead) {
-            lasers.splice(i, 1);
-        }
-    }
-    for (var i = ufos.length - 1; i > -1; i--) {
-        ufos[i].run(flyPlayer);
-        if (ufos[i].dead && ufos[i].frame > 20) {
-            ufos.splice(i, 1);
-        }
-    }
-    flyPlayer.run();
-    for (var i = asteroids.length - 1; i > -1; i--) {
-        asteroids[i].run(flyPlayer);
-        if (asteroids[i].dead && asteroids[i].frame > 20) {
-            asteroids.splice(i, 1);
-        }
-    }
-    pop();
-    flyPlayer.displayHealth();
-}
-
-flyToMars.level = {
-    asteroids: [ [ 1200, height / 2, 100 ], [ 1800, 150, 95 ], [ 2e3, height - 100, 95 ], [ 2400, height - 125, 80 ], [ 2900, height / 2, 125 ], [ 4500, 100, 100 ], [ 4500, height - 100, 100 ], [ 4700, height / 2 + 150, 100 ], [ 4700, height / 2 - 150, 100 ] ],
-    //x, y, size
-    ufos: [ [ 1800, height / 2 ], [ 3400, 200 ], [ 4e3, 100 ], [ 4e3, height - 100 ], [ 6500, height / 2 ], [ 6500, 100 ], [ 6500, height - 100 ] ]
-};
-
-flyToMars.init = function() {
-    flyPlayer = new FlyPlayer(50, height / 2);
-    flyPlayer.init();
-    loadLevel(this.level);
-};
-
-function flyToMoon() {
-    push();
-    background(0, 0, 0);
-    if (flyPlayer.x > width / 2 && flyPlayer.x < 5500) {
-        translate(-flyPlayer.x + width / 2, 0);
-    } else if (flyPlayer.x > 5500) {
-        translate(-5500 + width / 2, 0);
-    }
-    if (flyPlayer.x > 5500 + width / 2) {
-        game.continue();
-    }
-    displayStars();
-    for (var i in flySigns) {
-        flySigns[i].display(flyPlayer);
-    }
-    for (var i in lasers) {
-        lasers[i].run();
-        if (lasers[i].dead) {
-            lasers.splice(i, 1);
-        }
-    }
-    flyPlayer.run();
-    for (var i in asteroids) {
-        asteroids[i].run(flyPlayer);
-        if (asteroids[i].dead && asteroids[i].frame > 20) {
-            asteroids.splice(i, 1);
-        }
-    }
-    pop();
-    flyPlayer.displayHealth();
-}
-
-flyToMoon.init = function() {
-    flyPlayer = new FlyPlayer(50, height / 2);
-    flyPlayer.init();
-    flySigns = [];
-    flySigns.push(new FlySign(200, "Press space to accelerate, use the left and right arrow keys or a and d to steer"));
- //This is very inefficient It will be a lot more efficient when it's not a tutorial level
-        asteroids = [];
-    flySigns.push(new FlySign(2900, "Look out for asteroids!"));
-    for (var i = -300; i < height + 300; i += 300) {
-        asteroids.push(new Asteroid(5200, i, 150));
-    }
-    flySigns.push(new FlySign(4400, "Press Z to shoot, try blowing up an asteroid"));
-    asteroids.push(new Asteroid(3500, height / 2, 125));
-};
-
 height = window.innerHeight;
 
 function flyToVenus() {
@@ -6905,6 +6991,9 @@ function flyToVenus() {
         }
     }
     displayStars();
+    // planets
+        image(imgs.mars, -height / 5, -height / 12, height / 3, height / 3);
+    image(imgs.venus, 4e3 + width / 2 - height / 6, height * 3 / 4, height / 5, height / 5);
     for (var i in lasers) {
         lasers[i].run();
         if (lasers[i].dead) {
