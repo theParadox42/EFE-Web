@@ -1,6 +1,6 @@
 let height = window.innerHeight;
 function flyToMars(){
-    background(0,0,0);
+    background(0);
     push();
     if(flyPlayer.x>width/2){
         if(flyPlayer.x < 6750){
@@ -12,6 +12,8 @@ function flyToMars(){
         }
     }
     displayStars();
+    // planets
+    image(imgs.mars, 6750+width/2-height/7, height/4, height/5, height/5);
     for(var i in lasers){
       lasers[i].run();
       if(lasers[i].dead){

@@ -75,7 +75,7 @@
         "fly/venus": [
             "main.js"
         ],
-        "ufo": [
+        "fly/ufo": [
             "main.js",
             "boss.js"
         ],

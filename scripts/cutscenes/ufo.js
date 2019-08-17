@@ -97,7 +97,6 @@ UfoCutscene.update = function(){
             if(r.x < -r.h * 1.5){
                 game.continue();
             }
-            console.log("waiting");
         break;
     }
 }

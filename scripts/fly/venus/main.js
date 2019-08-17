@@ -12,6 +12,9 @@ function flyToVenus(){
         }
     }
     displayStars();
+    // planets
+    image(imgs.mars, -height/5, -height/12, height/3, height/3);
+    image(imgs.venus, 4000+width/2-height/6, height*3/4, height/5, height/5);
     for(var i in lasers){
       lasers[i].run();
       if(lasers[i].dead){

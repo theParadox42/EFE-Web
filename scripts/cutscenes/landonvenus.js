@@ -31,13 +31,16 @@ LandOnVenus.init = function(){
     this.rocket.init();
 }
 LandOnVenus.update = function(){
-    var nw = this.rocket.w / 150;
-    this.rocket.x += 5;
-    this.rocket.y += 5;
-    var ns = 0.99;
-    this.rocket.w *= ns;
-    this.rocket.h *= ns;
-    if(this.rocket.x > width){
+
+    let rs = 0.01;
+    this.rocket.x = lerp(this.rocket.x, this.venus.x + this.venus.w/2, rs);
+    this.rocket.y = lerp(this.rocket.y, height + this.venus.h/4, rs);
+    var ss = 0.99;
+    this.rocket.w *= ss;
+    this.rocket.h *= ss;
+
+
+    if(this.rocket.y > height){
         game.continue();
     }
 }
