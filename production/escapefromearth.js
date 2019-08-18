@@ -363,7 +363,8 @@ function resetInput() {
 var theEpicCanvas;
 
 function setup() {
-    theEpicCanvas = createCanvas(windowWidth, windowHeight - 30);
+    windowHeight -= 30;
+    theEpicCanvas = createCanvas(windowWidth, windowHeight);
     background(255);
     angleMode(DEGREES);
     game.init();
@@ -372,11 +373,6 @@ function setup() {
 function draw() {
     cursor("default");
     game.run();
-}
-
-function windowResized() {
-    // resizeCanvas(windowWidth, windowHeight);
-    // game.resize();
 }
 
 function mobileControl(x, y, w, h, keysKey, txt) {
@@ -6737,8 +6733,6 @@ FlyFreeplay.init = function() {
     loadDynamicLevel(this.level);
 };
 
-let height = window.innerHeight;
-
 function flyToMars() {
     background(0);
     push();
@@ -6778,15 +6772,14 @@ function flyToMars() {
     flyPlayer.displayHealth();
 }
 
-flyToMars.level = {
-    asteroids: [ [ 1200, height / 2, 100 ], [ 1800, 150, 95 ], [ 2e3, height - 100, 95 ], [ 2400, height - 125, 80 ], [ 2900, height / 2, 125 ], [ 4500, 100, 100 ], [ 4500, height - 100, 100 ], [ 4700, height / 2 + 150, 100 ], [ 4700, height / 2 - 150, 100 ] ],
-    //x, y, size
-    ufos: [ [ 1800, height / 2 ], [ 3400, 200 ], [ 4e3, 100 ], [ 4e3, height - 100 ], [ 6500, height / 2 ], [ 6500, 100 ], [ 6500, height - 100 ] ]
-};
-
 flyToMars.init = function() {
     flyPlayer = new FlyPlayer(50, height / 2);
     flyPlayer.init();
+    this.level = {
+        asteroids: [ [ 1200, height / 2, 100 ], [ 1800, 150, 95 ], [ 2e3, height - 100, 95 ], [ 2400, height - 125, 80 ], [ 2900, height / 2, 125 ], [ 4500, 100, 100 ], [ 4500, height - 100, 100 ], [ 4700, height / 2 + 150, 100 ], [ 4700, height / 2 - 150, 100 ] ],
+        //x, y, size
+        ufos: [ [ 1800, height / 2 ], [ 3400, 200 ], [ 4e3, 100 ], [ 4e3, height - 100 ], [ 6500, height / 2 ], [ 6500, 100 ], [ 6500, height - 100 ] ]
+    };
     loadLevel(this.level);
 };
 
@@ -6976,8 +6969,6 @@ ufoBossFight.init = function() {
     loadLevel(this.level);
 };
 
-height = window.innerHeight;
-
 function flyToVenus() {
     background(0, 0, 0);
     push();
@@ -7017,13 +7008,12 @@ function flyToVenus() {
     flyPlayer.displayHealth();
 }
 
-flyToVenus.level = {
-    asteroids: [ [ 1200, height / 2, height / 2 ], [ 3e3, height / 2, 100 ], [ 3e3, height / 2 - 200, 100 ], [ 3e3, height - 200, 100 ] ],
-    ufos: [ [ 1600, height / 2 ], [ 2e3, 100 ], [ 2400, height - 100 ], [ 2800, height / 2 ], [ 3500, height / 2 ], [ 3500, height ] ]
-};
-
 flyToVenus.init = function() {
     flyPlayer = new FlyPlayer(50, height / 2);
     flyPlayer.init();
+    this.level = {
+        asteroids: [ [ 1200, height / 2, height / 2 ], [ 3e3, height / 2, 100 ], [ 3e3, height / 2 - 200, 100 ], [ 3e3, height - 200, 100 ] ],
+        ufos: [ [ 1600, height / 2 ], [ 2e3, 100 ], [ 2400, height - 100 ], [ 2800, height / 2 ], [ 3500, height / 2 ], [ 3500, height ] ]
+    };
     loadLevel(this.level);
 };
