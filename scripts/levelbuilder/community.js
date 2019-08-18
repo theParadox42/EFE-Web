@@ -80,7 +80,7 @@ communityLevels.init = function(){
         game.setScene("home");
     })
     if(cLevels.length <= 0 || communityDisplays.length > 0) return;
-    
+
     var arr1 = cLevels.filter(function(a){
         return a.featured;
     });
@@ -132,7 +132,7 @@ function getCommunityLevels(){
         $.getJSON(communityLevelsPath, function(data){
             console.log("Failed to load external resource, stuck with local")
             communityLevels.level = data;
-        }).catch(function(e){
+        }).catch(function(){
             console.log("Failed to load any community levels")
         })
     });
@@ -153,7 +153,6 @@ function postLevel(newLevel){
                     var l = levelsBuilt[i];
                     l.waitingForUpdate = false;
                     l.uploaded = true;
-                    console.log("Updated level _id")
                     levelBuilder.save();
                 }
             }

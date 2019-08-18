@@ -3843,7 +3843,7 @@ function getCommunityLevels() {
         $.getJSON(communityLevelsPath, function(data) {
             console.log("Failed to load external resource, stuck with local");
             communityLevels.level = data;
-        }).catch(function(e) {
+        }).catch(function() {
             console.log("Failed to load any community levels");
         });
     });
@@ -3866,7 +3866,6 @@ function postLevel(newLevel) {
                     var l = levelsBuilt[i];
                     l.waitingForUpdate = false;
                     l.uploaded = true;
-                    console.log("Updated level _id");
                     levelBuilder.save();
                 }
             }
