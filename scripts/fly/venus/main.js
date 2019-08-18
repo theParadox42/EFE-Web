@@ -1,4 +1,3 @@
-height = window.innerHeight;
 function flyToVenus(){
     background(0,0,0);
     push();
@@ -37,12 +36,12 @@ function flyToVenus(){
     pop();
     flyPlayer.displayHealth();
 }
-flyToVenus.level = {
-    asteroids: [[1200, height/2, height/2], [3000, height/2, 100], [3000, height/2-200, 100], [3000, height-200, 100]],
-    ufos: [[1600, height/2], [2000, 100], [2400, height-100], [2800, height/2], [3500, height/2], [3500, height]],
-}
 flyToVenus.init = function(){
     flyPlayer = new FlyPlayer(50, height/2);
     flyPlayer.init();
+    this.level = {
+        asteroids: [[1200, height/2, height/2], [3000, height/2, 100], [3000, height/2-200, 100], [3000, height-200, 100]],
+        ufos: [[1600, height/2], [2000, 100], [2400, height-100], [2800, height/2], [3500, height/2], [3500, height]],
+    }
     loadLevel(this.level);
 }

@@ -1,6 +1,7 @@
 var theEpicCanvas;
 function setup(){
-    theEpicCanvas = createCanvas(windowWidth, windowHeight - 30);
+    windowHeight -= 30;
+    theEpicCanvas = createCanvas(windowWidth, windowHeight);
 
     background(255);
     angleMode(DEGREES);
@@ -12,7 +13,3 @@ function draw(){
 
     game.run();
 };
-function windowResized(){
-    // resizeCanvas(windowWidth, windowHeight);
-    // game.resize();
-}
