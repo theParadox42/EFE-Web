@@ -3,7 +3,7 @@ function RunSign(x, txt){
     this.y = 50;
     this.w = 500;
     this.h = 250;
-    this.dx = this.x+this.w;
+    this.dx = this.x+1000;
     this.txt = txt;
     this.padding = 50;
 }

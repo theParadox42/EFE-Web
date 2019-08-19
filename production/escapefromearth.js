@@ -5935,7 +5935,7 @@ function RunSign(x, txt) {
     this.y = 50;
     this.w = 500;
     this.h = 250;
-    this.dx = this.x + this.w;
+    this.dx = this.x + 1e3;
     this.txt = txt;
     this.padding = 50;
 }
@@ -6307,44 +6307,23 @@ LoadSaves.displaySave = function(obj, x, y, w, h) {
     fill(0);
     stroke(100);
     strokeWeight(2);
-    var txt;
-    switch (obj.scene) {
-      case "run":
-        txt = "Run To Rocket";
-        break;
-
-      case "build":
-        txt = "Build Rocket";
-        break;
-
-      case "fly-moon":
-        txt = "Fly to the Moon";
-        break;
-
-      case "moon":
-        txt = "Moon";
-        break;
-
-      case "fly-mars":
-        txt = "Fly to Mars";
-        break;
-
-      case "fight":
-        txt = "Mars";
-        break;
-
-      case "fly-venus":
-        txt = "Fly to Venus";
-        break;
-
-      case "ufo":
-        txt = "UFO Fight";
-        break;
-
-      default:
-        txt = obj.scene;
-        break;
-    }
+    var textReplacements = {
+        run: "Run to Rocket",
+        launchpad: "Rocket Launchpad",
+        build: "Collect Rocket Parts",
+        rocektbuilt: "Build Rocket",
+        "fly-moon": "Fly to the Moon",
+        moon: "Moon",
+        "fly-mars": "Fly to Mars",
+        marslanding: "Mars Landing",
+        fight: "Mars",
+        leavemars: "Leave Mars",
+        "fly-venus": "Fly to Venus",
+        seeufo: "UFO Sighting",
+        ufo: "UFO Fight",
+        landonvenus: "Land on Venus"
+    };
+    var txt = textReplacements[obj.scene];
     if (typeof obj.data == "number") {
         txt += " - " + obj.data;
     }
