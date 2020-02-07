@@ -76,6 +76,9 @@ LevelBuilderLevel.updateLevel = function(level, title, creator, w, h){
                     }
                 }
             break;
+            case "space":
+                level.objects.width = w;
+            break;
         }
     }
 

@@ -263,7 +263,7 @@ levelBuilder.editingStats = function(){
             if(ei.height){
                 ei.height.value(max(ei.minHeight, ei.height.value()))
             }
-            LevelBuilderLevel.updateLevel(currentBuildingLevel,ei.title.value(), ei.creator.value(), ei.width?ei.width.value():null, ei.height?ei.height.value():null);
+            LevelBuilderLevel.updateLevel(currentBuildingLevel, ei.title.value(), ei.creator.value(), ei.width?ei.width.value():null, ei.height?ei.height.value():null);
             this.isEditingStats = false;
             ei.destroyInputs();
             this.save();
