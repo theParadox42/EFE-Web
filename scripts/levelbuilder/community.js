@@ -142,8 +142,11 @@ setInterval(getCommunityLevels, 10000);
 
 function postLevel(newLevel){
     newLevel.waitingForUpdate = true;
-    $.post("https://escape-from-earth.herokuapp.com/levels/new", newLevel, function(data){
-    // $.post("http://localhost:8080/levels/new", newLevel, function(data){
+
+    // Change this maybe if developing
+    var hostname = "https://escape-from-earth.herokuapp.com";
+
+    $.post(hostname + "/v1/levels/new", newLevel, function(data){
         getCommunityLevels();
         for(var i = 0; i < levelsBuilt.length; i ++){
             var l = levelsBuilt[i];
