@@ -7,14 +7,14 @@ var scripts,
         needed: 0
     };
 
-$.getJSON("/scripts/scripts.json", function(jsonData){
+$.getJSON("../scripts/scripts.json", function(jsonData){
     scripts = jsonData.scripts;
     libs = jsonData.libs;
 
     for(var i in scripts){
         for(var j = 0; j < scripts[i].length; j ++){
             load.needed++;
-            loadScript("/scripts/"+i+"/"+scripts[i][j], function(){
+            loadScript("../scripts/"+i+"/"+scripts[i][j], function(){
                 load.amount ++;
                 if(load.amount >= load.needed){
                     new p5();
