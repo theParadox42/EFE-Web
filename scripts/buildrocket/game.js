@@ -150,6 +150,6 @@ let bGame = {
     }
 }
 
-$.getJSON("/scripts/buildrocket/levels.json", function(data){
+$.getJSON("../scripts/buildrocket/levels.json", function(data){
     bGame.maps = data.levels;
 })

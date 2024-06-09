@@ -57,7 +57,7 @@ let fileLoader = {
         }
         let fileObject = this.loading == "fonts" ? fonts : imgs;
         let loaderFunction = this.loading == "animations" ? loadAnimation : (this.loading == "images" ? loadImage : loadFont);
-        let data, arg1, arg2, arg3, path;
+        let data, arg1, arg2, arg3, name;
         data = this.paths[this.loading][this.loadIndex];
         name = this.paths.names[this.loading][this.loadIndex];
         if(this.loading == "animations"){
@@ -69,9 +69,9 @@ let fileLoader = {
             arg3 = fileLoader.failed;
         }
         if(arg3){
-            fileObject[name] = loaderFunction(arg1, arg2, arg3);
+            fileObject[name] = loaderFunction(".." + arg1, arg2, arg3);
         } else {
-            fileObject[name] = loaderFunction(arg1, arg2);
+            fileObject[name] = loaderFunction(".." + arg1, ".." + arg2);
         }
         if(this.loading == "animations"){
             this.onLoad();
@@ -127,7 +127,7 @@ let fileLoader = {
         }
     }
 }
-$.getJSON("/scripts/files.json", function(data){
+$.getJSON("../scripts/files.json", function(data){
     fileLoader.paths = data;
     for(var i in data){
         if(i != "names"){

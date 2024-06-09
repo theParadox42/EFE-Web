@@ -127,24 +127,24 @@ var hostname = "https://escape-from-earth.herokuapp.com/v1";
 
 // JSON loading
 function getCommunityLevels(){
-    var communityLevelsPath = hostname + "/levels";
+    /*var communityLevelsPath = hostname + "/levels";
     $.getJSON(communityLevelsPath, function(data){
         cLevels = data;
-    }).catch(function(){
-        communityLevelsPath = "/scripts/levelbuilder/stashedcommunitylevels.json";
+    }).catch(function(){*/
+        communityLevelsPath = "../scripts/levelbuilder/stashedcommunitylevels.json";
         $.getJSON(communityLevelsPath, function(data){
             console.log("Failed to load external resource, stuck with local")
-            communityLevels.level = data;
+            cLevels = data;
         }).catch(function(){
             console.log("Failed to load any community levels")
         })
-    });
+    /*});*/
 }
 getCommunityLevels();
-setInterval(getCommunityLevels, 10000);
+// setInterval(getCommunityLevels, 10000);
 
 function postLevel(newLevel){
-    newLevel.waitingForUpdate = true;
+    /*newLevel.waitingForUpdate = true;
 
     $.post(hostname + "/levels/new", newLevel, function(data){
         getCommunityLevels();
@@ -160,9 +160,9 @@ function postLevel(newLevel){
                 }
             }
         }
-    }).catch(function(e, t, n){
-        console.log("Error posting new level")
-        console.log(t);
+    }).catch(function(e, t, n){*/
+        console.log("Error posting new level. Backend functionality has been disabled for now.");
+        /*console.log(t);
         console.log(n);
-    });
+    });*/
 }

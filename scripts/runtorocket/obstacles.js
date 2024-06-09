@@ -87,6 +87,6 @@ var loadRun = {
     }
 }
 var runObstacleWidth = 100;
-$.getJSON("/scripts/runtorocket/runmap.json", function(d){
+$.getJSON("../scripts/runtorocket/runmap.json", function(d){
     loadRun.maps = d.levels;
 });
